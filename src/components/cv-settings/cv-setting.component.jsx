@@ -44,14 +44,14 @@ const CvSettings = () => {
               <div className="font-bold mb-4">Accent Color</div>
               <div className="max-w-sm mx-auto md:max-w-md md:mx-0 grid grid-cols-7 gap-3">
                 {[
-                  'gray',
-                  'yellow',
-                  'indigo',
-                  'purple',
-                  'red',
-                  'green',
-                  'blue',
-                  'pink',
+                  'bg-gray-400',
+                  'bg-yellow-400',
+                  'bg-indigo-400',
+                  'bg-purple-400',
+                  'bg-red-400',
+                  'bg-green-400',
+                  'bg-blue-400',
+                  'bg-pink-400',
                 ]?.map((color) => (
                   <ColorSelected key={color} color={color} />
                 ))}
