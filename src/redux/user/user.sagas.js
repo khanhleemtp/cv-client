@@ -31,6 +31,24 @@ export function* signInWithEmail({ payload: { email, password } }) {
   }
 }
 
+export function* signUp({ payload: { email, password, name } }) {
+  try {
+    yield put(loadingApi());
+    const { data } = yield axiosInstance.post('/users/signup', {
+      email,
+      password,
+      name,
+    });
+    yield localStorage.setItem('ldtoken', data?.token);
+    yield toast.success('Đăng ký thành công');
+    yield put(push('/'));
+    yield put(checkUserSession());
+  } catch (error) {
+    yield put(signInFailure(error.message));
+    yield toast.error(error.message);
+  }
+}
+
 export function* signOut() {
   try {
     yield localStorage.clear();
@@ -55,6 +73,10 @@ export function* isAuthenticated() {
 
 // START
 
+export function* onSignUpStart() {
+  yield takeLatest(UserActionTypes.SIGN_UP_START, signUp);
+}
+
 export function* onEmailSignInStart() {
   yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
 }
@@ -72,5 +94,6 @@ export function* userSagas() {
     call(onEmailSignInStart),
     call(onSignOutStart),
     call(onCheckUserSessionStart),
+    call(onSignUpStart),
   ]);
 }

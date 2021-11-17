@@ -4,8 +4,9 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import SignSocial from '../sign-social/sign-social.component';
+import { signUpStart } from './../../redux/user/user.action';
 
 const signUpSchema = yup.object().shape({
   name: yup.string().required('Bạn cần nhập tên'),
@@ -35,11 +36,13 @@ const SignUp = ({ onToggleForm }) => {
     resolver: yupResolver(signUpSchema),
   });
 
+  const dispatch = useDispatch();
+
   const [hiddenPassword, setHiddenPassword] = useState(true);
 
   const onSubmit = (data) => {
     console.log(data);
-    // dispatch(emailSignInStart(data));
+    dispatch(signUpStart(data));
   };
 
   const onToggleHiddenPassword = () => {
