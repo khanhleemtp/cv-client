@@ -1,4 +1,6 @@
 const plugin = require('tailwindcss/plugin');
+const colors = require('tailwindcss/colors');
+
 module.exports = {
   // purge: [],
   // mode: 'jit',
@@ -8,6 +10,9 @@ module.exports = {
     extend: {
       transitionProperty: {
         height: 'height',
+      },
+      colors: {
+        cyan: colors.cyan,
       },
     },
   },
@@ -24,6 +29,7 @@ module.exports = {
     // require('@tailwindcss/aspect-ratio'),
     // require('@tailwindcss/typography'),
     // require('tailwindcss-children'),
+    require('@tailwindcss/line-clamp'),
     plugin(function ({ addUtilities }) {
       const newUtilities = {
         ' .no-scrollbar::-webkit-scrollbar': {
