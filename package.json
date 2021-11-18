@@ -2,6 +2,7 @@
   "name": "ld-cv",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://khanhleemtp.github.io/cv-client",
   "dependencies": {
     "@craco/craco": "^6.4.0",
     "@headlessui/react": "^1.4.1",
@@ -49,6 +50,9 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "aws": "npm run build && aws s3 sync ./build s3://ld-datn-client --delete --acl public-read"
   },
   "eslintConfig": {
     "extends": [
@@ -68,4 +72,5 @@
       "last 1 safari version"
     ]
   },
+ 
 }
