@@ -48,8 +48,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject", 
-    "aws": "npm run build && aws s3 sync ./build s3://ld-datn-client --delete --acl public-read"
+    "eject": "react-scripts eject",
   },
   "eslintConfig": {
     "extends": [
@@ -69,5 +68,8 @@
       "last 1 safari version"
     ]
   },
-
+  "engines": {
+    "node": "^12.16.3",
+    "yarn": "^1.22.5"
+  }
 }
