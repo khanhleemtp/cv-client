@@ -2,7 +2,6 @@
   "name": "ld-cv",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://khanhleemtp.github.io/cv-client",
   "dependencies": {
     "@craco/craco": "^6.4.0",
     "@headlessui/react": "^1.4.1",
@@ -71,6 +70,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
- 
+  }
 }
