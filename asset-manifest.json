@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/cv-client/static/css/main.c8fc617d.chunk.css",
+    "main.js": "/cv-client/static/js/main.e1c8037b.chunk.js",
+    "main.js.map": "/cv-client/static/js/main.e1c8037b.chunk.js.map",
+    "runtime-main.js": "/cv-client/static/js/runtime-main.d07954f7.js",
+    "runtime-main.js.map": "/cv-client/static/js/runtime-main.d07954f7.js.map",
+    "static/css/2.e7fd60d0.chunk.css": "/cv-client/static/css/2.e7fd60d0.chunk.css",
+    "static/js/2.2d46d718.chunk.js": "/cv-client/static/js/2.2d46d718.chunk.js",
+    "static/js/2.2d46d718.chunk.js.map": "/cv-client/static/js/2.2d46d718.chunk.js.map",
+    "static/js/3.a99beb0d.chunk.js": "/cv-client/static/js/3.a99beb0d.chunk.js",
+    "static/js/3.a99beb0d.chunk.js.map": "/cv-client/static/js/3.a99beb0d.chunk.js.map",
+    "index.html": "/cv-client/index.html",
+    "static/css/2.e7fd60d0.chunk.css.map": "/cv-client/static/css/2.e7fd60d0.chunk.css.map",
+    "static/css/main.c8fc617d.chunk.css.map": "/cv-client/static/css/main.c8fc617d.chunk.css.map",
+    "static/js/2.2d46d718.chunk.js.LICENSE.txt": "/cv-client/static/js/2.2d46d718.chunk.js.LICENSE.txt",
+    "static/media/Roboto-Regular.a8d6ac03.ttf": "/cv-client/static/media/Roboto-Regular.a8d6ac03.ttf",
+    "static/media/logo.23e534a1.svg": "/cv-client/static/media/logo.23e534a1.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d07954f7.js",
+    "static/css/2.e7fd60d0.chunk.css",
+    "static/js/2.2d46d718.chunk.js",
+    "static/css/main.c8fc617d.chunk.css",
+    "static/js/main.e1c8037b.chunk.js"
+  ]
+}
