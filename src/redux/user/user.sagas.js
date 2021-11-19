@@ -14,6 +14,13 @@ import {
 import { push } from 'connected-react-router';
 import { toast } from 'react-toastify';
 
+export function* getSnapshotUser(message, data) {
+  yield localStorage.setItem('ldtoken', data?.token);
+  yield toast.success(message);
+  yield put(push('/'));
+  yield put(checkUserSession());
+}
+
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
     yield put(loadingApi());
@@ -21,10 +28,7 @@ export function* signInWithEmail({ payload: { email, password } }) {
       email,
       password,
     });
-    yield localStorage.setItem('ldtoken', data?.token);
-    yield put(push('/'));
-    yield put(checkUserSession());
-    yield toast.success('Đăng nhập thành công');
+    yield getSnapshotUser('Đăng nhập thành công', data);
   } catch (error) {
     yield put(signInFailure(error.message));
     yield toast.error(error.message);
@@ -39,10 +43,7 @@ export function* signUp({ payload: { email, password, name } }) {
       password,
       name,
     });
-    yield localStorage.setItem('ldtoken', data?.token);
-    yield toast.success('Đăng ký thành công');
-    yield put(push('/'));
-    yield put(checkUserSession());
+    yield getSnapshotUser('Đăng ký thành công', data);
   } catch (error) {
     yield put(signInFailure(error.message));
     yield toast.error(error.message);
@@ -61,6 +62,7 @@ export function* signOut() {
 
 export function* isAuthenticated() {
   try {
+    if (!localStorage.getItem('ldtoken')) return;
     yield put(loadingApi());
     const {
       data: { data },

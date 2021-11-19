@@ -6,9 +6,11 @@ import { HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
 
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
 import { emailSignInStart } from './../../redux/user/user.action';
 import SignSocial from '../sign-social/sign-social.component';
+import { createStructuredSelector } from 'reselect';
+import { selectLoadingApi } from '../../redux/user/user.selectors';
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -21,7 +23,7 @@ const loginSchema = yup.object().shape({
     .required('Bạn cần nhập mật khẩu'),
 });
 
-const SignIn = ({ onToggleForm }) => {
+const SignIn = ({ onToggleForm, isLoading }) => {
   const {
     register,
     handleSubmit,
@@ -61,6 +63,7 @@ const SignIn = ({ onToggleForm }) => {
           <label>Email</label>
           <input
             type="text"
+            autoComplete="username"
             {...register('email')}
             className="input-rounded"
             autoFocus
@@ -73,6 +76,7 @@ const SignIn = ({ onToggleForm }) => {
           <label>Mật khẩu</label>
           <div className="relative">
             <input
+              autoComplete="current-password"
               type={hiddenPassword ? 'password' : 'text'}
               {...register('password')}
               className="input-rounded"
@@ -100,7 +104,7 @@ const SignIn = ({ onToggleForm }) => {
             // onClick={() => setActiveForm(false)}
             type="submit"
           >
-            Đăng nhập
+            {isLoading ? 'Đang đăng nhập..' : 'Đăng nhập'}
           </button>
         </div>
         <div className="text-center leading-7">
@@ -127,4 +131,10 @@ const SignIn = ({ onToggleForm }) => {
   );
 };
 
-export default SignIn;
+const mapStateToProps = createStructuredSelector({
+  isLoading: selectLoadingApi,
+});
+
+connect(mapStateToProps)(SignIn);
+
+export default connect(mapStateToProps)(SignIn);

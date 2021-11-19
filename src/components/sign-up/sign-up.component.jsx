@@ -73,7 +73,12 @@ const SignUp = ({ onToggleForm }) => {
         </div>
         <div>
           <label>Email</label>
-          <input type="text" {...register('email')} className="input-rounded" />
+          <input
+            autoComplete="username"
+            type="text"
+            {...register('email')}
+            className="input-rounded"
+          />
           <div className="text-red-500 text-sm font-sans">
             {errors.email?.message}
           </div>
@@ -82,6 +87,7 @@ const SignUp = ({ onToggleForm }) => {
           <label>Mật khẩu</label>
           <div className="relative">
             <input
+              autoComplete="current-password"
               type={hiddenPassword ? 'password' : 'text'}
               {...register('password')}
               className="input-rounded"

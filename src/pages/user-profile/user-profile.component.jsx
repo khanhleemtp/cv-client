@@ -1,27 +1,14 @@
-import React, { useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { checkUserSession } from '../../redux/user/user.action';
-import { createStructuredSelector } from 'reselect';
-import { selectCurrentUser } from './../../redux/user/user.selectors';
 import NavContainer from './../../components/nav-container/nav-container.component';
+import UserProfile from './../../components/user-profile/user-profile.component';
+import UserProfileNav from './../../components/user-profile/user-profile-nav.component';
 
-const UserProfile = ({ user }) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(checkUserSession());
-    return () => {};
-  }, [dispatch]);
-
+const UserProfilePage = () => {
   return (
     <NavContainer>
-      <p className="line-clamp-6">{JSON.stringify(user)}</p>
+      <UserProfileNav />
+      <UserProfile />
     </NavContainer>
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  user: selectCurrentUser,
-});
-
-export default connect(mapStateToProps)(UserProfile);
+export default UserProfilePage;

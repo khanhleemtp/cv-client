@@ -7,3 +7,8 @@ export const selectCurrentUser = createSelector(
   selectorUser,
   (user) => user.currentUser
 );
+
+export const selectLoadingApi = createSelector(
+  selectorUser,
+  (user) => user.isLoading
+);
