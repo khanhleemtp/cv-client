@@ -5,22 +5,26 @@ import {
   selectedSectionFinish,
   selectedSectionStart,
 } from '../../redux/cv/cv.action';
-import { selectSectionSelected } from './../../redux/cv/cv.selectors';
+import {
+  selectSectionSelected,
+  selectBackground,
+} from './../../redux/cv/cv.selectors';
 import clsx from 'clsx';
 import { CameraIcon, CogIcon } from '@heroicons/react/solid';
 import { Transition } from '@headlessui/react';
 
-const CvSectionWrapper = ({ name, isSelected, children }) => {
+const CvSectionWrapper = ({ name, isSelected, slBg, children }) => {
   const ref = useRef();
 
   const dispatch = useDispatch();
 
   const handleClose = useCallback(() => {
-    if (isSelected) dispatch(selectedSectionFinish());
+    if (isSelected) return dispatch(selectedSectionFinish());
     return;
   }, [dispatch, isSelected]);
 
-  const handleOpen = () => {
+  const handleOpen = (e) => {
+    e.stopPropagation();
     if (isSelected) return;
     dispatch(selectedSectionStart(name));
   };
@@ -28,15 +32,15 @@ const CvSectionWrapper = ({ name, isSelected, children }) => {
   useOnClickOutside(ref, handleClose);
   return (
     <div
-      onClick={handleOpen}
+      onClick={(e) => handleOpen(e)}
       ref={ref}
-      className={clsx('mx-2 rounded-lg relative', {
-        'bg-white z-20 ring-1 ring-blue-500': isSelected,
+      className={clsx('mx-2 mb-3 bg-transparent relative', {
+        'bg-white ring-1 ring-blue-500 rounded-lg': isSelected,
       })}
     >
       <Transition
         show={isSelected}
-        enter="transition ease-in-out duration-150"
+        enter="transition ease-in duration-150"
         enterFrom="opacity-0 transform -translate-y-8"
         enterTo="opacity-100"
         leave="ease-in duration-150"
@@ -51,7 +55,6 @@ const CvSectionWrapper = ({ name, isSelected, children }) => {
           </div>
         </div>
       </Transition>
-
       {children}
     </div>
   );
@@ -59,6 +62,7 @@ const CvSectionWrapper = ({ name, isSelected, children }) => {
 
 const mapDispatchToProps = (state, ownProps) => ({
   isSelected: selectSectionSelected(ownProps.name)(state),
+  slBg: selectBackground(state),
 });
 
 export default connect(mapDispatchToProps)(CvSectionWrapper);

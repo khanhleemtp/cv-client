@@ -5,12 +5,11 @@ import clsx from 'clsx';
 
 const CvContainer = ({ children, isSelected }) => {
   return (
-    <div className="relative mx-auto">
-      <div
-        className={clsx({
-          'absolute inset-0 bg-gray-300 opacity-60 z-10': isSelected,
-        })}
-      ></div>
+    <div
+      className={clsx('relative bg-transparent mx-auto', {
+        'bg-gray-300 bg-opacity-60': isSelected,
+      })}
+    >
       {children}
     </div>
   );
