@@ -5,15 +5,12 @@ import {
   selectedSectionFinish,
   selectedSectionStart,
 } from '../../redux/cv/cv.action';
-import {
-  selectSectionSelected,
-  selectBackground,
-} from './../../redux/cv/cv.selectors';
+import { selectSectionSelected } from './../../redux/cv/cv.selectors';
 import clsx from 'clsx';
 import { CameraIcon, CogIcon } from '@heroicons/react/solid';
 import { Transition } from '@headlessui/react';
 
-const CvSectionWrapper = ({ name, isSelected, slBg, children }) => {
+const CvSectionWrapper = ({ name, isSelected, children, isBorder = false }) => {
   const ref = useRef();
 
   const dispatch = useDispatch();
@@ -34,9 +31,13 @@ const CvSectionWrapper = ({ name, isSelected, slBg, children }) => {
     <div
       onClick={(e) => handleOpen(e)}
       ref={ref}
-      className={clsx('mx-2 mb-3 bg-transparent relative', {
-        'bg-white ring-1 ring-blue-500 rounded-lg': isSelected,
-      })}
+      className={clsx(
+        'mx-2 mb-3 bg-transparent relative',
+        {
+          'bg-white ring-1 ring-blue-500 rounded-lg': isSelected,
+        },
+        { 'border-b-2': isBorder }
+      )}
     >
       <Transition
         show={isSelected}
@@ -62,7 +63,6 @@ const CvSectionWrapper = ({ name, isSelected, slBg, children }) => {
 
 const mapDispatchToProps = (state, ownProps) => ({
   isSelected: selectSectionSelected(ownProps.name)(state),
-  slBg: selectBackground(state),
 });
 
 export default connect(mapDispatchToProps)(CvSectionWrapper);
