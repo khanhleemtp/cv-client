@@ -1,0 +1,39 @@
+.btnContainer {
+  @apply align-bottom inline-flex items-center justify-center cursor-pointer leading-5 transition-colors duration-150 font-medium focus:outline-none rounded-lg;
+}
+
+.btnPrimary {
+  @apply text-white bg-indigo-500 border border-transparent hover:bg-indigo-600;
+}
+
+.btnOutline {
+  @apply text-gray-600 border-gray-300 border focus:outline-none hover:border-indigo-500 focus:border-indigo-600 active:text-indigo-600 hover:text-indigo-500 focus:text-indigo-600;
+}
+
+.btnLink {
+  @apply text-gray-600 focus:outline-none border border-transparent active:bg-transparent hover:bg-gray-200 hover:text-indigo-500;
+}
+
+.btnFull {
+  @apply w-full;
+}
+
+.btnNormal {
+  @apply px-4 py-2 text-base;
+}
+
+.btnSmall {
+  @apply px-2 py-1 text-sm;
+}
+
+.btnLarge {
+  @apply px-6 py-4 text-lg;
+}
+
+.btnIcon {
+  @apply py-2 px-2;
+}
+
+.btnMargin {
+  @apply mx-2;
+}

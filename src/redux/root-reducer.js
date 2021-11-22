@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import userReducer from './user/user.reducer';
 import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import { connectRouter } from 'connected-react-router';
+import cvReducer from './cv/cv.reducer';
+import userReducer from './user/user.reducer';
+import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
   key: 'root',
@@ -14,6 +15,7 @@ const rootReducer = (history) =>
   combineReducers({
     user: userReducer,
     router: connectRouter(history),
+    cv: cvReducer,
   });
 
 const root = (history) => persistReducer(persistConfig, rootReducer(history));

@@ -1,16 +1,17 @@
 import React from 'react';
-import Button from '../../components/Button/Button';
 import NavContainer from './../../components/nav-container/nav-container.component';
 import { AcademicCapIcon } from '@heroicons/react/solid';
 import JobCard from '../../components/job-card/job-card.component';
 import postsData from './posts';
 import styles from './homepage.module.css';
+import Button from '../../components/button/button.component';
 
 const Homepage = () => {
   return (
     <NavContainer>
       <div>
         <h2>Homepage</h2>
+
         <div>
           <main className={styles.section}>
             <section className={styles.containerList}>

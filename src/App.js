@@ -1,18 +1,34 @@
+import { Suspense, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import CvEditorPage from './pages/cv-editor/cv-editor.component';
-import Homepage from './pages/homepage/homepage.component';
-import CvPreview from './components/cv-preview/cv-preview.component';
-import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import UserProfile from './pages/user-profile/user-profile.component';
-import PrivateRoute from './components/common/PrivateRoute';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import PublicRoute from './components/common/PublicRoute';
-
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { checkUserSession } from './redux/user/user.action';
+
+import { lazy } from '@loadable/component';
+import pMinDelay from 'p-min-delay';
+
+import PublicRoute from './components/common/PublicRoute';
+import PrivateRoute from './components/common/PrivateRoute';
+import CvPreview from './components/cv-preview/cv-preview.component';
+import UserProfile from './pages/user-profile/user-profile.component';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import SignOut from './components/sign-out/sign-out.component';
+import Loading from './components/loading/loading.component';
+
+const Homepage = lazy(() =>
+  pMinDelay(import('./pages/homepage/homepage.component'), 1200)
+);
+const SignInAndSignUpPage = lazy(() =>
+  pMinDelay(
+    import('./pages/sign-in-and-sign-up/sign-in-and-sign-up.component'),
+    1200
+  )
+);
+
+const CvBuilderPage = lazy(() =>
+  pMinDelay(import('./pages/cv-builder/cv-builder.component'), 1200)
+);
 
 function App() {
   const dispatch = useDispatch();
@@ -22,7 +38,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -35,8 +51,8 @@ function App() {
         pauseOnHover
       />
       <Switch>
-        <Route path="/cv">
-          <CvEditorPage />
+        <Route path="/builder">
+          <CvBuilderPage />
         </Route>
         <Route path="/preview">
           <CvPreview />
@@ -54,7 +70,7 @@ function App() {
           <Homepage />
         </Route>
       </Switch>
-    </>
+    </Suspense>
   );
 }
 

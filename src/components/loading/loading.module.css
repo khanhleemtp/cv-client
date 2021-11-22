@@ -1,0 +1,7 @@
+.loadingOverlay {
+  @apply w-full h-screen bg-gray-200 flex justify-center items-center;
+}
+
+.loadingContainer {
+  @apply inline-block w-20 h-20;
+}

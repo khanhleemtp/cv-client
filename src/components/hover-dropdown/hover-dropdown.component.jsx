@@ -19,7 +19,7 @@ const HoverDropdown = ({
           { 'text-indigo-500': isActive }
         )}
       >
-        <span className="mr-1 md:px-4 md:py-2 md:rounded-lg py-2 hover:bg-gray-100 inline-flex items-center">
+        <span className="md:px-4 md:py-2 md:rounded-lg py-2 hover:bg-gray-100 inline-flex items-center">
           {button}
         </span>
       </div>

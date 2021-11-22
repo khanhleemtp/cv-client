@@ -38,11 +38,11 @@ export const navigation = [
   },
   {
     name: 'Quản lý CV',
-    to: '/cv',
+    to: '/builder',
     child: [
       {
         name: 'Builder',
-        to: '/cv',
+        to: '/builder',
         icon: AiOutlineMedicineBox,
       },
       {
@@ -58,7 +58,7 @@ export const navigation = [
     child: [
       {
         name: 'Danh sách công ty',
-        to: '/cv',
+        to: '/builder',
         icon: AiOutlineReconciliation,
       },
       {

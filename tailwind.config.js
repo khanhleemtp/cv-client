@@ -13,6 +13,7 @@ module.exports = {
       },
       colors: {
         cyan: colors.cyan,
+        transparent: 'transparent',
       },
     },
   },
@@ -22,6 +23,9 @@ module.exports = {
       ringColor: ['hover', 'active'],
       ringOffsetColor: ['hover', 'active'],
       borderWidth: ['last'],
+      backgroundColor: ['active'],
+      boxShadow: ['focus', 'focus-within'],
+      textColor: ['active'],
     },
   },
   plugins: [
@@ -30,6 +34,7 @@ module.exports = {
     require('@tailwindcss/typography'),
     // require('tailwindcss-children'),
     require('@tailwindcss/line-clamp'),
+
     plugin(function ({ addUtilities }) {
       const newUtilities = {
         ' .no-scrollbar::-webkit-scrollbar': {
