@@ -20,7 +20,7 @@ function RoundIcon({
       onClick={onClick}
       {...otherProps}
     >
-      <Icon className="w-6 h-6 group-hover:text-indigo-300" />
+      <Icon className="w-5 h-5 group-hover:text-indigo-300" />
     </button>
   );
 }

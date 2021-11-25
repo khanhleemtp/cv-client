@@ -4,6 +4,7 @@ import { connectRouter } from 'connected-react-router';
 import cvReducer from './cv/cv.reducer';
 import userReducer from './user/user.reducer';
 import storage from 'redux-persist/lib/storage';
+import viewStateReducer from './viewState/viewState.reducer';
 
 const persistConfig = {
   key: 'root',
@@ -16,6 +17,7 @@ const rootReducer = (history) =>
     user: userReducer,
     router: connectRouter(history),
     cv: cvReducer,
+    viewState: viewStateReducer,
   });
 
 const root = (history) => persistReducer(persistConfig, rootReducer(history));

@@ -1,9 +1,17 @@
 import { useRef, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import UploadModal from './Modal/UploadModal';
+import LDModal from './Modal/LDModal';
 
-function ModalFullScreen({ isOpen, setIsOpen, children }) {
+const MODAL_COMPONENTS = {
+  UPLOAD_IMAGE: <UploadModal />,
+  LD: <LDModal />,
+};
+
+const StateModal = ({ isOpen = false, setIsOpen, modalType }) => {
   const closeModal = () => setIsOpen(false);
   let closeButtonRef = useRef(null);
+
   return (
     <Transition show={isOpen} as={Fragment}>
       <Dialog
@@ -50,10 +58,10 @@ function ModalFullScreen({ isOpen, setIsOpen, children }) {
 
           <aside className="relative flex items-center justify-center">
             <div
-              className="w-48 h-48 bg-black text-white flex items-center justify-center"
+              className="w-full h-48 bg-black text-white flex items-center justify-center"
               ref={closeButtonRef}
             >
-              {children}
+              {MODAL_COMPONENTS[modalType]}
               Content
             </div>
           </aside>
@@ -61,6 +69,6 @@ function ModalFullScreen({ isOpen, setIsOpen, children }) {
       </Dialog>
     </Transition>
   );
-}
+};
 
-export default ModalFullScreen;
+export default StateModal;

@@ -19,8 +19,9 @@ module.exports = {
   },
   variants: {
     extend: {
-      display: ['group-hover'],
+      display: ['group-hover', 'hover'],
       ringColor: ['hover', 'active'],
+      ringWidth: ['hover', 'active'],
       ringOffsetColor: ['hover', 'active'],
       borderWidth: ['last'],
       backgroundColor: ['active'],

@@ -42,7 +42,7 @@ export const navigation = [
     child: [
       {
         name: 'Builder',
-        to: '/builder',
+        to: '/builder/123',
         icon: AiOutlineMedicineBox,
       },
       {
@@ -58,7 +58,7 @@ export const navigation = [
     child: [
       {
         name: 'Danh sách công ty',
-        to: '/builder',
+        to: '/builder/123',
         icon: AiOutlineReconciliation,
       },
       {

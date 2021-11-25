@@ -1,32 +1,48 @@
 import useOnClickOutside from './../../hook/useOutsideClick';
 import { useRef, useCallback } from 'react';
 import { useDispatch, connect } from 'react-redux';
-import {
-  selectedSectionFinish,
-  selectedSectionStart,
-} from '../../redux/cv/cv.action';
-import { selectSectionSelected } from './../../redux/cv/cv.selectors';
 import clsx from 'clsx';
 import { CameraIcon, CogIcon } from '@heroicons/react/solid';
 import { Transition } from '@headlessui/react';
+import PopoverSetting from './../PopoverSetting';
+// import ModalFullScreen from './../ModalFullScreen';
+import {
+  selectIsCurrentSection,
+  selectTypeModal,
+} from '../../redux/viewState/viewState.selectors';
+import {
+  selectSectionStart,
+  selectSectionFinish,
+  openModal,
+} from './../../redux/viewState/viewState.action';
 
-const CvSectionWrapper = ({ name, isSelected, children, isBorder = false }) => {
+const CvSectionWrapper = ({
+  name,
+  isSelected,
+  children,
+  isBorder = false,
+  isModalOpen,
+}) => {
   const ref = useRef();
 
   const dispatch = useDispatch();
 
   const handleClose = useCallback(() => {
-    if (isSelected) return dispatch(selectedSectionFinish());
+    if (isModalOpen) return;
+    if (isSelected) return dispatch(selectSectionFinish());
     return;
-  }, [dispatch, isSelected]);
+  }, [dispatch, isSelected, isModalOpen]);
 
   const handleOpen = (e) => {
     e.stopPropagation();
     if (isSelected) return;
-    dispatch(selectedSectionStart(name));
+    dispatch(selectSectionStart(name));
   };
 
+  const handleOpenModal = () => dispatch(openModal('UPLOAD_IMAGE'));
+
   useOnClickOutside(ref, handleClose);
+
   return (
     <div
       onClick={(e) => handleOpen(e)}
@@ -42,17 +58,22 @@ const CvSectionWrapper = ({ name, isSelected, children, isBorder = false }) => {
       <Transition
         show={isSelected}
         enter="transition ease-in duration-150"
-        enterFrom="opacity-0 transform -translate-y-8"
+        enterFrom="opacity-0 transform -translate-y-2"
         enterTo="opacity-100"
         leave="ease-in duration-150"
         leaveFrom="opacity-100"
-        leaveTo="opacity-0 transform -translate-y-8"
+        leaveTo="opacity-0 transform -translate-y-2"
       >
-        <div className="absolute left-1/2 -top-2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full border-t-2">
+        <div className="absolute z-20 left-1/2 -top-2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full border-t-2">
           <div className="py-2 px-4 inline-flex items-center text-gray-600">
-            <CameraIcon className="w-5 h-5 cursor-pointer hover:text-indigo-500" />
+            <CameraIcon
+              className="w-5 h-5 cursor-pointer hover:text-indigo-500"
+              onClick={handleOpenModal}
+            />
             <span className="mx-1"></span>
-            <CogIcon className="w-5 h-5 cursor-pointer hover:text-indigo-500" />
+            <PopoverSetting>
+              <CogIcon className="w-5 h-5 mt-1 cursor-pointer hover:text-indigo-500" />
+            </PopoverSetting>
           </div>
         </div>
       </Transition>
@@ -61,8 +82,9 @@ const CvSectionWrapper = ({ name, isSelected, children, isBorder = false }) => {
   );
 };
 
-const mapDispatchToProps = (state, ownProps) => ({
-  isSelected: selectSectionSelected(ownProps.name)(state),
+const mapStateToProps = (state, ownProps) => ({
+  isSelected: selectIsCurrentSection(ownProps.name)(state),
+  isModalOpen: selectTypeModal(state),
 });
 
-export default connect(mapDispatchToProps)(CvSectionWrapper);
+export default connect(mapStateToProps)(CvSectionWrapper);

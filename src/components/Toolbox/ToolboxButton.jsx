@@ -14,14 +14,14 @@ const ToolboxButton = ({
     <button
       onClick={onClick}
       className={clsx(
-        'inline-flex text-gray-600 hover:text-indigo-500 rounded-full py-1.5 px-3 items-center mr-2 text-sm',
+        'inline-flex text-gray-600 hover:text-indigo-500 rounded-full py-1.5 px-2 items-center mr-2 text-sm',
         bgColorClass,
         className
       )}
     >
-      <LeftIcon className="w-6 h-6 pt-1 mr-1" />
+      <LeftIcon className="w-5 h-5 pt-1 mr-1" />
       {children}
-      <RightIcon className="w-6 h-6 pt-1 ml-1" />
+      <RightIcon className="w-5 h-5 pt-1 ml-1" />
     </button>
   );
 };

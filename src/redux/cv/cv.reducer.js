@@ -1,9 +1,9 @@
 import { CvActionTypes } from './cv.types';
 
 const INITIAL_STATE = {
-  selectedSection: null,
   error: null,
   isLoading: false,
+  cv: null,
 };
 
 const cvReducer = (state = INITIAL_STATE, action) => {
@@ -11,17 +11,25 @@ const cvReducer = (state = INITIAL_STATE, action) => {
     // case UserActionTypes.GOOGLE_SIGN_IN_SUCCESS:
     // case UserActionTypes.EMAIL_SIGN_IN_SUCCESS:
     // case UserActionTypes.SET_CURRENT_USER:
-    case CvActionTypes.SECTION_SELECTED:
+    case CvActionTypes.LOADING_API:
       return {
         ...state,
-        selectedSection: action.payload,
+        isLoading: true,
       };
-    case CvActionTypes.SECTION_SELECTED_FINISH:
+    case CvActionTypes.LOAD_CV_FINISH:
+    case CvActionTypes.UPDATE_CV_FINISH:
       return {
         ...state,
-        selectedSection: null,
+        cv: action.payload,
+        isLoading: false,
       };
-
+    case CvActionTypes.UPDATE_CV_FAILURE:
+    case CvActionTypes.LOAD_CV_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      };
     default:
       return state;
   }

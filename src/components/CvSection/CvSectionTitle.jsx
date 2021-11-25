@@ -1,11 +1,13 @@
-import React from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
-import { selectSectionSelected } from '../../redux/cv/cv.selectors';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
 import TextareaAutosize from 'react-textarea-autosize';
+import { useFormContext } from 'react-hook-form';
+import { selectIsCurrentSection } from '../../redux/viewState/viewState.selectors';
 
 const CvSectionTitle = ({ placeholder, name, isSelected }) => {
+  const { register } = useFormContext();
+  console.log('isSelected', isSelected);
   return (
     <div
       className={clsx(
@@ -18,13 +20,14 @@ const CvSectionTitle = ({ placeholder, name, isSelected }) => {
         type="text"
         className="w-full uppercase bg-transparent text-2xl text-blue-500 font-semibold border-0 focus:ring-0 placeholder-blue-500 focus:placeholder-blue-300"
         placeholder={placeholder}
+        {...register(name)}
       />
     </div>
   );
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  isSelected: selectSectionSelected(ownProps.name)(state),
+  isSelected: selectIsCurrentSection(ownProps.name)(state),
 });
 
 export default connect(mapStateToProps)(CvSectionTitle);

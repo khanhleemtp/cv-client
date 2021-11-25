@@ -51,7 +51,7 @@ function App() {
         pauseOnHover
       />
       <Switch>
-        <Route path="/builder">
+        <Route path="/builder/:id">
           <CvBuilderPage />
         </Route>
         <Route path="/preview">

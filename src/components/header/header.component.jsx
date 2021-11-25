@@ -19,7 +19,7 @@ function Navbar({ user }) {
   return (
     <Disclosure
       as="nav"
-      className="bg-white shadow-xl fixed top-0 left-0 h-16 right-0 z-50 text-gray-600"
+      className="bg-white shadow-xl fixed top-0 left-0 h-16 right-0 z-30 text-gray-600"
     >
       {({ open }) => (
         <>

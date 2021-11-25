@@ -3,10 +3,16 @@ import { createSelector } from 'reselect';
 const selectorCv = (state) => state.cv;
 // const selectorCart = (state) => state.cart;
 
-export const selectBackground = createSelector(
+export const selectLoadingApi = createSelector(
   selectorCv,
-  (cv) => cv.selectedSection
+  (state) => state.isLoading
 );
 
-export const selectSectionSelected = (section) =>
-  createSelector(selectBackground, (sectionName) => sectionName === section);
+export const selectCvData = createSelector(selectorCv, (state) => state.cv);
+
+export const selectCvHeader = createSelector(selectCvData, (cv) => cv.header);
+
+export const selectCvPhoto = createSelector(
+  selectCvHeader,
+  (header) => header.photo
+);

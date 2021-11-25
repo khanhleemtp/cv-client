@@ -12,17 +12,21 @@ import {
   PhotographIcon,
   DocumentTextIcon,
 } from '@heroicons/react/solid';
-import ModalFullScreen from '../ModalFullScreen';
+import RootModal from '../RootModal';
 import ToolboxButton from './ToolboxButton';
+import StateModal from './../StateModal';
 
 const ToolboxContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
-  return (
-    <div className="bg-white px-2 md:px-6 py-2 flex overflow-auto items-center">
-      <ModalFullScreen isOpen={isOpen} setIsOpen={setIsOpen}>
-        <div>Hello World</div>
-      </ModalFullScreen>
 
+  return (
+    <div className="bg-white px-2 md:px-6 py-1.5 flex overflow-auto items-center">
+      <StateModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        modalType="UPLOAD_IMAGE"
+      />
+      <RootModal />
       <RoundIcon icon={PlusIcon} onClick={() => setIsOpen(true)} />
       <RoundIcon
         icon={ChevronRightIcon}
