@@ -10,7 +10,7 @@ const CvIconInput = forwardRef(
         <TextareaAutosize
           maxRows={9999}
           type="text"
-          className="pl-8 w-full bg-transparent text-xs font-medium border-0 focus:ring-0 placeholder-gray-500 focus:placeholder-gray-300"
+          className="pl-8 w-full bg-transparent text-gray-500 text-xs font-medium border-0 focus:ring-0 placeholder-gray-500 focus:placeholder-gray-300"
           placeholder={placeholder}
           {...props}
         />

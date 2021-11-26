@@ -9,7 +9,7 @@ import viewStateReducer from './viewState/viewState.reducer';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'cv'],
 };
 
 const rootReducer = (history) =>

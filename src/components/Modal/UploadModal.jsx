@@ -68,7 +68,7 @@ const UploadModal = ({ modalRef, close, updateCv, photo, isLoading }) => {
 
         // call API To Upload
         updateCv({
-          id: '618fd50318556022180debad',
+          id: '619ff2dd3f5cd425c0e24dd4',
           updateData: formData,
           config: {
             'Content-Type': 'multipart/form-data',
@@ -80,7 +80,7 @@ const UploadModal = ({ modalRef, close, updateCv, photo, isLoading }) => {
   const handleRemoveImage = () => {
     setCropData(null);
     updateCv({
-      id: '618fd50318556022180debad',
+      id: '619ff2dd3f5cd425c0e24dd4',
       updateData: {
         header: {
           photo: '',

@@ -20,6 +20,7 @@ const cvReducer = (state = INITIAL_STATE, action) => {
     case CvActionTypes.UPDATE_CV_FINISH:
       return {
         ...state,
+        error: null,
         cv: action.payload,
         isLoading: false,
       };

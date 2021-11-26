@@ -2,10 +2,7 @@ import useOnClickOutside from './../../hook/useOutsideClick';
 import { useRef, useCallback } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import clsx from 'clsx';
-import { CameraIcon, CogIcon } from '@heroicons/react/solid';
 import { Transition } from '@headlessui/react';
-import PopoverSetting from './../PopoverSetting';
-// import ModalFullScreen from './../ModalFullScreen';
 import {
   selectIsCurrentSection,
   selectTypeModal,
@@ -13,8 +10,10 @@ import {
 import {
   selectSectionStart,
   selectSectionFinish,
-  openModal,
 } from './../../redux/viewState/viewState.action';
+import { useFormState, useFormContext, useWatch } from 'react-hook-form';
+import isEmpty from 'lodash/isEmpty';
+import { updateCvStart } from './../../redux/cv/cv.action';
 
 const CvSectionWrapper = ({
   name,
@@ -22,24 +21,37 @@ const CvSectionWrapper = ({
   children,
   isBorder = false,
   isModalOpen,
+  setting: SettingComponent,
 }) => {
   const ref = useRef();
+
+  const { control } = useFormContext();
+
+  const cvData = useWatch({
+    control,
+  });
+
+  const { dirtyFields } = useFormState({ control });
+  // console.log('isDirty', isDirty, dirtyFields, cvData);
 
   const dispatch = useDispatch();
 
   const handleClose = useCallback(() => {
     if (isModalOpen) return;
-    if (isSelected) return dispatch(selectSectionFinish());
+    if (isSelected) {
+      if (!isEmpty(dirtyFields)) {
+        dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
+      }
+      return dispatch(selectSectionFinish());
+    }
     return;
-  }, [dispatch, isSelected, isModalOpen]);
+  }, [dispatch, isSelected, isModalOpen, dirtyFields, cvData]);
 
   const handleOpen = (e) => {
     e.stopPropagation();
     if (isSelected) return;
     dispatch(selectSectionStart(name));
   };
-
-  const handleOpenModal = () => dispatch(openModal('UPLOAD_IMAGE'));
 
   useOnClickOutside(ref, handleClose);
 
@@ -65,15 +77,8 @@ const CvSectionWrapper = ({
         leaveTo="opacity-0 transform -translate-y-2"
       >
         <div className="absolute z-20 left-1/2 -top-2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full border-t-2">
-          <div className="py-2 px-4 inline-flex items-center text-gray-600">
-            <CameraIcon
-              className="w-5 h-5 cursor-pointer hover:text-indigo-500"
-              onClick={handleOpenModal}
-            />
-            <span className="mx-1"></span>
-            <PopoverSetting>
-              <CogIcon className="w-5 h-5 mt-1 cursor-pointer hover:text-indigo-500" />
-            </PopoverSetting>
+          <div className="inline-flex items-center">
+            {SettingComponent && <SettingComponent />}
           </div>
         </div>
       </Transition>

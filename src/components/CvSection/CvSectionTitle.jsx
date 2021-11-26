@@ -7,7 +7,6 @@ import { selectIsCurrentSection } from '../../redux/viewState/viewState.selector
 
 const CvSectionTitle = ({ placeholder, name, isSelected }) => {
   const { register } = useFormContext();
-  console.log('isSelected', isSelected);
   return (
     <div
       className={clsx(

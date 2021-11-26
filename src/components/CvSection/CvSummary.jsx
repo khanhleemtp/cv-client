@@ -1,21 +1,26 @@
 import React from 'react';
 import CvSectionWrapper from './CvSectionWrapper';
 import CvSectionTitle from './CvSectionTitle';
-import TextareaAutosize from 'react-textarea-autosize';
+import { useFormContext, useFieldArray } from 'react-hook-form';
+import CvTypography from './CvTypography';
+import { selectCvSection } from '../../redux/cv/cv.selectors';
+import { connect } from 'react-redux';
 
 const CvSummary = () => {
+  const { register, control } = useFormContext();
+
   return (
     <div>
       <CvSectionTitle placeholder="Summary" name="summary" />
       <CvSectionWrapper name="summary-details">
-        <TextareaAutosize
-          className="w-full border-0 ring-0 bg-transparent font-semibold focus:ring-0 pt-4"
-          placeholder="Hãy giới thiệu thông tin thêm về bạn như sở thích"
-          maxRows={9999}
-        />
+        <CvTypography type="p" placeholder="Thông tin thêm" />
       </CvSectionWrapper>
     </div>
   );
 };
 
-export default CvSummary;
+const mapStateToProps = (state) => ({
+  data: selectCvSection('SummarySection')(state),
+});
+
+export default connect(mapStateToProps)(CvSummary);

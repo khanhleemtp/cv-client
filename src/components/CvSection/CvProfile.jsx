@@ -7,40 +7,47 @@ import {
 import TextareaAutosize from 'react-textarea-autosize';
 import { useFormContext } from 'react-hook-form';
 import CvIconInput from './CvIconInput';
+import CvTypography from './CvTypography';
 
 const CvProfile = () => {
   const { register } = useFormContext();
-
   return (
     <div>
-      <TextareaAutosize
-        maxRows={9999}
-        type="text"
-        className="w-full bg-transparent py-1 text-xl font-bold border-0 focus:ring-0 placeholder-gray-500 focus:placeholder-gray-300"
+      <CvTypography
+        type="h1"
         placeholder="Họ tên"
-        {...register('name')}
+        {...register('header.name')}
+        bold
       />
-      <TextareaAutosize
-        maxRows={9999}
-        type="text"
-        className="w-full bg-transparent py-1 text-lg text-blue-500 font-semibold border-0 focus:ring-0 placeholder-blue-500 focus:placeholder-blue-300"
+      <CvTypography
+        type="h2"
         placeholder="Vị trí công việc bạn muốn ứng tuyển?"
+        color="secondary"
+        {...register('header.title')}
       />
       <CvIconInput
-        {...register('phone')}
         placeholder="Số điện thoại"
         icon={PhoneIcon}
+        {...register('header.phone')}
+        // defaultValue={header?.phone}
       />
-      <CvIconInput {...register('email')} placeholder="Email" icon={MailIcon} />
       <CvIconInput
-        {...register('link')}
+        {...register('header.email')}
+        placeholder="Email"
+        icon={MailIcon}
+        // defaultValue={header?.email}
+      />
+      <CvIconInput
+        {...register('header.link')}
         placeholder="Website/Link"
         icon={LinkIcon}
+        // defaultValue={header?.link}
       />
       <CvIconInput
-        {...register('address')}
+        {...register('header.address')}
         placeholder="Địa chỉ"
         icon={LocationMarkerIcon}
+        // defaultValue={header?.address}
       />
     </div>
   );

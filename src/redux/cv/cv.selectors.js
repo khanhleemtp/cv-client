@@ -9,8 +9,17 @@ export const selectLoadingApi = createSelector(
 );
 
 export const selectCvData = createSelector(selectorCv, (state) => state.cv);
+export const selectCvSections = createSelector(
+  selectCvData,
+  (cv) => cv.sections
+);
 
-export const selectCvHeader = createSelector(selectCvData, (cv) => cv.header);
+export const selectCvSection = (sectionName) =>
+  createSelector(selectCvSections, (sections) =>
+    sections.filter((section) => section.record === sectionName)
+  );
+
+export const selectCvHeader = createSelector(selectCvData, (cv) => cv?.header);
 
 export const selectCvPhoto = createSelector(
   selectCvHeader,
