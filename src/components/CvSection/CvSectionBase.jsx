@@ -1,7 +1,5 @@
-import CvEducation from './CvEducation';
 import CvSectionWrapper from './CvSectionWrapper';
 import CvSummary from './CvSummary';
-import CvSettingEducation from './Setting/Education/CvSettingEducation';
 import CvSettingSummay from './Setting/Summary/CvSettingSummay';
 
 const CvSectionBase = ({ record }) => {

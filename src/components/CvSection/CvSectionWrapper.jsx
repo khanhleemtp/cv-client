@@ -23,7 +23,6 @@ const CvSectionWrapper = ({
   isBorder = false,
   isModalOpen,
   setting: SettingComponent,
-  cvData,
 }) => {
   const ref = useRef();
   console.log(cvData);
@@ -36,38 +35,22 @@ const CvSectionWrapper = ({
   const { dirtyFields } = useFormState({ control });
   // console.log('isDirty', isDirty, dirtyFields, cvData);
 
+  const cvData = useWatch({
+    control,
+  });
+
   const dispatch = useDispatch();
 
   const handleClose = useCallback(() => {
     if (isModalOpen) return;
     if (isSelected) {
       if (!isEmpty(dirtyFields)) {
-        // SummarySection
-
-        // header cv
-        let updateData;
-        if (name === 'header') {
-          updateData = {
-            ...cvData,
-            header: cvSection,
-          };
-        } else {
-          const removePrevSection = cvData?.sections.filter(
-            (section) => section.record !== name
-          );
-          updateData = {
-            ...cvData,
-            sections: [...removePrevSection, { [name]: cvSection }],
-          };
-        }
-
-        // send cả cục
-        dispatch(updateCvStart({ updateData, id: updateData.id }));
+        dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
       }
       return dispatch(selectSectionFinish());
     }
     return;
-  }, [dispatch, isSelected, isModalOpen, dirtyFields, cvData, cvSection, name]);
+  }, [dispatch, isSelected, isModalOpen, dirtyFields, cvData]);
 
   const handleOpen = (e) => {
     e.stopPropagation();

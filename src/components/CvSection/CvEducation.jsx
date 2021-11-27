@@ -2,8 +2,11 @@ import React from 'react';
 import CvSectionWrapper from './CvSectionWrapper';
 import CvSectionTitle from './CvSectionTitle';
 import CvTypography from './CvTypography';
+import { useFormContext } from 'react-hook-form';
 
 const CvEducation = () => {
+  const { register } = useFormContext();
+
   return (
     <div>
       <CvSectionTitle placeholder="Education" name="Education" />

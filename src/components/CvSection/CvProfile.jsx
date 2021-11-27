@@ -4,78 +4,54 @@ import {
   LocationMarkerIcon,
   LinkIcon,
 } from '@heroicons/react/solid';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
+import { createStructuredSelector } from 'reselect';
 import CvIconInput from './CvIconInput';
 import CvTypography from './CvTypography';
-import { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { selectCvHeader } from './../../redux/cv/cv.selectors';
-import CvSectionWrapper from './CvSectionWrapper';
-import CvSettingProfile from './Setting/Profile/CvSettingProfile';
+import { connect } from 'react-redux';
 
-const CvProfile = ({ profileData }) => {
-  const methods = useForm({
-    defaultValues: profileData,
-  });
-
-  useEffect(() => {
-    methods.reset(profileData);
-    return () => {};
-  }, [profileData, methods]);
-
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-  };
-
-  const { register } = methods;
-
+const CvProfile = () => {
+  const { register } = useFormContext();
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <CvSectionWrapper name="header" setting={CvSettingProfile}>
-          <div>
-            <button type="submit">Submit</button>
-            <CvTypography
-              type="h1"
-              placeholder="Họ tên"
-              {...register('name')}
-              bold
-            />
-            <CvTypography
-              type="h2"
-              placeholder="Vị trí công việc bạn muốn ứng tuyển?"
-              color="secondary"
-              {...register('title')}
-            />
-            <CvIconInput
-              placeholder="Số điện thoại"
-              icon={PhoneIcon}
-              {...register('phone')}
-              // defaultValue={header?.phone}
-            />
-            <CvIconInput
-              {...register('email')}
-              placeholder="Email"
-              icon={MailIcon}
-              // defaultValue={header?.email}
-            />
-            <CvIconInput
-              {...register('link')}
-              placeholder="Website/Link"
-              icon={LinkIcon}
-              // defaultValue={header?.link}
-            />
-            <CvIconInput
-              {...register('address')}
-              placeholder="Địa chỉ"
-              icon={LocationMarkerIcon}
-              // defaultValue={header?.address}
-            />
-          </div>
-        </CvSectionWrapper>
-      </form>
-    </FormProvider>
+    <div>
+      <CvTypography
+        type="h1"
+        placeholder="Họ tên"
+        {...register('header.name')}
+        bold
+      />
+      <CvTypography
+        type="h2"
+        placeholder="Vị trí công việc bạn muốn ứng tuyển?"
+        color="secondary"
+        {...register('header.title')}
+      />
+      <CvIconInput
+        placeholder="Số điện thoại"
+        icon={PhoneIcon}
+        {...register('header.phone')}
+        // defaultValue={header?.phone}
+      />
+      <CvIconInput
+        {...register('header.email')}
+        placeholder="Email"
+        icon={MailIcon}
+        // defaultValue={header?.email}
+      />
+      <CvIconInput
+        {...register('header.link')}
+        placeholder="Website/Link"
+        icon={LinkIcon}
+        // defaultValue={header?.link}
+      />
+      <CvIconInput
+        {...register('header.address')}
+        placeholder="Địa chỉ"
+        icon={LocationMarkerIcon}
+        // defaultValue={header?.address}
+      />
+    </div>
   );
 };
 
