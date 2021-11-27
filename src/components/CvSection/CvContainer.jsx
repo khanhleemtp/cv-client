@@ -7,7 +7,7 @@ const CvContainer = ({ children, isSelected }) => {
   // methods.reset(cvData);
   return (
     <div>
-      <button type="submit">Submit</button>
+      <p type="submit">Save</p>
       <div
         className={clsx('relative bg-transparent mx-auto', {
           'bg-gray-300 bg-opacity-60': isSelected,

@@ -14,6 +14,7 @@ import {
 import { useFormState, useFormContext, useWatch } from 'react-hook-form';
 import isEmpty from 'lodash/isEmpty';
 import { updateCvStart } from './../../redux/cv/cv.action';
+import { selectCvData } from '../../redux/cv/cv.selectors';
 
 const CvSectionWrapper = ({
   name,
@@ -22,12 +23,13 @@ const CvSectionWrapper = ({
   isBorder = false,
   isModalOpen,
   setting: SettingComponent,
+  cvData,
 }) => {
   const ref = useRef();
-
+  console.log(cvData);
   const { control } = useFormContext();
 
-  const cvData = useWatch({
+  const cvSection = useWatch({
     control,
   });
 
@@ -40,12 +42,32 @@ const CvSectionWrapper = ({
     if (isModalOpen) return;
     if (isSelected) {
       if (!isEmpty(dirtyFields)) {
-        dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
+        // SummarySection
+
+        // header cv
+        let updateData;
+        if (name === 'header') {
+          updateData = {
+            ...cvData,
+            header: cvSection,
+          };
+        } else {
+          const removePrevSection = cvData?.sections.filter(
+            (section) => section.record !== name
+          );
+          updateData = {
+            ...cvData,
+            sections: [...removePrevSection, { [name]: cvSection }],
+          };
+        }
+
+        // send cả cục
+        dispatch(updateCvStart({ updateData, id: updateData.id }));
       }
       return dispatch(selectSectionFinish());
     }
     return;
-  }, [dispatch, isSelected, isModalOpen, dirtyFields, cvData]);
+  }, [dispatch, isSelected, isModalOpen, dirtyFields, cvData, cvSection, name]);
 
   const handleOpen = (e) => {
     e.stopPropagation();
@@ -90,6 +112,7 @@ const CvSectionWrapper = ({
 const mapStateToProps = (state, ownProps) => ({
   isSelected: selectIsCurrentSection(ownProps.name)(state),
   isModalOpen: selectTypeModal(state),
+  cvData: selectCvData(state),
 });
 
 export default connect(mapStateToProps)(CvSectionWrapper);
