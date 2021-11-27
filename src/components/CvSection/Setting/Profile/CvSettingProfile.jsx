@@ -21,7 +21,7 @@ const CvSettingProfile = () => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   isModalOpen: selectTypeModal(state),
 });
 

@@ -14,8 +14,7 @@ const CvSettingTitle = ({ add = () => {}, remove = () => {} }) => {
           <div className="flex-grow">
             <PlusIcon className="text-white w-5 h-5" />
           </div>
-          <div className="mx-2"></div>
-          <div>Thêm mới</div>
+          <div className="hidden md:inline-block">Thêm mới</div>
         </div>
       </div>
       <CvSettingIcon icon={TrashIcon} onClick={remove} title="Xóa" />

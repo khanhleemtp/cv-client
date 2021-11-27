@@ -14,7 +14,6 @@ import {
 import { useFormState, useFormContext, useWatch } from 'react-hook-form';
 import isEmpty from 'lodash/isEmpty';
 import { updateCvStart } from './../../redux/cv/cv.action';
-import { selectCvData } from '../../redux/cv/cv.selectors';
 
 const CvSectionWrapper = ({
   name,
@@ -22,52 +21,31 @@ const CvSectionWrapper = ({
   children,
   isBorder = false,
   isModalOpen,
-  setting: SettingComponent,
-  cvData,
+  setting,
 }) => {
   const ref = useRef();
-  console.log(cvData);
   const { control } = useFormContext();
 
-  const cvSection = useWatch({
+  const cvData = useWatch({
     control,
   });
 
+  const dispatch = useDispatch();
   const { dirtyFields } = useFormState({ control });
   // console.log('isDirty', isDirty, dirtyFields, cvData);
 
-  const dispatch = useDispatch();
+  console.log(dirtyFields, isSelected);
 
   const handleClose = useCallback(() => {
     if (isModalOpen) return;
     if (isSelected) {
       if (!isEmpty(dirtyFields)) {
-        // SummarySection
-
-        // header cv
-        let updateData;
-        if (name === 'header') {
-          updateData = {
-            ...cvData,
-            header: cvSection,
-          };
-        } else {
-          const removePrevSection = cvData?.sections.filter(
-            (section) => section.record !== name
-          );
-          updateData = {
-            ...cvData,
-            sections: [...removePrevSection, { [name]: cvSection }],
-          };
-        }
-
-        // send cả cục
-        dispatch(updateCvStart({ updateData, id: updateData.id }));
+        dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
       }
       return dispatch(selectSectionFinish());
     }
     return;
-  }, [dispatch, isSelected, isModalOpen, dirtyFields, cvData, cvSection, name]);
+  }, [dispatch, isSelected, isModalOpen, cvData, dirtyFields]);
 
   const handleOpen = (e) => {
     e.stopPropagation();
@@ -98,9 +76,9 @@ const CvSectionWrapper = ({
         leaveFrom="opacity-100"
         leaveTo="opacity-0 transform -translate-y-2"
       >
-        <div className="absolute z-20 left-1/2 -top-2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full border-t-2">
-          <div className="inline-flex items-center">
-            {SettingComponent && <SettingComponent />}
+        <div className="absolute z-20 left-1/2 -top-4 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full border-t-2">
+          <div className="inline-flex items-center divide-x-2">
+            {setting && setting}
           </div>
         </div>
       </Transition>
@@ -112,7 +90,6 @@ const CvSectionWrapper = ({
 const mapStateToProps = (state, ownProps) => ({
   isSelected: selectIsCurrentSection(ownProps.name)(state),
   isModalOpen: selectTypeModal(state),
-  cvData: selectCvData(state),
 });
 
 export default connect(mapStateToProps)(CvSectionWrapper);

@@ -1,19 +1,21 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
+import { FormProvider, useForm, useFieldArray } from 'react-hook-form';
+import { createStructuredSelector } from 'reselect';
+
+// COMPONENT
 import NavContainer from '../../components/nav-container/nav-container.component';
 import CvTitle from '../../components/CvSection/CvTitle';
 import CvContainer from '../../components/CvSection/CvContainer';
 import CvProfile from '../../components/CvSection/CvProfile';
 import ToolboxContainer from '../../components/Toolbox/ToolboxContainer';
-import CvSectionWrapper from './../../components/CvSection/CvSectionWrapper';
-import CvSummary from '../../components/CvSection/CvSummary';
-import CvSettingProfile from '../../components/CvSection/Setting/Profile/CvSettingProfile';
-import CvSettingSummay from './../../components/CvSection/Setting/Summary/CvSettingSummay';
-import CvEducation from '../../components/CvSection/CvEducation';
-import CvSettingEducation from './../../components/CvSection/Setting/Education/CvSettingEducation';
-import { loadCvStart } from '../../redux/cv/cv.action';
+import CvSectionBase from './../../components/CvSection/CvSectionBase';
 
-const CvBuilderPage = () => {
+// REDUX
+import { loadCvStart } from '../../redux/cv/cv.action';
+import { selectCvData } from './../../redux/cv/cv.selectors';
+
+const CvBuilderPage = ({ cvData }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,45 +23,52 @@ const CvBuilderPage = () => {
     return () => {};
   }, [dispatch]);
 
-  // const methods = useForm({
-  //   defaultValues: cvData,
-  // });
-  // useEffect(() => {
-  //   methods.reset(cvData);
-  //   return () => {};
-  // }, [cvData, methods]);
+  const methods = useForm({
+    defaultValues: cvData,
+  });
 
-  // const onSubmit = (data) => {
-  //   alert(JSON.stringify(data));
-  // };
+  useEffect(() => {
+    methods.reset(cvData);
+    return () => {};
+  }, [cvData, methods]);
 
-  // <FormProvider {...methods}>
-  //   <form onSubmit={methods.handleSubmit(onSubmit)}>
-  //   </form>
-  // </FormProvider>
+  const { control } = methods;
+
+  const { fields } = useFieldArray({
+    control,
+    name: 'sections',
+    keyName: '_id',
+  });
+
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data));
+  };
 
   return (
     <NavContainer>
-      <ToolboxContainer />
-      <CvContainer>
-        <CvTitle />
-        <CvProfile />
-        {/* <CvSectionWrapper name="summary" setting={CvSettingSummay}>
-          <CvSummary />
-        </CvSectionWrapper>
-        <CvSectionWrapper name="education" setting={CvSettingEducation}>
-          <CvEducation />
-        </CvSectionWrapper> */}
-        {/* {fields.map((field, index) => (
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <ToolboxContainer />
+          <CvContainer>
+            <CvTitle />
+            <CvProfile />
+            {fields.map((field, index) => (
               <CvSectionBase
                 index={index}
-                key={field.record}
+                key={field._id}
                 record={field.record}
               />
-            ))} */}
-      </CvContainer>
+            ))}
+          </CvContainer>
+        </form>
+      </FormProvider>
+      ;
     </NavContainer>
   );
 };
 
-export default CvBuilderPage;
+const mapDispatchToProps = createStructuredSelector({
+  cvData: selectCvData,
+});
+
+export default connect(mapDispatchToProps)(CvBuilderPage);

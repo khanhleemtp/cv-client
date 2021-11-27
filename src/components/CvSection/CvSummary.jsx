@@ -1,24 +1,58 @@
 import React from 'react';
 import CvSectionWrapper from './CvSectionWrapper';
 import CvSectionTitle from './CvSectionTitle';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useFormContext, useFieldArray } from 'react-hook-form';
 import CvTypography from './CvTypography';
-import { selectCvSection } from '../../redux/cv/cv.selectors';
-import { connect } from 'react-redux';
+import CvSettingTitle from './Setting/CvSettingTitle';
+import CvSettingItem from './Setting/CvSettingItem';
 
-const CvSummary = () => {
+const CvSummary = ({
+  index,
+  createItem,
+  removeSection,
+  removeItem,
+  downItem,
+  upItem,
+  updateData,
+}) => {
+  const { register, control } = useFormContext();
+  console.log(index);
+  const { move, append, remove, fields } = useFieldArray({
+    control,
+    name: `sections.${index}.items`,
+    keyName: '_id',
+  });
+
+  const addItem = createItem({ text: '' }, append);
+
   return (
-    <div>
-      <CvSectionTitle placeholder="Summary" name="summary" />
-      <CvSectionWrapper name="summary-details">
-        <CvTypography type="p" placeholder="Thông tin thêm" />
-      </CvSectionWrapper>
-    </div>
+    <CvSectionWrapper
+      name="summay"
+      setting={<CvSettingTitle add={addItem} remove={removeSection} />}
+    >
+      <CvSectionTitle placeholder="Summary" name={`sections.${index}.name`} />
+      {fields?.map((item, k) => (
+        <CvSectionWrapper
+          name={`summary-details-${k}`}
+          key={item._id}
+          setting={
+            <CvSettingItem
+              add={addItem}
+              remove={removeItem(k, remove)}
+              up={upItem(k, move)}
+              down={downItem(k, move, fields?.length)}
+            />
+          }
+        >
+          <CvTypography
+            type="p"
+            placeholder="Thông tin thêm"
+            {...register(`sections.${index}.items.${k}.text`)}
+          />
+        </CvSectionWrapper>
+      ))}
+    </CvSectionWrapper>
   );
 };
 
-const mapStateToProps = (state) => ({
-  data: selectCvSection('SummarySection')(state),
-});
-
-export default connect(mapStateToProps)(CvSummary);
+export default CvSummary;
