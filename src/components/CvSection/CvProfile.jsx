@@ -1,13 +1,5 @@
-import {
-  PhoneIcon,
-  MailIcon,
-  LocationMarkerIcon,
-  LinkIcon,
-} from '@heroicons/react/solid';
 import { useFormContext } from 'react-hook-form';
-import CvIconInput from './CvIconInput';
 import CvTypography from './CvTypography';
-
 import CvSectionWrapper from './CvSectionWrapper';
 import CvSettingProfile from './Setting/Profile/CvSettingProfile';
 
@@ -20,34 +12,39 @@ const CvProfile = () => {
         <CvTypography
           type="h1"
           placeholder="Họ tên"
-          {...register('name')}
+          {...register('header.name')}
           bold
         />
         <CvTypography
           type="h2"
           placeholder="Vị trí công việc bạn muốn ứng tuyển?"
           color="secondary"
+          bold
           {...register('header.title')}
         />
-        <CvIconInput
+        <CvTypography
+          type="h4"
           placeholder="Số điện thoại"
-          icon={PhoneIcon}
+          icon="phone"
           {...register('header.phone')}
         />
-        <CvIconInput
+        <CvTypography
+          type="h4"
           {...register('header.email')}
           placeholder="Email"
-          icon={MailIcon}
+          icon="mail"
         />
-        <CvIconInput
+        <CvTypography
+          type="h4"
           {...register('header.link')}
           placeholder="Website/Link"
-          icon={LinkIcon}
+          icon="link"
         />
-        <CvIconInput
-          {...register('address')}
+        <CvTypography
+          type="h4"
+          {...register('header.address')}
           placeholder="Địa chỉ"
-          icon={LocationMarkerIcon}
+          icon="location"
         />
       </div>
     </CvSectionWrapper>

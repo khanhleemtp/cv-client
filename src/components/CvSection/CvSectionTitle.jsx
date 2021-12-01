@@ -17,7 +17,7 @@ const CvSectionTitle = ({ placeholder, name, isSelected }) => {
       <PencilIcon className="w-8 h-8 pt-1 text-blue-500" />
       <TextareaAutosize
         type="text"
-        className="w-full uppercase bg-transparent text-2xl text-blue-500 font-semibold border-0 focus:ring-0 placeholder-blue-500 focus:placeholder-blue-300"
+        className="w-full uppercase bg-transparent text-2xl text-blue-500 font-semibold border-0 focus:ring-0 placeholder-blue-500 focus:placeholder-blue-300 resize-none"
         placeholder={placeholder}
         {...register(name)}
       />

@@ -8,13 +8,7 @@ import {
 } from '@heroicons/react/outline';
 import CvSettingIcon from './CvSettingIcon';
 import PopoverSetting from './../../PopoverSetting';
-
-import DayPicker from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
-import 'moment/locale/vi';
-import MomentLocaleUtils from 'react-day-picker/moment';
-import CustomSwitch from './../../CustomSwitch';
-import { useFormContext } from 'react-hook-form';
+import Calendar from '../../Calendar';
 
 const CvSettingItem = ({
   add = () => {},
@@ -23,8 +17,8 @@ const CvSettingItem = ({
   config = null,
   up = null,
   down = null,
+  dayProps = null,
 }) => {
-  const { control } = useFormContext();
   return (
     <>
       <div
@@ -49,22 +43,7 @@ const CvSettingItem = ({
       {calendar && (
         <PopoverSetting
           position="top"
-          setting={
-            <div>
-              <div className="flex divide-opacity-20 items-center justify-around">
-                <div className="bg-gray-400 p-2 flex-1 text-center cursor-pointer">
-                  Từ
-                </div>
-                <div className="bg-gray-200 p-2 flex-1 text-center cursor-pointer">
-                  Đến
-                </div>
-              </div>
-              <div className="w-32">
-                <CustomSwitch label="Hiện tại" control={control} />
-              </div>
-              <DayPicker localeUtils={MomentLocaleUtils} locale="vi" />
-            </div>
-          }
+          setting={<Calendar dayProps={dayProps} />}
         >
           <CvSettingIcon
             icon={CalendarIcon}

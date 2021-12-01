@@ -6,15 +6,12 @@ import { selectSelectedSection } from './../../redux/viewState/viewState.selecto
 const CvContainer = ({ children, isSelected }) => {
   // methods.reset(cvData);
   return (
-    <div>
-      <p type="submit">Save</p>
-      <div
-        className={clsx('relative bg-transparent mx-auto', {
-          'bg-gray-300 bg-opacity-60': isSelected,
-        })}
-      >
-        {children}
-      </div>
+    <div
+      className={clsx('relative bg-transparent mx-auto', {
+        'bg-gray-300 bg-opacity-60': isSelected,
+      })}
+    >
+      {children}
     </div>
   );
 };

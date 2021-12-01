@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { updateCvStart } from './../../redux/cv/cv.action';
 
 import CvSummary from './CvSummary';
+import CvEducation from './CvEducation';
+
 import { selectSectionStart } from './../../redux/viewState/viewState.action';
 
 const CvSectionBase = ({ record, index }) => {
@@ -59,6 +61,18 @@ const CvSectionBase = ({ record, index }) => {
       case 'SummarySection':
         return (
           <CvSummary
+            index={index}
+            createItem={createItem}
+            removeSection={removeSection}
+            removeItem={removeItem}
+            upItem={upItem}
+            downItem={downItem}
+            updateData={updateData}
+          />
+        );
+      case 'EducationSection':
+        return (
+          <CvEducation
             index={index}
             createItem={createItem}
             removeSection={removeSection}

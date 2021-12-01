@@ -1,6 +1,13 @@
 import TextareaAutosize from 'react-textarea-autosize';
 import { useCallback, forwardRef } from 'react';
 import clsx from 'clsx';
+import {
+  PhoneIcon,
+  MailIcon,
+  LocationMarkerIcon,
+  LinkIcon,
+  CalendarIcon,
+} from '@heroicons/react/solid';
 
 const CvTypography = forwardRef(
   (
@@ -9,7 +16,9 @@ const CvTypography = forwardRef(
       type = 'p',
       color = 'primary',
       bold = false,
+      medium = false,
       className,
+      icon,
       ...props
     },
     ref
@@ -23,9 +32,11 @@ const CvTypography = forwardRef(
         case 'h3':
           return 'text-lg';
         case 'h4':
-          return 'text-base';
-        case 'p':
           return 'text-sm';
+        case 'h5':
+          return 'text-xs';
+        case 'p':
+          return 'text-base';
         default:
           return '';
       }
@@ -34,7 +45,7 @@ const CvTypography = forwardRef(
     const renderColor = useCallback(() => {
       switch (color) {
         case 'primary':
-          return 'text-gray-500 placeholder-gray-500 focus:placeholder-gray-300';
+          return 'text-gray-500  placeholder-gray-500 focus:placeholder-gray-300';
         case 'secondary':
           return 'text-blue-500 placeholder-blue-500 focus:placeholder-blue-300';
         default:
@@ -42,23 +53,52 @@ const CvTypography = forwardRef(
       }
     }, [color]);
 
+    const renderIcon = useCallback(() => {
+      switch (icon) {
+        case 'phone':
+          return <PhoneIcon />;
+        case 'mail':
+          return <MailIcon />;
+        case 'location':
+          return <LocationMarkerIcon />;
+        case 'link':
+          return <LinkIcon />;
+        case 'calendar':
+          return <CalendarIcon />;
+        default:
+          return null;
+      }
+    }, [icon]);
+
     return (
-      <TextareaAutosize
+      <div
+        className={clsx('w-full bg-transparent relative', { 'pl-5': icon })}
         ref={ref}
-        maxRows={9999}
-        type="text"
-        className={clsx(
-          'w-full py-1 bg-transparent border-0 focus:ring-0',
-          renderColor(),
-          renderStyle(),
-          {
-            'font-semibold': bold,
-          },
-          className
+      >
+        {icon && (
+          <div className="text-blue-500 pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-3">
+            {renderIcon()}
+          </div>
         )}
-        placeholder={placeholder}
-        {...props}
-      />
+        <TextareaAutosize
+          maxRows={9999}
+          type="text"
+          className={clsx(
+            'w-full py-0.5 bg-transparent border-0 focus:ring-0 outline-none resize-none',
+            renderColor(),
+            renderStyle(),
+            {
+              'font-semibold': bold,
+            },
+            {
+              'font-medium': medium,
+            },
+            className
+          )}
+          placeholder={placeholder}
+          {...props}
+        />
+      </div>
     );
   }
 );

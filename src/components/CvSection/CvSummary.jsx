@@ -28,7 +28,13 @@ const CvSummary = ({
   return (
     <CvSectionWrapper
       name="summay"
-      setting={<CvSettingTitle add={addItem} remove={removeSection} />}
+      setting={
+        <CvSettingTitle
+          add={addItem}
+          remove={removeSection}
+          dayProps={`sections.${index}.items.from`}
+        />
+      }
     >
       <CvSectionTitle placeholder="Summary" name={`sections.${index}.name`} />
       {fields?.map((item, k) => (

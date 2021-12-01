@@ -48,6 +48,7 @@ const CvBuilderPage = ({ cvData }) => {
     <NavContainer>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <button type="submit">Submit</button>
           <ToolboxContainer />
           <CvContainer>
             <CvTitle />
