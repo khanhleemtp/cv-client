@@ -4,9 +4,10 @@ import { useDispatch } from 'react-redux';
 import { updateCvStart } from './../../redux/cv/cv.action';
 
 import CvSummary from './CvSummary';
+import { selectSectionStart } from './../../redux/viewState/viewState.action';
 
 const CvSectionBase = ({ record, index }) => {
-  const { control, setValue } = useFormContext();
+  const { control, setValue, setFocus } = useFormContext();
   const dispatch = useDispatch();
 
   const cvData = useWatch({ control });
@@ -29,20 +30,24 @@ const CvSectionBase = ({ record, index }) => {
 
     const removeItem = (index, func) => () => {
       func(index);
-      updateData();
+      // updateData();
     };
 
-    const upItem = (k, func) => {
+    const upItem = (k, func, nextPostion) => {
       if (k === 0) return null;
       return () => {
         func(k, k - 1);
+        dispatch(selectSectionStart(nextPostion));
+        setFocus(nextPostion);
       };
     };
 
-    const downItem = (k, func, length) => {
+    const downItem = (k, func, length, nextPostion) => {
       if (k === length - 1) return null;
       return () => {
         func(k, k + 1);
+        dispatch(selectSectionStart(nextPostion));
+        setFocus(nextPostion);
       };
     };
 
@@ -66,7 +71,7 @@ const CvSectionBase = ({ record, index }) => {
       default:
         return null;
     }
-  }, [record, index, setValue, dispatch, cvData]);
+  }, [record, index, setValue, dispatch, cvData, setFocus]);
 
   return isEnabled && renderSection();
 };

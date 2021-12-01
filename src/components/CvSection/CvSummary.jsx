@@ -33,14 +33,20 @@ const CvSummary = ({
       <CvSectionTitle placeholder="Summary" name={`sections.${index}.name`} />
       {fields?.map((item, k) => (
         <CvSectionWrapper
-          name={`summary-details-${k}`}
+          name={`sections.${index}.items.${k}.text`}
           key={item._id}
           setting={
             <CvSettingItem
               add={addItem}
               remove={removeItem(k, remove)}
-              up={upItem(k, move)}
-              down={downItem(k, move, fields?.length)}
+              up={upItem(k, move, `sections.${index}.items.${k - 1}.text`)}
+              down={downItem(
+                k,
+                move,
+                fields?.length,
+                `sections.${index}.items.${k + 1}.text`
+              )}
+              calendar={() => {}}
             />
           }
         >

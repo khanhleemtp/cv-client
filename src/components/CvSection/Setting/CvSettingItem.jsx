@@ -1,5 +1,3 @@
-import React from 'react';
-import CvSettingIcon from './CvSettingIcon';
 import {
   TrashIcon,
   PlusIcon,
@@ -8,6 +6,15 @@ import {
   ChevronUpIcon,
   CogIcon,
 } from '@heroicons/react/outline';
+import CvSettingIcon from './CvSettingIcon';
+import PopoverSetting from './../../PopoverSetting';
+
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+import 'moment/locale/vi';
+import MomentLocaleUtils from 'react-day-picker/moment';
+import CustomSwitch from './../../CustomSwitch';
+import { useFormContext } from 'react-hook-form';
 
 const CvSettingItem = ({
   add = () => {},
@@ -17,6 +24,7 @@ const CvSettingItem = ({
   up = null,
   down = null,
 }) => {
+  const { control } = useFormContext();
   return (
     <>
       <div
@@ -39,11 +47,31 @@ const CvSettingItem = ({
         <CvSettingIcon icon={ChevronDownIcon} onClick={down} title="Xuống" />
       )}
       {calendar && (
-        <CvSettingIcon
-          icon={CalendarIcon}
-          onClick={calendar}
-          title="Thời gian"
-        />
+        <PopoverSetting
+          position="top"
+          setting={
+            <div>
+              <div className="flex divide-opacity-20 items-center justify-around">
+                <div className="bg-gray-400 p-2 flex-1 text-center cursor-pointer">
+                  Từ
+                </div>
+                <div className="bg-gray-200 p-2 flex-1 text-center cursor-pointer">
+                  Đến
+                </div>
+              </div>
+              <div className="w-32">
+                <CustomSwitch label="Hiện tại" control={control} />
+              </div>
+              <DayPicker localeUtils={MomentLocaleUtils} locale="vi" />
+            </div>
+          }
+        >
+          <CvSettingIcon
+            icon={CalendarIcon}
+            onClick={calendar}
+            title="Thời gian"
+          />
+        </PopoverSetting>
       )}
       {config && (
         <CvSettingIcon icon={CogIcon} onClick={config} title="Tùy chỉnh" />
