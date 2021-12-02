@@ -25,7 +25,8 @@ const CvBullets = ({ name, showBullets }) => {
     if (!bullets[l].text && event.key === 'Backspace') {
       event.preventDefault();
       if (l === 0) {
-        setValue(showBullets, false);
+        remove(l);
+        return setValue(showBullets, false);
       }
       remove(l);
       setFocus(`${name}.${l - 1}.text`);

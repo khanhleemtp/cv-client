@@ -55,7 +55,12 @@ const CvLanguage = ({
           }
         >
           <div className="pt-4 pb-2">
-            <CvTypography placeholder="Kỹ năng" medium className="mb-0" />
+            <CvTypography
+              placeholder="Kỹ năng"
+              medium
+              className="mb-0"
+              {...register(`sections.${index}.items.${k}.name`)}
+            />
             <CvSlider
               name={`sections.${index}.items.${k}.level`}
               placeholder="Kỹ năng khác"
