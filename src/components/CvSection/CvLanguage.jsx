@@ -5,7 +5,6 @@ import { useFormContext, useFieldArray } from 'react-hook-form';
 import CvTypography from './CvTypography';
 import CvSettingTitle from './Setting/CvSettingTitle';
 import CvSettingItem from './Setting/CvSettingItem';
-import Slider from 'react-input-slider';
 import CvSlider from './CvSlider';
 
 const CvLanguage = ({
