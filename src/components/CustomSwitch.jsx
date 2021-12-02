@@ -1,7 +1,7 @@
 import { Switch } from '@headlessui/react';
 import { Controller } from 'react-hook-form';
 
-const CustomSwitch = ({ control, name, label }) => {
+const CustomSwitch = ({ control, name, label, cb }) => {
   return (
     <Controller
       control={control}
@@ -12,7 +12,10 @@ const CustomSwitch = ({ control, name, label }) => {
             <Switch.Label className="">{label}</Switch.Label>
             <Switch
               checked={value}
-              onChange={onChange}
+              onChange={(e) => {
+                cb && cb();
+                onChange(e);
+              }}
               className={`${
                 value ? 'bg-blue-600' : 'bg-gray-200'
               } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}

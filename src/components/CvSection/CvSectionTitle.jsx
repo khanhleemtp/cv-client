@@ -10,7 +10,7 @@ const CvSectionTitle = ({ placeholder, name, isSelected }) => {
   return (
     <div
       className={clsx(
-        'flex items-center w-full border-t-2 border-b-2 border-gray-300 mb-4',
+        'flex items-center w-full border-b-2 border-gray-300 mb-4',
         { 'rounded-t-lg': isSelected }
       )}
     >

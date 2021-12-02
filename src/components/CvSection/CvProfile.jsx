@@ -7,7 +7,7 @@ const CvProfile = () => {
   const { register } = useFormContext();
 
   return (
-    <CvSectionWrapper name="header" setting={<CvSettingProfile />}>
+    <CvSectionWrapper name="header" container setting={<CvSettingProfile />}>
       <div>
         <CvTypography
           type="h1"

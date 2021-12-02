@@ -7,7 +7,7 @@ const CvContainer = ({ children, isSelected }) => {
   // methods.reset(cvData);
   return (
     <div
-      className={clsx('relative bg-transparent mx-auto', {
+      className={clsx('bg-transparent container mx-auto', {
         'bg-gray-300 bg-opacity-60': isSelected,
       })}
     >

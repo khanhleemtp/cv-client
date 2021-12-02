@@ -22,6 +22,7 @@ const CvSectionWrapper = ({
   isBorder = false,
   isModalOpen,
   setting,
+  container,
 }) => {
   const ref = useRef();
   const { control } = useFormContext();
@@ -34,7 +35,7 @@ const CvSectionWrapper = ({
   const { dirtyFields } = useFormState({ control });
   // console.log('isDirty', isDirty, dirtyFields, cvData);
 
-  console.log(dirtyFields, isSelected);
+  console.log('dirtyField: ', dirtyFields, '\n', 'isSlected:', isSelected);
 
   const handleClose = useCallback(() => {
     if (isModalOpen) return;
@@ -60,21 +61,24 @@ const CvSectionWrapper = ({
       onClick={(e) => handleOpen(e)}
       ref={ref}
       className={clsx(
-        'mx-2 mb-3 bg-transparent relative',
+        'p-2 bg-transparent relative',
         {
-          'bg-white ring-1 ring-blue-500 rounded-lg': isSelected,
+          'bg-white': isSelected,
+        },
+        {
+          'ring-1 ring-blue-500 rounded-lg': !container && isSelected,
         },
         { 'border-b-2': isBorder }
       )}
     >
       <Transition
         show={isSelected}
-        enter="transition ease-in duration-150"
-        enterFrom="opacity-0 transform -translate-y-2"
+        enter="transition duration-75"
+        enterFrom="opacity-0 transform translate-y-0"
         enterTo="opacity-100"
-        leave="ease-in duration-150"
+        leave="transition duration-150 "
         leaveFrom="opacity-100"
-        leaveTo="opacity-0 transform -translate-y-2"
+        leaveTo="opacity-0 transform translate-y-0"
       >
         <div className="absolute z-20 left-1/2 -top-4 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full border-t-2">
           <div className="inline-flex items-center divide-x-2">

@@ -7,6 +7,7 @@ import CvSummary from './CvSummary';
 import CvEducation from './CvEducation';
 
 import { selectSectionStart } from './../../redux/viewState/viewState.action';
+import CvLanguage from './CvLanguage';
 
 const CvSectionBase = ({ record, index }) => {
   const { control, setValue, setFocus } = useFormContext();
@@ -30,9 +31,13 @@ const CvSectionBase = ({ record, index }) => {
       updateData();
     };
 
-    const removeItem = (index, func) => () => {
+    const removeItem = (index, func, nextPosition) => () => {
+      if (index === 0) return;
       func(index);
-      // updateData();
+      updateData();
+      if (nextPosition) {
+        setFocus(nextPosition);
+      }
     };
 
     const upItem = (k, func, nextPostion) => {
@@ -40,7 +45,8 @@ const CvSectionBase = ({ record, index }) => {
       return () => {
         func(k, k - 1);
         dispatch(selectSectionStart(nextPostion));
-        setFocus(nextPostion);
+
+        // setFocus(nextPostion);
       };
     };
 
@@ -49,7 +55,7 @@ const CvSectionBase = ({ record, index }) => {
       return () => {
         func(k, k + 1);
         dispatch(selectSectionStart(nextPostion));
-        setFocus(nextPostion);
+        // setFocus(nextPostion);
       };
     };
 
@@ -73,6 +79,18 @@ const CvSectionBase = ({ record, index }) => {
       case 'EducationSection':
         return (
           <CvEducation
+            index={index}
+            createItem={createItem}
+            removeSection={removeSection}
+            removeItem={removeItem}
+            upItem={upItem}
+            downItem={downItem}
+            updateData={updateData}
+          />
+        );
+      case 'LanguageSection':
+        return (
+          <CvLanguage
             index={index}
             createItem={createItem}
             removeSection={removeSection}

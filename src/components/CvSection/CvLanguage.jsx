@@ -5,8 +5,10 @@ import { useFormContext, useFieldArray } from 'react-hook-form';
 import CvTypography from './CvTypography';
 import CvSettingTitle from './Setting/CvSettingTitle';
 import CvSettingItem from './Setting/CvSettingItem';
+import Slider from 'react-input-slider';
+import CvSlider from './CvSlider';
 
-const CvSummary = ({
+const CvLanguage = ({
   index,
   createItem,
   removeSection,
@@ -25,9 +27,9 @@ const CvSummary = ({
 
   return (
     <CvSectionWrapper
-      name="summay"
-      setting={<CvSettingTitle add={addItem} remove={removeSection} />}
+      name="language"
       container
+      setting={<CvSettingTitle add={addItem} remove={removeSection} />}
     >
       <CvSectionTitle placeholder="Summary" name={`sections.${index}.name`} />
       {fields?.map((item, k) => (
@@ -52,15 +54,17 @@ const CvSummary = ({
             />
           }
         >
-          <CvTypography
-            type="p"
-            placeholder="Thông tin thêm"
-            {...register(`sections.${index}.items.${k}.text`)}
-          />
+          <div className="pt-4 pb-2">
+            <CvTypography placeholder="Kỹ năng" medium className="mb-0" />
+            <CvSlider
+              name={`sections.${index}.items.${k}.level`}
+              placeholder="Kỹ năng khác"
+            />
+          </div>
         </CvSectionWrapper>
       ))}
     </CvSectionWrapper>
   );
 };
 
-export default CvSummary;
+export default CvLanguage;

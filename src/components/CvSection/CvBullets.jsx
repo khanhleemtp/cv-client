@@ -32,23 +32,21 @@ const CvBullets = ({ name, showBullets }) => {
     }
   };
 
-  console.log('fields: ', fields);
-
   return (
     !isEnable &&
     fields?.map((field, l) => (
       <div
         key={field._id}
-        className="inline-flex ml-3"
+        className="inline-flex"
         onKeyPress={(e) => handleKeyPress(e, l)}
         onKeyDown={(e) => handleKeyDown(e, l)}
       >
-        <span>&bull;</span>
+        <span className="flex items-center justify-center w-4 h-4">&bull;</span>
         <CvTypography
           {...register(`${name}.${l}.text`)}
           // onKeyDown={(e) => handleKeyDown(e, l)}
           type="h5"
-          placeholder="Abc"
+          placeholder="Thông tin chi tiết"
         />
       </div>
     ))

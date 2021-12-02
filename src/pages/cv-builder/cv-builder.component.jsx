@@ -13,9 +13,9 @@ import CvSectionBase from './../../components/CvSection/CvSectionBase';
 
 // REDUX
 import { loadCvStart } from '../../redux/cv/cv.action';
-import { selectCvData } from './../../redux/cv/cv.selectors';
+import { selectCvData, selectLoadingApi } from './../../redux/cv/cv.selectors';
 
-const CvBuilderPage = ({ cvData }) => {
+const CvBuilderPage = ({ cvData, isLoading }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const CvBuilderPage = ({ cvData }) => {
     <NavContainer>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <button type="submit">Submit</button>
+          <p className="px-2">{isLoading ? 'Đang lưu...' : 'Đã lưu'}</p>
           <ToolboxContainer />
           <CvContainer>
             <CvTitle />
@@ -70,6 +70,7 @@ const CvBuilderPage = ({ cvData }) => {
 
 const mapDispatchToProps = createStructuredSelector({
   cvData: selectCvData,
+  isLoading: selectLoadingApi,
 });
 
 export default connect(mapDispatchToProps)(CvBuilderPage);

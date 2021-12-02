@@ -17,43 +17,65 @@ const CvEducation = ({
   upItem,
 }) => {
   const { register, control } = useFormContext();
-  console.log(index);
   const { move, append, remove, fields } = useFieldArray({
     control,
     name: `sections.${index}.items`,
     keyName: '_id',
   });
 
-  const addItem = createItem({ text: '' }, append);
+  const addItem = createItem(
+    {
+      degree: '',
+      dateRange: {
+        from: null,
+        isOngoing: false,
+        to: null,
+      },
+      bullets: [
+        {
+          text: '',
+        },
+      ],
+      institution: '',
+      location: '',
+      gpaText: '',
+      gpa: '',
+      maxGpa: '',
+      showBullets: true,
+      showLocation: true,
+      showGpa: true,
+      showDateRange: true,
+    },
+    append
+  );
 
   return (
     <CvSectionWrapper
+      container
       name="Education"
-      setting={
-        <CvSettingTitle
-          add={addItem}
-          remove={removeSection}
-          dayProps={`sections.${index}.items`}
-        />
-      }
+      setting={<CvSettingTitle add={addItem} remove={removeSection} />}
     >
       <CvSectionTitle placeholder="Education" name={`sections.${index}.name`} />
       {fields?.map((item, k) => (
         <CvSectionWrapper
-          name={`sections.${index}.items.${k}.text`}
+          name={`sections.${index}.items.${k}`}
           key={item._id}
           setting={
             <CvSettingItem
               add={addItem}
-              remove={removeItem(k, remove)}
-              up={upItem(k, move, `sections.${index}.items.${k - 1}.text`)}
+              remove={removeItem(
+                k,
+                remove,
+                `sections.${index}.items.${k - 1}.degree`
+              )}
+              up={upItem(k, move, `sections.${index}.items.${k - 1}`)}
               down={downItem(
                 k,
                 move,
                 fields?.length,
-                `sections.${index}.items.${k + 1}.text`
+                `sections.${index}.items.${k + 1}`
               )}
-              calendar={() => {}}
+              dayProps={`sections.${index}.items.${k}.dateRange`}
             />
           }
         >
@@ -89,7 +111,7 @@ const CvEducation = ({
                 <CvTypography
                   type="h4"
                   className="text-center p-0"
-                  placeholder="Tong"
+                  placeholder="Tổng"
                   {...register(`sections.${index}.items.${k}.maxGpa`)}
                 />
               </div>
@@ -100,6 +122,7 @@ const CvEducation = ({
                   from={`sections.${index}.items.${k}.dateRange.from`}
                   to={`sections.${index}.items.${k}.dateRange.to`}
                   isOngoing={`sections.${index}.items.${k}.dateRange.isOngoing`}
+                  dayProps={`sections.${index}.items.${k}.dateRange`}
                 />
                 <CvTypography
                   type="h4"

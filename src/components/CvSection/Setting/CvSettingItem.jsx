@@ -8,12 +8,11 @@ import {
 } from '@heroicons/react/outline';
 import CvSettingIcon from './CvSettingIcon';
 import PopoverSetting from './../../PopoverSetting';
-import Calendar from '../../Calendar';
+import CvDatepicker from '../CvDatePicker';
 
 const CvSettingItem = ({
   add = () => {},
   remove = () => {},
-  calendar = null,
   config = null,
   up = null,
   down = null,
@@ -40,14 +39,14 @@ const CvSettingItem = ({
       {down && (
         <CvSettingIcon icon={ChevronDownIcon} onClick={down} title="Xuống" />
       )}
-      {calendar && (
+      {dayProps && (
         <PopoverSetting
-          position="top"
-          setting={<Calendar dayProps={dayProps} />}
+          position="bottom"
+          setting={<CvDatepicker dayProps={dayProps} />}
         >
           <CvSettingIcon
             icon={CalendarIcon}
-            onClick={calendar}
+            // onClick={calendar}
             title="Thời gian"
           />
         </PopoverSetting>
