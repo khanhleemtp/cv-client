@@ -13,41 +13,56 @@ const CvSummary = ({
   removeItem,
   downItem,
   upItem,
+  addItem,
 }) => {
   const { register, control } = useFormContext();
-  const { move, append, remove, fields } = useFieldArray({
+  const { move, append, remove, fields, insert } = useFieldArray({
     control,
     name: `sections.${index}.items`,
     keyName: '_id',
   });
 
-  const addItem = createItem({ text: '' }, append);
-
   return (
     <CvSectionWrapper
       name="summay"
-      setting={<CvSettingTitle add={addItem} remove={removeSection} />}
+      setting={
+        <CvSettingTitle
+          add={createItem(
+            append,
+            `sections.${index}.items.${fields?.length}`,
+            'text'
+          )}
+          remove={removeSection}
+        />
+      }
       container
     >
       <CvSectionTitle placeholder="Summary" name={`sections.${index}.name`} />
       {fields?.map((item, k) => (
         <CvSectionWrapper
-          name={`sections.${index}.items.${k}.text`}
+          name={`sections.${index}.items.${k}`}
           key={item._id}
           setting={
             <CvSettingItem
-              add={addItem}
+              add={addItem(
+                insert,
+                `sections.${index}.items.${k + 1}`,
+                'text',
+                k + 1
+              )}
               remove={removeItem(
                 k,
                 remove,
-                `sections.${index}.items.${k - 1}.text`
+                `sections.${index}.items.${k - 1}`,
+                `text`
               )}
-              up={upItem(k, move, `sections.${index}.items.${k - 1}.text`)}
+              up={upItem(k, move, `sections.${index}.items.${k - 1}`, 'text')}
               down={downItem(
                 k,
                 move,
                 fields?.length,
-                `sections.${index}.items.${k + 1}.text`
+                `sections.${index}.items.${k + 1}`,
+                'text'
               )}
             />
           }

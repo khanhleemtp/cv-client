@@ -11,6 +11,7 @@ import {
   loadCvFailure,
   updateCvFinish,
   updateCvFailure,
+  loadingUpdate,
 } from './cv.action';
 
 export function* onLoadCvAsync({ payload: id }) {
@@ -26,7 +27,7 @@ export function* onLoadCvAsync({ payload: id }) {
 
 export function* onUpdateCvAsync({ payload: { id, updateData, config = {} } }) {
   try {
-    yield put(loadingApi());
+    yield put(loadingUpdate());
     const { data } = yield axiosInstance.patch(
       `/resumes/${id}`,
       updateData,

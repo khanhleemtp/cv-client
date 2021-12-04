@@ -3,6 +3,7 @@ import { CvActionTypes } from './cv.types';
 const INITIAL_STATE = {
   error: null,
   isLoading: false,
+  isUpdating: false,
   cv: null,
 };
 
@@ -16,13 +17,23 @@ const cvReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isLoading: true,
       };
+    case CvActionTypes.LOADING_UPDATE:
+      return {
+        ...state,
+        isUpdating: true,
+      };
     case CvActionTypes.LOAD_CV_FINISH:
-    case CvActionTypes.UPDATE_CV_FINISH:
       return {
         ...state,
         error: null,
         cv: action.payload,
         isLoading: false,
+      };
+    case CvActionTypes.UPDATE_CV_FINISH:
+      return {
+        ...state,
+        error: null,
+        isUpdating: false,
       };
     case CvActionTypes.UPDATE_CV_FAILURE:
     case CvActionTypes.LOAD_CV_FAILURE:
@@ -30,6 +41,7 @@ const cvReducer = (state = INITIAL_STATE, action) => {
         ...state,
         error: action.payload,
         isLoading: false,
+        isUpdating: false,
       };
     default:
       return state;

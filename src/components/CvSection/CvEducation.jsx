@@ -15,130 +15,112 @@ const CvEducation = ({
   removeItem,
   downItem,
   upItem,
+  addItem,
 }) => {
   const { register, control } = useFormContext();
-  const { move, append, remove, fields } = useFieldArray({
+
+  const baseName = `sections.${index}.items`;
+
+  const { move, append, insert, remove, fields } = useFieldArray({
     control,
-    name: `sections.${index}.items`,
+    name: baseName,
     keyName: '_id',
   });
-
-  const addItem = createItem(
-    {
-      degree: '',
-      dateRange: {
-        from: null,
-        isOngoing: false,
-        to: null,
-      },
-      bullets: [
-        {
-          text: '',
-        },
-      ],
-      institution: '',
-      location: '',
-      gpaText: '',
-      gpa: '',
-      maxGpa: '',
-      showBullets: true,
-      showLocation: true,
-      showGpa: true,
-      showDateRange: true,
-    },
-    append
-  );
 
   return (
     <CvSectionWrapper
       container
       name="Education"
-      setting={<CvSettingTitle add={addItem} remove={removeSection} />}
+      setting={
+        <CvSettingTitle
+          add={createItem(append, `${baseName}.${fields?.length}`, 'degree')}
+          remove={removeSection}
+        />
+      }
     >
       <CvSectionTitle placeholder="Education" name={`sections.${index}.name`} />
-      {fields?.map((item, k) => (
-        <CvSectionWrapper
-          name={`sections.${index}.items.${k}`}
-          key={item._id}
-          setting={
-            <CvSettingItem
-              add={addItem}
-              remove={removeItem(
-                k,
-                remove,
-                `sections.${index}.items.${k - 1}.degree`
-              )}
-              up={upItem(k, move, `sections.${index}.items.${k - 1}`)}
-              down={downItem(
-                k,
-                move,
-                fields?.length,
-                `sections.${index}.items.${k + 1}`
-              )}
-              dayProps={`sections.${index}.items.${k}.dateRange`}
+      {fields?.map((item, k) => {
+        return (
+          <CvSectionWrapper
+            name={`${baseName}.${k}`}
+            key={item._id}
+            setting={
+              <CvSettingItem
+                add={addItem(insert, `${baseName}.${k + 1}`, `degree`, k + 1)}
+                remove={removeItem(k, remove, `${baseName}.${k - 1}`, 'degree')}
+                up={upItem(k, move, `${baseName}.${k - 1}`, 'degree')}
+                down={downItem(
+                  k,
+                  move,
+                  fields?.length,
+                  `${baseName}.${k + 1}`,
+                  'degree'
+                )}
+                dayProps={`${baseName}.${k}.dateRange`}
+              />
+            }
+          >
+            <CvTypography
+              type="h3"
+              placeholder="Ngành học"
+              {...register(`${baseName}.${k}.degree`)}
+              medium
             />
-          }
-        >
-          <CvTypography
-            type="h3"
-            placeholder="Ngành học"
-            {...register(`sections.${index}.items.${k}.degree`)}
-            medium
-          />
-          <CvTypography
-            type="p"
-            placeholder="Trường Đại học"
-            {...register(`sections.${index}.items.${k}.institution`)}
-            color="secondary"
-            bold
-          />
-          <div className="flex flex-wrap md:flex-row-reverse items-center justify-start">
-            <div className="flex flex-col w-24">
-              <CvTypography
-                type="h4"
-                className="text-center"
-                placeholder="Loại"
-                {...register(`sections.${index}.items.${k}.gpaText`)}
-              />
-              <div className="inline-flex items-center">
+            <CvTypography
+              type="p"
+              placeholder="Trường Đại học"
+              {...register(`${baseName}.${k}.institution`)}
+              color="secondary"
+              bold
+            />
+            <div className="flex flex-wrap md:flex-row-reverse items-center justify-start">
+              <div className="flex flex-col w-24">
                 <CvTypography
                   type="h4"
-                  className="text-center p-0"
-                  placeholder="TB"
-                  {...register(`sections.${index}.items.${k}.gpa`)}
+                  className="text-center"
+                  placeholder="Loại"
+                  {...register(`${baseName}.${k}.gpaText`)}
                 />
-                <span className="mb-0.5">/</span>
-                <CvTypography
-                  type="h4"
-                  className="text-center p-0"
-                  placeholder="Tổng"
-                  {...register(`sections.${index}.items.${k}.maxGpa`)}
+                <div className="inline-flex items-center">
+                  <CvTypography
+                    type="h4"
+                    className="text-center p-0"
+                    placeholder="TB"
+                    {...register(`${baseName}.${k}.gpa`)}
+                  />
+                  <span className="mb-0.5">/</span>
+                  <CvTypography
+                    type="h4"
+                    className="text-center p-0"
+                    placeholder="Tổng"
+                    {...register(`${baseName}.${k}.maxGpa`)}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col flex-grow">
+                <div className="flex items-center">
+                  <CvCalendar
+                    from={`${baseName}.${k}.dateRange.from`}
+                    to={`${baseName}.${k}.dateRange.to`}
+                    isOngoing={`${baseName}.${k}.dateRange.isOngoing`}
+                    dayProps={`${baseName}.${k}.dateRange`}
+                  />
+                  <CvTypography
+                    type="h4"
+                    placeholder="Địa điểm"
+                    {...register(`${baseName}.${k}.location`)}
+                    icon="location"
+                  />
+                </div>
+                <CvBullets
+                  name={`${baseName}.${k}.bullets`}
+                  showBullets={`${baseName}.${k}.showBullets`}
                 />
               </div>
             </div>
-            <div className="flex flex-col flex-grow">
-              <div className="flex items-center">
-                <CvCalendar
-                  from={`sections.${index}.items.${k}.dateRange.from`}
-                  to={`sections.${index}.items.${k}.dateRange.to`}
-                  isOngoing={`sections.${index}.items.${k}.dateRange.isOngoing`}
-                  dayProps={`sections.${index}.items.${k}.dateRange`}
-                />
-                <CvTypography
-                  type="h4"
-                  placeholder="Địa điểm"
-                  {...register(`sections.${index}.items.${k}.location`)}
-                  icon="location"
-                />
-              </div>
-              <CvBullets
-                name={`sections.${index}.items.${k}.bullets`}
-                showBullets={`sections.${index}.items.${k}.showBullets`}
-              />
-            </div>
-          </div>
-        </CvSectionWrapper>
-      ))}
+          </CvSectionWrapper>
+        );
+      })}
     </CvSectionWrapper>
   );
 };

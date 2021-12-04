@@ -25,28 +25,37 @@ const CvSectionWrapper = ({
   container,
 }) => {
   const ref = useRef();
-  const { control } = useFormContext();
+  const { control, reset } = useFormContext();
 
   const cvData = useWatch({
     control,
   });
 
   const dispatch = useDispatch();
-  const { dirtyFields } = useFormState({ control });
+  const { dirtyFields, isDirty } = useFormState({ control });
   // console.log('isDirty', isDirty, dirtyFields, cvData);
 
-  console.log('dirtyField: ', dirtyFields, '\n', 'isSlected:', isSelected);
+  console.log(
+    'dirtyField: ',
+    dirtyFields,
+    '\n',
+    'isSlected:',
+    isSelected,
+    'dirty',
+    isDirty
+  );
 
   const handleClose = useCallback(() => {
     if (isModalOpen) return;
     if (isSelected) {
       if (!isEmpty(dirtyFields)) {
         dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
+        reset({}, { keepDirty: false, keepValues: true, keepTouched: true });
       }
       return dispatch(selectSectionFinish());
     }
     return;
-  }, [dispatch, isSelected, isModalOpen, cvData, dirtyFields]);
+  }, [dispatch, isSelected, isModalOpen, cvData, dirtyFields, reset]);
 
   const handleOpen = (e) => {
     e.stopPropagation();
@@ -73,12 +82,12 @@ const CvSectionWrapper = ({
     >
       <Transition
         show={isSelected}
-        enter="transition duration-75"
-        enterFrom="opacity-0 transform translate-y-0"
+        enter="transition-opacity"
+        enterFrom="opacity-0 "
         enterTo="opacity-100"
-        leave="transition duration-150 "
+        leave="transition-opacity"
         leaveFrom="opacity-100"
-        leaveTo="opacity-0 transform translate-y-0"
+        leaveTo="opacity-0"
       >
         <div className="absolute z-20 left-1/2 -top-4 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full border-t-2">
           <div className="inline-flex items-center divide-x-2">

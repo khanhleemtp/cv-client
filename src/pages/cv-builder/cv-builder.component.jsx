@@ -13,9 +13,13 @@ import CvSectionBase from './../../components/CvSection/CvSectionBase';
 
 // REDUX
 import { loadCvStart } from '../../redux/cv/cv.action';
-import { selectCvData, selectLoadingApi } from './../../redux/cv/cv.selectors';
+import {
+  selectCvData,
+  selectLoadingApi,
+  selectUpdatingCv,
+} from './../../redux/cv/cv.selectors';
 
-const CvBuilderPage = ({ cvData, isLoading }) => {
+const CvBuilderPage = ({ cvData, isLoading, isUpdating }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -46,24 +50,27 @@ const CvBuilderPage = ({ cvData, isLoading }) => {
 
   return (
     <NavContainer>
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <p className="px-2">{isLoading ? 'Đang lưu...' : 'Đã lưu'}</p>
-          <ToolboxContainer />
-          <CvContainer>
-            <CvTitle />
-            <CvProfile />
-            {fields.map((field, index) => (
-              <CvSectionBase
-                index={index}
-                key={field._id}
-                record={field.record}
-              />
-            ))}
-          </CvContainer>
-        </form>
-      </FormProvider>
-      ;
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <p className="px-2">{isUpdating ? 'Đang lưu...' : 'Đã lưu'}</p>
+            <ToolboxContainer />
+            <CvContainer>
+              <CvTitle />
+              <CvProfile />
+              {fields.map((field, index) => (
+                <CvSectionBase
+                  index={index}
+                  key={field._id}
+                  record={field.record}
+                />
+              ))}
+            </CvContainer>
+          </form>
+        </FormProvider>
+      )}
     </NavContainer>
   );
 };
@@ -71,6 +78,7 @@ const CvBuilderPage = ({ cvData, isLoading }) => {
 const mapDispatchToProps = createStructuredSelector({
   cvData: selectCvData,
   isLoading: selectLoadingApi,
+  isUpdating: selectUpdatingCv,
 });
 
 export default connect(mapDispatchToProps)(CvBuilderPage);

@@ -18,7 +18,6 @@ axiosInstance.interceptors.request.use(
 
     if (!request.headers.Authorization) {
       const token = localStorage.getItem('ldtoken');
-      console.log(token);
       if (token) {
         request.headers.Authorization = `Bearer ${token}`;
       }

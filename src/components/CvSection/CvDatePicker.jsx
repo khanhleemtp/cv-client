@@ -37,15 +37,13 @@ const CvDatepicker = ({ dayProps }) => {
           <CustomDatepicker name={`${dayProps}.from`} />
         </div>
       ) : (
-        <div>
-          <div className="w-32">
-            <CustomSwitch
-              label="Hiện tại"
-              control={control}
-              name={`${dayProps}.isOngoing`}
-              cb={cbIsOngoing}
-            />
-          </div>
+        <div className="w-full flex flex-col items-center justify-center">
+          <CustomSwitch
+            label="Hiện tại"
+            control={control}
+            name={`${dayProps}.isOngoing`}
+            cb={cbIsOngoing}
+          />
           <CustomDatepicker
             name={`${dayProps}.to`}
             isOngoing={`${dayProps}.isOngoing`}

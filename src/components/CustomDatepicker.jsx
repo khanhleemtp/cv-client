@@ -2,16 +2,12 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import 'moment/locale/vi';
 import MomentLocaleUtils from 'react-day-picker/moment';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
 import moment from 'moment';
 import { useFormContext, useWatch } from 'react-hook-form';
+import './CustomDatePicker.css';
 
 const CustomDatepicker = ({ name, cb }) => {
   const { setValue, control } = useFormContext();
-
-  // useEffect(() => {
-  //   register(name);
-  // }, [name, register]);
 
   const handleDayClick = (day) => {
     console.log('day:', day);
@@ -23,15 +19,6 @@ const CustomDatepicker = ({ name, cb }) => {
 
   return (
     <>
-      <HelmetProvider>
-        <Helmet async>
-          <style>{`   
-          .DayPicker-Caption {
-            text-transform: capitalize;
-          }
-          `}</style>
-        </Helmet>
-      </HelmetProvider>
       <DayPicker
         localeUtils={MomentLocaleUtils}
         locale="vi"

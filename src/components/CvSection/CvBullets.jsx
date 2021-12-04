@@ -34,7 +34,8 @@ const CvBullets = ({ name, showBullets }) => {
   };
 
   return (
-    !isEnable &&
+    isEnable &&
+    fields &&
     fields?.map((field, l) => (
       <div
         key={field._id}

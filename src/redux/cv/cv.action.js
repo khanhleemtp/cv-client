@@ -4,6 +4,10 @@ export const loadingApi = () => ({
   type: CvActionTypes.LOADING_API,
 });
 
+export const loadingUpdate = () => ({
+  type: CvActionTypes.LOADING_UPDATE,
+});
+
 export const loadCvStart = (id) => ({
   type: CvActionTypes.LOAD_CV_START,
   payload: id,

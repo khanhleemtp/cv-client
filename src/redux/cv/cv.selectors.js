@@ -8,6 +8,11 @@ export const selectLoadingApi = createSelector(
   (state) => state.isLoading
 );
 
+export const selectUpdatingCv = createSelector(
+  selectorCv,
+  (state) => state.isUpdating
+);
+
 export const selectCvData = createSelector(selectorCv, (state) => state.cv);
 export const selectCvSections = createSelector(
   selectCvData,
