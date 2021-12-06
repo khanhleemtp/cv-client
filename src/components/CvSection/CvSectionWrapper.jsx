@@ -33,7 +33,6 @@ const CvSectionWrapper = ({
 
   const dispatch = useDispatch();
   const { dirtyFields, isDirty } = useFormState({ control });
-  // console.log('isDirty', isDirty, dirtyFields, cvData);
 
   console.log(
     'dirtyField: ',

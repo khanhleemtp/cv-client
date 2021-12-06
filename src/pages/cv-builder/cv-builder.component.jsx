@@ -1,25 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useDispatch, connect } from 'react-redux';
-import { FormProvider, useForm, useFieldArray } from 'react-hook-form';
 import { createStructuredSelector } from 'reselect';
 
 // COMPONENT
 import NavContainer from '../../components/nav-container/nav-container.component';
-import CvTitle from '../../components/CvSection/CvTitle';
-import CvContainer from '../../components/CvSection/CvContainer';
-import CvProfile from '../../components/CvSection/CvProfile';
-import ToolboxContainer from '../../components/Toolbox/ToolboxContainer';
-import CvSectionBase from './../../components/CvSection/CvSectionBase';
+// import CvContainer from '../../components/CvSection/CvContainer';
 
 // REDUX
 import { loadCvStart } from '../../redux/cv/cv.action';
-import {
-  selectCvData,
-  selectLoadingApi,
-  selectUpdatingCv,
-} from './../../redux/cv/cv.selectors';
+import { selectLoadingApi } from './../../redux/cv/cv.selectors';
 
-const CvBuilderPage = ({ cvData, isLoading, isUpdating }) => {
+import { lazy } from '@loadable/component';
+import Loading from './../../components/loading/loading.component';
+
+const CvContainer = lazy(() =>
+  import('../../components/CvSection/CvContainer')
+);
+
+const CvBuilderPage = ({ isLoading }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,57 +25,19 @@ const CvBuilderPage = ({ cvData, isLoading, isUpdating }) => {
     return () => {};
   }, [dispatch]);
 
-  const methods = useForm({
-    defaultValues: cvData,
-  });
-  const { control } = methods;
-
-  const { fields } = useFieldArray({
-    control,
-    name: 'sections',
-    keyName: '_id',
-  });
-
-  useEffect(() => {
-    methods.reset(cvData, { keepDirty: false, keepValues: true });
-    return () => {};
-  }, [cvData, methods]);
-
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-  };
-
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <NavContainer>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
-            <p className="px-2">{isUpdating ? 'Đang lưu...' : 'Đã lưu'}</p>
-            <ToolboxContainer />
-            <CvContainer>
-              <CvTitle />
-              <CvProfile />
-              {fields.map((field, index) => (
-                <CvSectionBase
-                  index={index}
-                  key={field._id}
-                  record={field.record}
-                />
-              ))}
-            </CvContainer>
-          </form>
-        </FormProvider>
-      )}
+      <Suspense fallback={<Loading />}>
+        <CvContainer />
+      </Suspense>
     </NavContainer>
   );
 };
 
-const mapDispatchToProps = createStructuredSelector({
-  cvData: selectCvData,
+const mapStateToProps = createStructuredSelector({
   isLoading: selectLoadingApi,
-  isUpdating: selectUpdatingCv,
 });
 
-export default connect(mapDispatchToProps)(CvBuilderPage);
+export default connect(mapStateToProps)(CvBuilderPage);

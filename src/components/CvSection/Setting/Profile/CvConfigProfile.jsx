@@ -12,7 +12,7 @@ const CvConfigProfile = () => {
   });
 
   return (
-    <>
+    <div className="px-2 py-6 w-52">
       <CustomSwitch control={control} name="header.showName" label="Họ tên" />
       <CustomSwitch
         control={control}
@@ -54,7 +54,7 @@ const CvConfigProfile = () => {
           onClick={() => setValue('header.photoStyle', 'square')}
         ></div>
       </div>
-    </>
+    </div>
   );
 };
 

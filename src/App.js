@@ -27,7 +27,7 @@ const SignInAndSignUpPage = lazy(() =>
 );
 
 const CvBuilderPage = lazy(() =>
-  pMinDelay(import('./pages/cv-builder/cv-builder.component'), 1000)
+  pMinDelay(import('./pages/cv-builder/cv-builder.component'))
 );
 
 function App() {

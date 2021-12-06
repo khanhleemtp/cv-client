@@ -12,11 +12,8 @@ const CvCalendar = ({ from, to, isOngoing, dayProps }) => {
   const isGoing = useWatch({ control, name: isOngoing });
 
   return (
-    <PopoverSetting
-      position="picker"
-      setting={<CvDatepicker dayProps={dayProps} />}
-    >
-      <div className="inline-flex items-center w-56 text-sm text-gray-500 cursor-pointer hover:bg-gray-200">
+    <PopoverSetting setting={<CvDatepicker dayProps={dayProps} />}>
+      <div className="inline-flex items-center text-sm text-gray-500 cursor-pointer hover:bg-gray-200">
         <div className="text-blue-500 pointer-events-none w-4 h-4">
           <CalendarIcon />
         </div>
