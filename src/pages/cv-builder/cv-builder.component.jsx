@@ -30,12 +30,6 @@ const CvBuilderPage = ({ cvData, isLoading, isUpdating }) => {
   const methods = useForm({
     defaultValues: cvData,
   });
-
-  useEffect(() => {
-    methods.reset(cvData);
-    return () => {};
-  }, [cvData, methods]);
-
   const { control } = methods;
 
   const { fields } = useFieldArray({
@@ -43,6 +37,11 @@ const CvBuilderPage = ({ cvData, isLoading, isUpdating }) => {
     name: 'sections',
     keyName: '_id',
   });
+
+  useEffect(() => {
+    methods.reset(cvData, { keepDirty: false, keepValues: true });
+    return () => {};
+  }, [cvData, methods]);
 
   const onSubmit = (data) => {
     alert(JSON.stringify(data));

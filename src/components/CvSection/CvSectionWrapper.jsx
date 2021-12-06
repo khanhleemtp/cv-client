@@ -25,7 +25,7 @@ const CvSectionWrapper = ({
   container,
 }) => {
   const ref = useRef();
-  const { control, reset } = useFormContext();
+  const { control } = useFormContext();
 
   const cvData = useWatch({
     control,
@@ -50,12 +50,11 @@ const CvSectionWrapper = ({
     if (isSelected) {
       if (!isEmpty(dirtyFields)) {
         dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
-        reset({}, { keepDirty: false, keepValues: true, keepTouched: true });
       }
       return dispatch(selectSectionFinish());
     }
     return;
-  }, [dispatch, isSelected, isModalOpen, cvData, dirtyFields, reset]);
+  }, [dispatch, isSelected, isModalOpen, cvData, dirtyFields]);
 
   const handleOpen = (e) => {
     e.stopPropagation();
@@ -70,7 +69,7 @@ const CvSectionWrapper = ({
       onClick={(e) => handleOpen(e)}
       ref={ref}
       className={clsx(
-        'p-2 bg-transparent relative',
+        'p-2 bg-transparent relative transition-colors',
         {
           'bg-white': isSelected,
         },

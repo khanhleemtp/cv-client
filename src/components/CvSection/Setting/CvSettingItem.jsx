@@ -10,14 +10,29 @@ import CvSettingIcon from './CvSettingIcon';
 import PopoverSetting from './../../PopoverSetting';
 import CvDatepicker from '../CvDatePicker';
 
+import clsx from 'clsx';
+import { useLayoutEffect, useState } from 'react';
+
 const CvSettingItem = ({
-  add = () => {},
-  remove = () => {},
+  add = null,
+  remove = null,
   config = null,
   up = null,
   down = null,
   dayProps = null,
+  index = 0,
+  isHiddenUp = false,
+  isHiddenDown = false,
 }) => {
+  const [enabledUp, setEnabledUp] = useState(true);
+  const [enabledDown, setEnabledDown] = useState(true);
+
+  useLayoutEffect(() => {
+    console.log('render layout', isHiddenUp, isHiddenDown);
+    if (isHiddenUp) setEnabledUp(false);
+    if (isHiddenDown) setEnabledDown(false);
+  }, [isHiddenUp, isHiddenDown]);
+
   return (
     <>
       <div
@@ -32,28 +47,37 @@ const CvSettingItem = ({
           <div className="hidden md:inline-block">Thêm mới</div>
         </div>
       </div>
-      {remove && (
-        <CvSettingIcon icon={TrashIcon} onClick={remove} title="Xóa" />
+      <CvSettingIcon
+        icon={TrashIcon}
+        onClick={remove}
+        title="Xóa"
+        className={clsx({ hidden: remove === null })}
+      />
+      {enabledUp && (
+        <CvSettingIcon icon={ChevronUpIcon} onClick={up} title="Lên" />
       )}
-      {up && <CvSettingIcon icon={ChevronUpIcon} onClick={up} title="Lên" />}
-      {down && (
+      {enabledDown && (
         <CvSettingIcon icon={ChevronDownIcon} onClick={down} title="Xuống" />
       )}
-      {dayProps && (
-        <PopoverSetting
-          position="bottom"
-          setting={<CvDatepicker dayProps={dayProps} />}
-        >
-          <CvSettingIcon
-            icon={CalendarIcon}
-            // onClick={calendar}
-            title="Thời gian"
-          />
-        </PopoverSetting>
-      )}
-      {config && (
-        <CvSettingIcon icon={CogIcon} onClick={config} title="Tùy chỉnh" />
-      )}
+
+      <PopoverSetting
+        position="bottom"
+        setting={<CvDatepicker dayProps={dayProps} />}
+        className={clsx({ hidden: dayProps === null })}
+      >
+        <CvSettingIcon
+          icon={CalendarIcon}
+          // onClick={calendar}
+          title="Thời gian"
+        />
+      </PopoverSetting>
+
+      <CvSettingIcon
+        icon={CogIcon}
+        onClick={config}
+        title="Tùy chỉnh"
+        className={clsx({ hidden: config == null })}
+      />
     </>
   );
 };

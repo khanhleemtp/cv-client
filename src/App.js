@@ -22,12 +22,12 @@ const Homepage = lazy(() =>
 const SignInAndSignUpPage = lazy(() =>
   pMinDelay(
     import('./pages/sign-in-and-sign-up/sign-in-and-sign-up.component'),
-    1200
+    1000
   )
 );
 
 const CvBuilderPage = lazy(() =>
-  pMinDelay(import('./pages/cv-builder/cv-builder.component'), 1200)
+  pMinDelay(import('./pages/cv-builder/cv-builder.component'), 1000)
 );
 
 function App() {

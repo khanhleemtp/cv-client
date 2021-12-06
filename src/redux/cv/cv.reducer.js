@@ -33,6 +33,7 @@ const cvReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         error: null,
+        cv: action.payload,
         isUpdating: false,
       };
     case CvActionTypes.UPDATE_CV_FAILURE:

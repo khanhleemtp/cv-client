@@ -65,6 +65,8 @@ const CvLanguage = ({
                 `sections.${index}.items.${k + 1}`,
                 'name'
               )}
+              isHiddenUp={k === 0}
+              isHiddenDown={k === fields?.length - 1}
             />
           }
         >

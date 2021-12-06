@@ -6,13 +6,15 @@ import { updateCvStart } from './../../redux/cv/cv.action';
 import CvSummary from './CvSummary';
 import CvEducation from './CvEducation';
 
-import { selectSectionStart } from './../../redux/viewState/viewState.action';
+import {
+  selectSectionStart,
+  selectSectionFinish,
+} from './../../redux/viewState/viewState.action';
 import CvLanguage from './CvLanguage';
 import { CV_SECTION_ITEM_DATA } from './cv.data';
-import delayFunc from 'lodash/delay';
 
 const CvSectionBase = ({ record, index }) => {
-  const { control, setValue, setFocus, reset } = useFormContext();
+  const { control, setValue, setFocus } = useFormContext();
   const dispatch = useDispatch();
 
   const cvData = useWatch({ control });
@@ -23,10 +25,8 @@ const CvSectionBase = ({ record, index }) => {
   });
 
   const renderSection = useCallback(() => {
-    // updateData
     const updateData = () => {
       dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
-      reset({}, { keepDirty: false, keepValues: true, keepTouched: true });
     };
 
     const removeSection = () => {
@@ -42,17 +42,13 @@ const CvSectionBase = ({ record, index }) => {
       updateData();
     };
 
-    const upItem = (k, func, nextPosition, fieldFocus) => {
-      if (k === 0) return null;
-      return () => {
-        func(k, k - 1);
-        dispatch(selectSectionStart(nextPosition));
-        setFocus(`${nextPosition}.${fieldFocus}`);
-      };
+    const upItem = (k, func, nextPosition, fieldFocus) => () => {
+      func(k, k - 1);
+      dispatch(selectSectionStart(nextPosition));
+      setFocus(`${nextPosition}.${fieldFocus}`);
     };
 
     const downItem = (k, func, length, nextPosition, fieldFocus) => {
-      if (k === length - 1) return null;
       return () => {
         func(k, k + 1);
         dispatch(selectSectionStart(nextPosition));
@@ -61,24 +57,17 @@ const CvSectionBase = ({ record, index }) => {
     };
 
     const createItem = (func, nextPosition, fieldFocus) => () => {
-      func(CV_SECTION_ITEM_DATA[record], {
-        focusName: `${nextPosition}.${fieldFocus}`,
-      });
+      func(CV_SECTION_ITEM_DATA[record]);
       dispatch(selectSectionStart(nextPosition));
-      // return updateData();
-      delayFunc(updateData, 10);
+      updateData();
     };
 
     const addItem = (func, nextPosition, fieldFocus, index) => () => {
-      func(index, CV_SECTION_ITEM_DATA[record], {
-        focusName: `${nextPosition}.${fieldFocus}`,
-      });
+      dispatch(selectSectionFinish());
+      updateData();
+      func(index, CV_SECTION_ITEM_DATA[record]);
+
       dispatch(selectSectionStart(nextPosition));
-      // dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
-
-      delayFunc(updateData, 10);
-
-      // updateData();
       // setFocus(`${nextPosition}.${fieldFocus}`);
     };
 
@@ -125,7 +114,7 @@ const CvSectionBase = ({ record, index }) => {
       default:
         return null;
     }
-  }, [record, index, setValue, dispatch, cvData, setFocus, reset]);
+  }, [record, index, setValue, dispatch, cvData, setFocus]);
 
   return isEnabled && renderSection();
 };

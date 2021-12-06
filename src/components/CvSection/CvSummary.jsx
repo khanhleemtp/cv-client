@@ -64,6 +64,8 @@ const CvSummary = ({
                 `sections.${index}.items.${k + 1}`,
                 'text'
               )}
+              isHiddenUp={k === 0}
+              isHiddenDown={k === fields?.length - 1}
             />
           }
         >

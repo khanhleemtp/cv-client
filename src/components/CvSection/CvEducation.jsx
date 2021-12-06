@@ -57,6 +57,8 @@ const CvEducation = ({
                   'degree'
                 )}
                 dayProps={`${baseName}.${k}.dateRange`}
+                isHiddenUp={k === 0}
+                isHiddenDown={k === fields?.length - 1}
               />
             }
           >
