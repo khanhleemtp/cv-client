@@ -43,7 +43,6 @@ const UploadModal = ({ modalRef, close, updateCv, photo, isLoading }) => {
       setImage(reader.result);
     };
     reader.readAsDataURL(files[0]);
-    console.log(files);
   };
 
   const getCropData = () => {

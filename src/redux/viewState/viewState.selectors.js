@@ -28,3 +28,14 @@ export const selectIsOpenModal = createSelector(
   selectModal,
   (modal) => modal.isOpen
 );
+
+export const selectSelectedPopover = createSelector(
+  selectorViewState,
+  (viewState) => viewState.popover
+);
+
+export const selectIsCurrentPopover = (currentPopover) =>
+  createSelector(
+    selectSelectedPopover,
+    (prevPopover) => prevPopover === currentPopover
+  );

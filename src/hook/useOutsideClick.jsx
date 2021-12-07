@@ -1,12 +1,13 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 // Hook
 
 function useOnClickOutside(ref, handler) {
-  useLayoutEffect(
+  useEffect(
     () => {
       const listener = (event) => {
         // Do nothing if clicking ref's element or descendent elements
         if (!ref.current || ref.current.contains(event.target)) {
+          event.stopPropagation();
           return;
         }
         handler(event);

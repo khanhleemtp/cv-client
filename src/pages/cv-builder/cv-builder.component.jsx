@@ -1,4 +1,4 @@
-import { useEffect, Suspense } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -9,13 +9,8 @@ import NavContainer from '../../components/nav-container/nav-container.component
 // REDUX
 import { loadCvStart } from '../../redux/cv/cv.action';
 import { selectLoadingApi } from './../../redux/cv/cv.selectors';
-
-import { lazy } from '@loadable/component';
 import Loading from './../../components/loading/loading.component';
-
-const CvContainer = lazy(() =>
-  import('../../components/CvSection/CvContainer')
-);
+import CvContainer from '../../components/CvSection/CvContainer';
 
 const CvBuilderPage = ({ isLoading }) => {
   const dispatch = useDispatch();
@@ -29,9 +24,7 @@ const CvBuilderPage = ({ isLoading }) => {
     <Loading />
   ) : (
     <NavContainer>
-      <Suspense fallback={<Loading />}>
-        <CvContainer />
-      </Suspense>
+      <CvContainer />
     </NavContainer>
   );
 };

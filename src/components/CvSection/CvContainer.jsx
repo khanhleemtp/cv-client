@@ -41,7 +41,7 @@ const CvContainer = ({ isSelected, cvData, isUpdating }) => {
         <ToolboxContainer />
         <div
           className={clsx(
-            'bg-transparent container mx-auto transition-colors delay-75 ease-in-out',
+            'bg-transparent container mx-auto transition-colors ease-in-out',
             {
               'bg-gray-300 bg-opacity-60': isSelected,
             }

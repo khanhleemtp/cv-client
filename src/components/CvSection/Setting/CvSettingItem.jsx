@@ -20,7 +20,6 @@ const CvSettingItem = ({
   up = null,
   down = null,
   dayProps = null,
-  index = 0,
   isHiddenUp = false,
   isHiddenDown = false,
 }) => {
@@ -28,7 +27,6 @@ const CvSettingItem = ({
   const [enabledDown, setEnabledDown] = useState(true);
 
   useLayoutEffect(() => {
-    console.log('render layout', isHiddenUp, isHiddenDown);
     if (isHiddenUp) setEnabledUp(false);
     if (isHiddenDown) setEnabledDown(false);
   }, [isHiddenUp, isHiddenDown]);
@@ -59,25 +57,22 @@ const CvSettingItem = ({
       {enabledDown && (
         <CvSettingIcon icon={ChevronDownIcon} onClick={down} title="Xuống" />
       )}
-
-      <PopoverSetting
-        position="bottom"
-        setting={<CvDatepicker dayProps={dayProps} />}
-        className={clsx({ hidden: dayProps === null })}
-      >
+      {dayProps && (
+        <PopoverSetting
+          name={dayProps}
+          setting={<CvDatepicker dayProps={dayProps} />}
+        >
+          <CvSettingIcon icon={CalendarIcon} title="Thời gian" />
+        </PopoverSetting>
+      )}
+      {config && (
         <CvSettingIcon
-          icon={CalendarIcon}
-          // onClick={calendar}
-          title="Thời gian"
+          icon={CogIcon}
+          onClick={config}
+          title="Tùy chỉnh"
+          className={clsx({ hidden: config == null })}
         />
-      </PopoverSetting>
-
-      <CvSettingIcon
-        icon={CogIcon}
-        onClick={config}
-        title="Tùy chỉnh"
-        className={clsx({ hidden: config == null })}
-      />
+      )}
     </>
   );
 };

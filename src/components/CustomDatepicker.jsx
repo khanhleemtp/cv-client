@@ -10,7 +10,6 @@ const CustomDatepicker = ({ name, cb }) => {
   const { setValue, control } = useFormContext();
 
   const handleDayClick = (day) => {
-    console.log('day:', day);
     cb && cb();
     setValue(name, moment(day).toISOString(), { shouldDirty: true });
   };

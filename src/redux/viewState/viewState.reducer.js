@@ -9,6 +9,7 @@ const initModal = {
 const INITIAL_STATE = {
   section: null,
   modal: initModal,
+  popover: null,
 };
 
 const viewStateReducer = (state = INITIAL_STATE, action) => {
@@ -16,12 +17,14 @@ const viewStateReducer = (state = INITIAL_STATE, action) => {
     case viewStateActionTypes.SELECT_SECTION:
       return {
         ...state,
+        popover: null,
         section: action.payload,
       };
     case viewStateActionTypes.CLOSE_SECTION:
       return {
         ...state,
         section: null,
+        popover: null,
       };
     case viewStateActionTypes.OPEN_MODAL:
       return {
@@ -36,6 +39,16 @@ const viewStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         modal: initModal,
+      };
+    case viewStateActionTypes.OPEN_POPOVER:
+      return {
+        ...state,
+        popover: action.payload,
+      };
+    case viewStateActionTypes.CLOSE_POPOVER:
+      return {
+        ...state,
+        popover: null,
       };
     default:
       return state;

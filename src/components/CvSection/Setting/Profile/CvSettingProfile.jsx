@@ -14,7 +14,7 @@ const CvSettingProfile = () => {
   return (
     <>
       <CvSettingIcon icon={CameraIcon} onClick={handleOpenModal} />
-      <PopoverSetting setting={<CvConfigProfile />} position="bottom">
+      <PopoverSetting setting={<CvConfigProfile />} name="profile">
         <CvSettingIcon icon={CogIcon} />
       </PopoverSetting>
     </>

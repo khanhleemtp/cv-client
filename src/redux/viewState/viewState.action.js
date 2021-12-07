@@ -17,3 +17,12 @@ export const openModal = (modalName) => ({
 export const closeModal = () => ({
   type: viewStateActionTypes.CLOSE_MODAL,
 });
+
+export const openPopover = (popoverName) => ({
+  type: viewStateActionTypes.OPEN_POPOVER,
+  payload: popoverName,
+});
+
+export const closePopover = () => ({
+  type: viewStateActionTypes.CLOSE_POPOVER,
+});

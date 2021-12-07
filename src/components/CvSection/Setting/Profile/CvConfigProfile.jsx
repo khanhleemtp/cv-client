@@ -7,12 +7,12 @@ const CvConfigProfile = () => {
 
   const photoStyle = useWatch({
     control,
-    name: 'photoStyle', // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
+    name: 'header.photoStyle', // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
     defaultValue: 'rounded', // default value before the render
   });
 
   return (
-    <div className="px-2 py-6 w-52">
+    <div className="p-6 w-64">
       <CustomSwitch control={control} name="header.showName" label="Họ tên" />
       <CustomSwitch
         control={control}
