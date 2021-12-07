@@ -8,7 +8,7 @@ import CvSettingItem from './Setting/CvSettingItem';
 import CvCalendar from './CvCalendar';
 import CvBullets from './CvBullets';
 
-const CvEducation = ({
+const CvExperience = ({
   index,
   createItem,
   removeSection,
@@ -30,7 +30,7 @@ const CvEducation = ({
   return (
     <CvSectionWrapper
       container
-      name="Education"
+      name="Experience"
       setting={
         <CvSettingTitle
           add={createItem(append, `${baseName}.${fields?.length}`)}
@@ -38,7 +38,10 @@ const CvEducation = ({
         />
       }
     >
-      <CvSectionTitle placeholder="Học vấn" name={`sections.${index}.name`} />
+      <CvSectionTitle
+        placeholder="Kinh nghiệm"
+        name={`sections.${index}.name`}
+      />
       {fields?.map((item, k) => {
         return (
           <CvSectionWrapper
@@ -47,9 +50,14 @@ const CvEducation = ({
             setting={
               <CvSettingItem
                 add={addItem(insert, `${baseName}.${k + 1}`, k + 1)}
-                remove={removeItem(k, remove, `${baseName}.${k - 1}`, 'degree')}
-                up={upItem(k, move, `${baseName}.${k - 1}`, 'degree')}
-                down={downItem(k, move, `${baseName}.${k + 1}`, 'degree')}
+                remove={removeItem(
+                  k,
+                  remove,
+                  `${baseName}.${k - 1}`,
+                  'position'
+                )}
+                up={upItem(k, move, `${baseName}.${k - 1}`, 'position')}
+                down={downItem(k, move, `${baseName}.${k + 1}`, 'position')}
                 dayProps={`${baseName}.${k}.dateRange`}
                 index={k}
                 length={fields?.length}
@@ -58,41 +66,18 @@ const CvEducation = ({
           >
             <CvTypography
               type="h3"
-              placeholder="Ngành học"
-              {...register(`${baseName}.${k}.degree`)}
+              placeholder="Vị trí"
+              {...register(`${baseName}.${k}.position`)}
               medium
             />
             <CvTypography
               type="p"
-              placeholder="Trường Đại học"
-              {...register(`${baseName}.${k}.institution`)}
+              placeholder="Nơi làm việc"
+              {...register(`${baseName}.${k}.workplace`)}
               color="secondary"
               bold
             />
             <div className="flex flex-wrap md:flex-row-reverse items-center justify-start">
-              <div className="flex flex-col w-24">
-                <CvTypography
-                  type="h4"
-                  className="text-center"
-                  placeholder="Loại"
-                  {...register(`${baseName}.${k}.gpaText`)}
-                />
-                <div className="inline-flex items-center">
-                  <CvTypography
-                    type="h4"
-                    className="text-center p-0"
-                    placeholder="TB"
-                    {...register(`${baseName}.${k}.gpa`)}
-                  />
-                  <span className="mb-0.5">/</span>
-                  <CvTypography
-                    type="h4"
-                    className="text-center p-0"
-                    placeholder="Tổng"
-                    {...register(`${baseName}.${k}.maxGpa`)}
-                  />
-                </div>
-              </div>
               <div className="flex flex-col flex-grow">
                 <div className="flex items-center">
                   <CvCalendar
@@ -108,6 +93,11 @@ const CvEducation = ({
                     icon="location"
                   />
                 </div>
+                <CvTypography
+                  type="p"
+                  placeholder="Mô tả công việc"
+                  {...register(`${baseName}.${k}.description`)}
+                />
                 <CvBullets
                   name={`${baseName}.${k}.bullets`}
                   showBullets={`${baseName}.${k}.showBullets`}
@@ -121,4 +111,4 @@ const CvEducation = ({
   );
 };
 
-export default CvEducation;
+export default CvExperience;

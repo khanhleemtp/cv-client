@@ -9,6 +9,8 @@ import { selectSectionStart } from './../../redux/viewState/viewState.action';
 import CvLanguage from './CvLanguage';
 import { CV_SECTION_ITEM_DATA } from './cv.data';
 import { has } from 'lodash';
+import CvExperience from './CvExperience';
+import CvTechnology from './CvTechnology';
 
 const Base = ({ child: Child, ...otherProps }) => <Child {...otherProps} />;
 
@@ -16,6 +18,8 @@ const CV_SECTION_COMPONENT = {
   SummarySection: CvSummary,
   EducationSection: CvEducation,
   LanguageSection: CvLanguage,
+  ExperienceSection: CvExperience,
+  TechnologySection: CvTechnology,
 };
 
 const CvSectionBase = ({ record, index }) => {
@@ -53,7 +57,7 @@ const CvSectionBase = ({ record, index }) => {
     updateData();
   };
 
-  const downItem = (k, func, length, nextPosition, fieldFocus) => {
+  const downItem = (k, func, nextPosition, fieldFocus) => {
     return () => {
       func(k, k + 1);
       dispatch(selectSectionStart(nextPosition));

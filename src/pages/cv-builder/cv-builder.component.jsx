@@ -30,7 +30,7 @@ const CvBuilderPage = ({ isLoading }) => {
     <Loading />
   ) : (
     <NavContainer>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Đang tải...</div>}>
         <CvContainer />
       </Suspense>
     </NavContainer>

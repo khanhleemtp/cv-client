@@ -52,12 +52,11 @@ const CvLanguage = ({
               down={downItem(
                 k,
                 move,
-                fields?.length,
                 `sections.${index}.items.${k + 1}`,
                 'name'
               )}
-              isHiddenUp={k === 0}
-              isHiddenDown={k === fields?.length - 1}
+              index={k}
+              length={fields?.length}
             />
           }
         >

@@ -20,16 +20,18 @@ const CvSettingItem = ({
   up = null,
   down = null,
   dayProps = null,
-  isHiddenUp = false,
-  isHiddenDown = false,
+  index,
+  length,
 }) => {
   const [enabledUp, setEnabledUp] = useState(true);
   const [enabledDown, setEnabledDown] = useState(true);
 
   useLayoutEffect(() => {
-    if (isHiddenUp) setEnabledUp(false);
-    if (isHiddenDown) setEnabledDown(false);
-  }, [isHiddenUp, isHiddenDown]);
+    if (index === length - 1) return setEnabledDown(false);
+    if (index === 0) return setEnabledUp(false);
+    setEnabledDown(true);
+    setEnabledUp(true);
+  }, [index, length]);
 
   return (
     <>
@@ -45,12 +47,7 @@ const CvSettingItem = ({
           <div className="hidden md:inline-block">Thêm mới</div>
         </div>
       </div>
-      <CvSettingIcon
-        icon={TrashIcon}
-        onClick={remove}
-        title="Xóa"
-        className={clsx({ hidden: remove === null })}
-      />
+      <CvSettingIcon icon={TrashIcon} onClick={remove} title="Xóa" />
       {enabledUp && (
         <CvSettingIcon icon={ChevronUpIcon} onClick={up} title="Lên" />
       )}
