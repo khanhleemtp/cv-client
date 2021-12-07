@@ -33,7 +33,7 @@ const CvEducation = ({
       name="Education"
       setting={
         <CvSettingTitle
-          add={createItem(append, `${baseName}.${fields?.length}`, 'degree')}
+          add={createItem(append, `${baseName}.${fields?.length}`)}
           remove={removeSection}
         />
       }
@@ -46,7 +46,7 @@ const CvEducation = ({
             key={item._id}
             setting={
               <CvSettingItem
-                add={addItem(insert, `${baseName}.${k + 1}`, `degree`, k + 1)}
+                add={addItem(insert, `${baseName}.${k + 1}`, k + 1)}
                 remove={removeItem(k, remove, `${baseName}.${k - 1}`, 'degree')}
                 up={upItem(k, move, `${baseName}.${k - 1}`, 'degree')}
                 down={downItem(

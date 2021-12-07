@@ -27,11 +27,7 @@ const CvSummary = ({
       name="summay"
       setting={
         <CvSettingTitle
-          add={createItem(
-            append,
-            `sections.${index}.items.${fields?.length}`,
-            'text'
-          )}
+          add={createItem(append, `sections.${index}.items.${fields?.length}`)}
           remove={removeSection}
         />
       }
@@ -44,12 +40,7 @@ const CvSummary = ({
           key={item._id}
           setting={
             <CvSettingItem
-              add={addItem(
-                insert,
-                `sections.${index}.items.${k + 1}`,
-                'text',
-                k + 1
-              )}
+              add={addItem(insert, `sections.${index}.items.${k + 1}`, k + 1)}
               remove={removeItem(
                 k,
                 remove,

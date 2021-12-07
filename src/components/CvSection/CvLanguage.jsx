@@ -29,11 +29,7 @@ const CvLanguage = ({
       container
       setting={
         <CvSettingTitle
-          add={createItem(
-            append,
-            `sections.${index}.items.${fields?.length}`,
-            'name'
-          )}
+          add={createItem(append, `sections.${index}.items.${fields?.length}`)}
           remove={removeSection}
         />
       }
@@ -45,12 +41,7 @@ const CvLanguage = ({
           key={item._id}
           setting={
             <CvSettingItem
-              add={addItem(
-                insert,
-                `sections.${index}.items.${k + 1}`,
-                'name',
-                k + 1
-              )}
+              add={addItem(insert, `sections.${index}.items.${k + 1}`, k + 1)}
               remove={removeItem(
                 k,
                 remove,

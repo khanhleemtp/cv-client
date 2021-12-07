@@ -17,7 +17,7 @@ const CvCalendar = ({ from, to, isOngoing, open, isOpen, close }) => {
 
   return (
     <div
-      className="inline-flex items-center text-sm text-gray-500 cursor-pointer hover:bg-gray-200 w-64"
+      className="inline-flex items-center text-sm text-gray-500 cursor-pointer hover:bg-gray-200 w-80 select-none"
       onClick={isOpen ? close : open}
     >
       <div className="text-blue-500 pointer-events-none w-4 h-4">

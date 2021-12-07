@@ -2,7 +2,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-const CvSlider = ({ name, placeholder }) => {
+const CvSlider = ({ name }) => {
   const { control } = useFormContext();
 
   return (
@@ -19,6 +19,8 @@ const CvSlider = ({ name, placeholder }) => {
             handleStyle={{
               width: 16,
               height: 16,
+              backgroundColor: '#111',
+              border: 0,
             }}
             railStyle={{ backgroundColor: '#E7E5E4', height: 8 }}
             trackStyle={{ backgroundColor: '#3B82F6', height: 8 }}

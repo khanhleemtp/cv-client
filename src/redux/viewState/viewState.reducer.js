@@ -17,7 +17,6 @@ const viewStateReducer = (state = INITIAL_STATE, action) => {
     case viewStateActionTypes.SELECT_SECTION:
       return {
         ...state,
-        popover: null,
         section: action.payload,
       };
     case viewStateActionTypes.CLOSE_SECTION:
