@@ -5,12 +5,15 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
   CogIcon,
+  DocumentAddIcon,
+  DocumentRemoveIcon,
 } from '@heroicons/react/outline';
 import CvSettingIcon from './CvSettingIcon';
 import PopoverSetting from './../../PopoverSetting';
 import CvDatepicker from '../CvDatePicker';
 
-import clsx from 'clsx';
+// icon, func, display
+
 import { useLayoutEffect, useState } from 'react';
 
 const CvSettingItem = ({
@@ -22,16 +25,22 @@ const CvSettingItem = ({
   dayProps = null,
   index,
   length,
+  addTag = null,
+  removeTag = null,
+  isTag,
 }) => {
   const [enabledUp, setEnabledUp] = useState(true);
   const [enabledDown, setEnabledDown] = useState(true);
+  const [enabledTag, setEnabledTag] = useState(true);
 
   useLayoutEffect(() => {
     if (index === length - 1) return setEnabledDown(false);
     if (index === 0) return setEnabledUp(false);
+    if (isTag === 1) return setEnabledTag(false);
     setEnabledDown(true);
     setEnabledUp(true);
-  }, [index, length]);
+    setEnabledTag(true);
+  }, [index, length, isTag]);
 
   return (
     <>
@@ -54,6 +63,21 @@ const CvSettingItem = ({
       {enabledDown && (
         <CvSettingIcon icon={ChevronDownIcon} onClick={down} title="Xuống" />
       )}
+      {addTag && (
+        <CvSettingIcon
+          icon={DocumentAddIcon}
+          onClick={addTag}
+          title="Thêm kỹ năng"
+        />
+      )}
+      {enabledTag && (
+        <CvSettingIcon
+          icon={DocumentRemoveIcon}
+          onClick={removeTag}
+          title="Xóa kỹ năng"
+        />
+      )}
+
       {dayProps && (
         <PopoverSetting
           name={dayProps}
@@ -63,12 +87,7 @@ const CvSettingItem = ({
         </PopoverSetting>
       )}
       {config && (
-        <CvSettingIcon
-          icon={CogIcon}
-          onClick={config}
-          title="Tùy chỉnh"
-          className={clsx({ hidden: config == null })}
-        />
+        <CvSettingIcon icon={CogIcon} onClick={config} title="Tùy chỉnh" />
       )}
     </>
   );

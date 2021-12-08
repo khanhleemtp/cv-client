@@ -8,7 +8,7 @@ import {
   closePopover,
 } from './../redux/viewState/viewState.action';
 
-const PopoverSetting = ({ children, setting, open, close, isOpen, name }) => {
+const PopoverSetting = ({ children, setting, open, close, isOpen }) => {
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
   const popperElRef = useRef(null);
@@ -46,16 +46,13 @@ const PopoverSetting = ({ children, setting, open, close, isOpen, name }) => {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            // setVisible(!visible);
-            // if (isOpen) {
-            //   return close();
-            // }
             isOpen ? close() : open();
           }}
         >
           {children}
         </div>
       </Popover.Button>
+
       <div ref={popperElRef} style={styles.popper} {...attributes.popper}>
         <Transition
           as={Fragment}
@@ -68,16 +65,14 @@ const PopoverSetting = ({ children, setting, open, close, isOpen, name }) => {
           leaveTo="transform opacity-0 scale-95"
           beforeEnter={() => {
             setPopperElement(popperElRef.current);
-            open();
           }}
           afterLeave={() => {
             setPopperElement(null);
-            // console.log('Left Popover');
           }}
         >
           <Popover.Panel
             static={isOpen}
-            className="bg-white shadow-inner m-2 rounded-lg"
+            className="bg-white shadow-inner rounded-lg"
           >
             {setting && setting}
           </Popover.Panel>

@@ -8,7 +8,7 @@ import { useFieldArray, useForm, FormProvider } from 'react-hook-form';
 import { selectCvData, selectUpdatingCv } from './../../redux/cv/cv.selectors';
 import ToolboxContainer from '../Toolbox/ToolboxContainer';
 import CvProfile from './CvProfile';
-import CvSectionBase from './CvSectionBase';
+import CvSection from './CvSection';
 import CvTitle from './CvTitle';
 
 const CvContainer = ({ isSelected, cvData, isUpdating }) => {
@@ -50,11 +50,7 @@ const CvContainer = ({ isSelected, cvData, isUpdating }) => {
           <CvTitle />
           <CvProfile />
           {fields.map((field, index) => (
-            <CvSectionBase
-              index={index}
-              key={field._id}
-              record={field.record}
-            />
+            <CvSection index={index} key={field._id} record={field.record} />
           ))}
         </div>
       </form>

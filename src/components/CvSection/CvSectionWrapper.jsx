@@ -5,15 +5,17 @@ import clsx from 'clsx';
 import { Transition } from '@headlessui/react';
 import {
   selectIsCurrentSection,
+  selectSelectedPopover,
   selectTypeModal,
 } from '../../redux/viewState/viewState.selectors';
 import {
   selectSectionStart,
   selectSectionFinish,
+  closePopover,
 } from './../../redux/viewState/viewState.action';
 import { useFormState, useFormContext, useWatch } from 'react-hook-form';
-import isEmpty from 'lodash/isEmpty';
 import { updateCvStart } from './../../redux/cv/cv.action';
+import { isEmpty } from 'lodash-es';
 
 const CvSectionWrapper = ({
   name,
@@ -23,6 +25,7 @@ const CvSectionWrapper = ({
   isModalOpen,
   setting,
   container,
+  popover,
 }) => {
   const ref = useRef();
   const { control } = useFormContext();
@@ -33,16 +36,6 @@ const CvSectionWrapper = ({
 
   const dispatch = useDispatch();
   const { dirtyFields } = useFormState({ control });
-
-  // console.log(
-  //   'dirtyField: ',
-  //   dirtyFields,
-  //   '\n',
-  //   'isSlected:',
-  //   isSelected,
-  //   'dirty',
-  //   isDirty
-  // );
 
   const handleClose = useCallback(() => {
     if (isModalOpen) return;
@@ -57,8 +50,15 @@ const CvSectionWrapper = ({
 
   const handleOpen = (e) => {
     e.stopPropagation();
-    if (isSelected) return;
+    if (isSelected) {
+      return;
+    }
     dispatch(selectSectionStart(name));
+  };
+
+  const closeP = () => {
+    if (!popover) return;
+    dispatch(closePopover());
   };
 
   useOnClickOutside(ref, handleClose);
@@ -94,7 +94,7 @@ const CvSectionWrapper = ({
           </div>
         </div>
       </Transition>
-      {children}
+      <div onClick={closeP}>{children}</div>
     </div>
   );
 };
@@ -102,6 +102,7 @@ const CvSectionWrapper = ({
 const mapStateToProps = (state, ownProps) => ({
   isSelected: selectIsCurrentSection(ownProps.name)(state),
   isModalOpen: selectTypeModal(state),
+  popover: selectSelectedPopover(state),
 });
 
 export default connect(mapStateToProps)(CvSectionWrapper);

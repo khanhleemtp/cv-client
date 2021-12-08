@@ -1,16 +1,16 @@
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { updateCvStart } from './../../redux/cv/cv.action';
+import { updateCvStart } from '../../redux/cv/cv.action';
 
 import CvSummary from './CvSummary';
 import CvEducation from './CvEducation';
 
-import { selectSectionStart } from './../../redux/viewState/viewState.action';
+import { selectSectionStart } from '../../redux/viewState/viewState.action';
 import CvLanguage from './CvLanguage';
 import { CV_SECTION_ITEM_DATA } from './cv.data';
-import { has } from 'lodash';
 import CvExperience from './CvExperience';
 import CvTechnology from './CvTechnology';
+import { has } from 'lodash-es';
 
 const Base = ({ child: Child, ...otherProps }) => <Child {...otherProps} />;
 
@@ -22,7 +22,7 @@ const CV_SECTION_COMPONENT = {
   TechnologySection: CvTechnology,
 };
 
-const CvSectionBase = ({ record, index }) => {
+const CvSection = ({ record, index }) => {
   const { control, setValue, setFocus } = useFormContext();
   const dispatch = useDispatch();
 
@@ -96,4 +96,4 @@ const CvSectionBase = ({ record, index }) => {
   return null;
 };
 
-export default CvSectionBase;
+export default CvSection;

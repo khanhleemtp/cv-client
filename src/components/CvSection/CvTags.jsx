@@ -23,7 +23,7 @@ const CvTags = ({ name }) => {
     if (!tags[l].text && event.key === 'Backspace') {
       event.preventDefault();
       if (l === 0) {
-        remove(l);
+        return;
       }
       remove(l);
       setFocus(`${name}.${l - 1}.text`);
@@ -41,7 +41,6 @@ const CvTags = ({ name }) => {
       >
         <CvTypography
           {...register(`${name}.${l}.text`)}
-          // onKeyDown={(e) => handleKeyDown(e, l)}
           className="text-center"
           type="h5"
           placeholder="Thông tin chi tiết"
