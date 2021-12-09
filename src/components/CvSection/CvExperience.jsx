@@ -21,7 +21,7 @@ const CvExperience = ({
 
   const baseName = `sections.${index}.items`;
 
-  const { move, append, insert, remove, fields } = useFieldArray({
+  const { move, append, insert, remove, fields, swap } = useFieldArray({
     control,
     name: baseName,
     keyName: '_id',
@@ -49,18 +49,24 @@ const CvExperience = ({
             key={item._id}
             setting={
               <CvSettingItem
-                add={addItem(insert, `${baseName}.${k + 1}`, k + 1)}
+                add={addItem(insert, `${baseName}.${k + 1}`, k, 'position')}
                 remove={removeItem(
                   k,
                   remove,
                   `${baseName}.${k - 1}`,
                   'position'
                 )}
-                up={upItem(k, move, `${baseName}.${k - 1}`, 'position')}
-                down={downItem(k, move, `${baseName}.${k + 1}`, 'position')}
+                up={upItem(k, swap, `${baseName}.${k - 1}`, 'position')}
+                down={downItem(
+                  k,
+                  swap,
+                  `${baseName}.${k + 1}`,
+                  'position',
+                  fields?.length
+                )}
                 dayProps={`${baseName}.${k}.dateRange`}
                 index={k}
-                length={fields?.length}
+                last={fields?.length - 1}
               />
             }
           >

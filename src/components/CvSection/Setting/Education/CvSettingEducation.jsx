@@ -1,11 +1,40 @@
-import React from 'react';
-import CvSettingTitle from '../CvSettingTitle';
+import { useCallback } from 'react';
 // import { connect } from 'react-redux';
 
-const CvSettingEducation = () => {
-  return <CvSettingTitle />;
-};
+import {
+  TrashIcon,
+  PlusIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from '@heroicons/react/outline';
+import CvSettingIcon from '../CvSettingIcon';
 
-// const mapStateToProps = () => {};
+const CvSettingEducation = ({ list }) => {
+  const renderIcon = useCallback((icon) => {
+    switch (icon) {
+      case 'addItem':
+        return PlusIcon;
+      case 'removeItem':
+        return TrashIcon;
+      case 'up':
+        return ChevronUpIcon;
+      case 'down':
+        return ChevronDownIcon;
+      default:
+        return null;
+    }
+  }, []);
+
+  console.log('render here');
+
+  return list?.map((item) => (
+    <CvSettingIcon
+      key={item?.icon}
+      icon={renderIcon(item.icon)}
+      onClick={item?.onClick}
+      disabled={item?.onClick === null}
+    />
+  ));
+};
 
 export default CvSettingEducation;

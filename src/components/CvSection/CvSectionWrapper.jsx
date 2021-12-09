@@ -89,9 +89,7 @@ const CvSectionWrapper = ({
         leaveTo="opacity-0 scale-95"
       >
         <div className="absolute z-20 -top-8 left-1/2 transform -translate-x-1/2 bg-white rounded-full border-t-2">
-          <div className="inline-flex items-center divide-x-2">
-            {setting && setting}
-          </div>
+          <div className="inline-flex items-center divide-x-2">{setting}</div>
         </div>
       </Transition>
       <div onClick={closeP}>{children}</div>

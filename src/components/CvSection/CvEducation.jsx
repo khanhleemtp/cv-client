@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import CvSectionWrapper from './CvSectionWrapper';
 import CvSectionTitle from './CvSectionTitle';
 import { useFormContext, useFieldArray } from 'react-hook-form';
@@ -7,6 +7,7 @@ import CvSettingTitle from './Setting/CvSettingTitle';
 import CvSettingItem from './Setting/CvSettingItem';
 import CvCalendar from './CvCalendar';
 import CvBullets from './CvBullets';
+import CvSettingEducation from './Setting/Education/CvSettingEducation';
 
 const CvEducation = ({
   index,
@@ -46,13 +47,18 @@ const CvEducation = ({
             key={item._id}
             setting={
               <CvSettingItem
-                add={addItem(insert, `${baseName}.${k + 1}`, k + 1)}
+                name={`${baseName}.${k}`}
+                add={addItem(insert, `${baseName}.${k + 1}`, k, 'degree')}
                 remove={removeItem(k, remove, `${baseName}.${k - 1}`, 'degree')}
                 up={upItem(k, move, `${baseName}.${k - 1}`, 'degree')}
-                down={downItem(k, move, `${baseName}.${k + 1}`, 'degree')}
+                down={downItem(
+                  k,
+                  move,
+                  `${baseName}.${k + 1}`,
+                  'degree',
+                  fields?.length
+                )}
                 dayProps={`${baseName}.${k}.dateRange`}
-                index={k}
-                length={fields?.length}
               />
             }
           >

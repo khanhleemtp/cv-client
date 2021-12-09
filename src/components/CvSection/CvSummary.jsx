@@ -52,7 +52,8 @@ const CvSummary = ({
                 k,
                 move,
                 `sections.${index}.items.${k + 1}`,
-                'text'
+                'text',
+                fields?.length
               )}
               index={k}
               length={fields?.length}

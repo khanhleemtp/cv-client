@@ -44,7 +44,7 @@ const CvTechnology = ({
   );
 
   const removeTag = (k) => {
-    if (tech[k]?.tags?.length === 1) return null;
+    if (tech[k]?.tags?.length === 1) return false;
     return () => {
       update(k, {
         title: tech[k].name,
@@ -76,7 +76,7 @@ const CvTechnology = ({
             key={item._id}
             setting={
               <CvSettingItem
-                add={addItem(insert, `${baseName}.${k + 1}`, k + 1)}
+                add={addItem(insert, `${baseName}.${k + 1}`, k, 'title')}
                 remove={removeItem(
                   k,
                   remove,
@@ -84,12 +84,15 @@ const CvTechnology = ({
                   'tags.0.text'
                 )}
                 up={upItem(k, move, `${baseName}.${k - 1}`, 'tags.0.text')}
-                down={downItem(k, move, `${baseName}.${k + 1}`, 'tags.0.text')}
-                index={k}
-                length={fields?.length}
+                down={downItem(
+                  k,
+                  move,
+                  `${baseName}.${k + 1}`,
+                  'tags.0.text',
+                  fields?.length
+                )}
                 addTag={addTag(k)}
                 removeTag={removeTag(k)}
-                isTag={tech[k]?.tags?.length}
               />
             }
           >

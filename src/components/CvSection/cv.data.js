@@ -33,9 +33,24 @@ export const CV_SECTION_ITEM_DATA = {
     title: '',
     showTitle: true,
   },
-  AchievementSection: {
-    title: '',
+  ExperienceSection: {
+    position: '',
+    workplace: '',
+    location: '',
     description: '',
-    showDescription: true,
+
+    dateRange: {
+      from: null,
+      to: null,
+      isOngoing: false,
+    },
+    showLocation: true,
+    showDateRange: true,
+    showBullets: true,
+    bullets: [
+      {
+        text: '',
+      },
+    ],
   },
 };

@@ -6,6 +6,7 @@ import CvSummary from './CvSummary';
 import CvEducation from './CvEducation';
 
 import { selectSectionStart } from '../../redux/viewState/viewState.action';
+
 import CvLanguage from './CvLanguage';
 import { CV_SECTION_ITEM_DATA } from './cv.data';
 import CvExperience from './CvExperience';
@@ -50,14 +51,18 @@ const CvSection = ({ record, index }) => {
     updateData();
   };
 
-  const upItem = (k, func, nextPosition, fieldFocus) => () => {
-    func(k, k - 1);
-    dispatch(selectSectionStart(nextPosition));
-    setFocus(`${nextPosition}.${fieldFocus}`);
-    updateData();
+  const upItem = (k, func, nextPosition, fieldFocus) => {
+    if (k === 0) return null;
+    return () => {
+      func(k, k - 1);
+      dispatch(selectSectionStart(nextPosition));
+      setFocus(`${nextPosition}.${fieldFocus}`);
+      updateData();
+    };
   };
 
-  const downItem = (k, func, nextPosition, fieldFocus) => {
+  const downItem = (k, func, nextPosition, fieldFocus, length) => {
+    if (k === length - 1) return null;
     return () => {
       func(k, k + 1);
       dispatch(selectSectionStart(nextPosition));
@@ -68,12 +73,14 @@ const CvSection = ({ record, index }) => {
 
   const createItem = (func, nextPosition) => () => {
     func(CV_SECTION_ITEM_DATA[record]);
-    dispatch(selectSectionStart(nextPosition));
     updateData();
+    dispatch(selectSectionStart(nextPosition));
   };
 
-  const addItem = (func, nextPosition, index) => () => {
-    func(index, CV_SECTION_ITEM_DATA[record]);
+  const addItem = (func, nextPosition, index, field) => () => {
+    func(index, CV_SECTION_ITEM_DATA[record], {
+      focusName: `${nextPosition}.${field}`,
+    });
     dispatch(selectSectionStart(nextPosition));
     updateData();
   };

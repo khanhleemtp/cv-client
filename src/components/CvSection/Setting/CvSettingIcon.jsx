@@ -1,16 +1,31 @@
 import clsx from 'clsx';
 
-const CvSettingIcon = ({ icon: Icon, className, title, ...otherProps }) => {
+const CvSettingIcon = ({
+  icon: Icon,
+  className,
+  title,
+  disabled = false,
+  ...otherProps
+}) => {
   return (
-    <div
-      className={clsx('p-2 flex items-center  cursor-pointer', className)}
-      title={title}
-    >
-      <Icon
-        className={'w-5 h-5 hover:text-indigo-500 text-gray-600'}
+    !disabled && (
+      <div
+        className={clsx(
+          'p-2 flex items-center cursor-pointer',
+          { 'cursor-not-allowed': disabled },
+          className
+        )}
+        title={title}
+        disabled={disabled}
         {...otherProps}
-      />
-    </div>
+      >
+        <Icon
+          className={clsx('w-5 h-5 hover:text-indigo-500 text-gray-600', {
+            'opacity-20': disabled,
+          })}
+        />
+      </div>
+    )
   );
 };
 

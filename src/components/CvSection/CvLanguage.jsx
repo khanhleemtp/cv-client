@@ -41,7 +41,12 @@ const CvLanguage = ({
           key={item._id}
           setting={
             <CvSettingItem
-              add={addItem(insert, `sections.${index}.items.${k + 1}`, k + 1)}
+              add={addItem(
+                insert,
+                `sections.${index}.items.${k + 1}`,
+                k,
+                'name'
+              )}
               remove={removeItem(
                 k,
                 remove,
@@ -53,7 +58,8 @@ const CvLanguage = ({
                 k,
                 move,
                 `sections.${index}.items.${k + 1}`,
-                'name'
+                'name',
+                fields?.length
               )}
               index={k}
               length={fields?.length}

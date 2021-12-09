@@ -24,24 +24,10 @@ const CvSettingItem = ({
   down = null,
   dayProps = null,
   index,
-  length,
+  last,
   addTag = null,
   removeTag = null,
-  isTag,
 }) => {
-  const [enabledUp, setEnabledUp] = useState(true);
-  const [enabledDown, setEnabledDown] = useState(true);
-  const [enabledTag, setEnabledTag] = useState(true);
-
-  useLayoutEffect(() => {
-    if (index === length - 1) return setEnabledDown(false);
-    if (index === 0) return setEnabledUp(false);
-    if (isTag === 1) return setEnabledTag(false);
-    setEnabledDown(true);
-    setEnabledUp(true);
-    setEnabledTag(true);
-  }, [index, length, isTag]);
-
   return (
     <>
       <div
@@ -57,10 +43,8 @@ const CvSettingItem = ({
         </div>
       </div>
       <CvSettingIcon icon={TrashIcon} onClick={remove} title="Xóa" />
-      {enabledUp && (
-        <CvSettingIcon icon={ChevronUpIcon} onClick={up} title="Lên" />
-      )}
-      {enabledDown && (
+      {up && <CvSettingIcon icon={ChevronUpIcon} onClick={up} title="Lên" />}
+      {down && (
         <CvSettingIcon icon={ChevronDownIcon} onClick={down} title="Xuống" />
       )}
       {addTag && (
@@ -70,7 +54,7 @@ const CvSettingItem = ({
           title="Thêm kỹ năng"
         />
       )}
-      {enabledTag && (
+      {removeTag && (
         <CvSettingIcon
           icon={DocumentRemoveIcon}
           onClick={removeTag}
