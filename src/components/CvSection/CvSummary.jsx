@@ -40,7 +40,12 @@ const CvSummary = ({
           key={item._id}
           setting={
             <CvSettingItem
-              add={addItem(insert, `sections.${index}.items.${k + 1}`, k + 1)}
+              add={addItem(
+                insert,
+                `sections.${index}.items.${k + 1}`,
+                k,
+                'text'
+              )}
               remove={removeItem(
                 k,
                 remove,

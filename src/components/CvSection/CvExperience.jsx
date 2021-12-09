@@ -21,7 +21,7 @@ const CvExperience = ({
 
   const baseName = `sections.${index}.items`;
 
-  const { move, append, insert, remove, fields, swap } = useFieldArray({
+  const { move, append, insert, remove, fields } = useFieldArray({
     control,
     name: baseName,
     keyName: '_id',
@@ -56,10 +56,10 @@ const CvExperience = ({
                   `${baseName}.${k - 1}`,
                   'position'
                 )}
-                up={upItem(k, swap, `${baseName}.${k - 1}`, 'position')}
+                up={upItem(k, move, `${baseName}.${k - 1}`, 'position')}
                 down={downItem(
                   k,
-                  swap,
+                  move,
                   `${baseName}.${k + 1}`,
                   'position',
                   fields?.length

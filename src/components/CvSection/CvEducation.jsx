@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import CvSectionWrapper from './CvSectionWrapper';
 import CvSectionTitle from './CvSectionTitle';
 import { useFormContext, useFieldArray } from 'react-hook-form';
@@ -7,7 +6,6 @@ import CvSettingTitle from './Setting/CvSettingTitle';
 import CvSettingItem from './Setting/CvSettingItem';
 import CvCalendar from './CvCalendar';
 import CvBullets from './CvBullets';
-import CvSettingEducation from './Setting/Education/CvSettingEducation';
 
 const CvEducation = ({
   index,
