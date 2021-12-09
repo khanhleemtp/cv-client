@@ -50,12 +50,12 @@ const CvSettingItem = ({
           title="Thêm kỹ năng"
         />
       )}
-      {removeTag !== null && (
+
+      {removeTag && (
         <CvSettingIcon
           icon={DocumentRemoveIcon}
           onClick={removeTag}
           title="Xóa kỹ năng"
-          disabled={!removeTag}
         />
       )}
 
