@@ -1,7 +1,7 @@
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import CvTypography from './CvTypography';
 
-const CvTags = ({ name }) => {
+const CvTags = ({ name, updateData }) => {
   const { control, register, setFocus } = useFormContext();
 
   const tags = useWatch({ control, name });
@@ -16,6 +16,7 @@ const CvTags = ({ name }) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       append({ text: '' }, { focusIndex: l + 1 });
+      updateData();
     }
   };
 
@@ -27,6 +28,7 @@ const CvTags = ({ name }) => {
       }
       remove(l);
       setFocus(`${name}.${l - 1}.text`);
+      updateData();
     }
   };
 

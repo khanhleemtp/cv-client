@@ -135,6 +135,4 @@ const mapStateToProps = createStructuredSelector({
   isLoading: selectLoadingApi,
 });
 
-connect(mapStateToProps)(SignIn);
-
 export default connect(mapStateToProps)(SignIn);

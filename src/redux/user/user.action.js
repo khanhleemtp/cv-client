@@ -22,6 +22,10 @@ export const loadingApi = () => ({
   type: UserActionTypes.LOADING_API,
 });
 
+export const loadingUser = () => ({
+  type: UserActionTypes.LOADING_USER,
+});
+
 export const emailSignInStart = (emailAndPassword) => ({
   type: UserActionTypes.EMAIL_SIGN_IN_START,
   payload: emailAndPassword,

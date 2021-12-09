@@ -8,7 +8,7 @@ const ButtonBeforeLogin = () => {
       <Link to="/login">
         <Button text="Đăng nhập" />
       </Link>
-      <span className="mx-1.5 md:my-0"></span>
+      <span className="mx-1.5 my-1 md:my-0"></span>
       <Link to="/register-company">
         <Button text="Đăng tuyển & tìm hồ sơ" type="outline" />
       </Link>

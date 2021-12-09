@@ -2,6 +2,7 @@ import { UserActionTypes } from './user.types';
 
 const INITIAL_STATE = {
   currentUser: null,
+  isLoadingUser: false,
   error: null,
   isLoading: false,
 };
@@ -15,6 +16,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: true,
+      };
+    case UserActionTypes.LOADING_USER:
+      return {
+        ...state,
+        isLoadingUser: true,
       };
     case UserActionTypes.SIGN_IN_SUCCESS:
       return {
