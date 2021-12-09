@@ -14,8 +14,6 @@ import CvDatepicker from '../CvDatePicker';
 
 // icon, func, display
 
-import { useLayoutEffect, useState } from 'react';
-
 const CvSettingItem = ({
   add = null,
   remove = null,
@@ -23,8 +21,6 @@ const CvSettingItem = ({
   up = null,
   down = null,
   dayProps = null,
-  index,
-  last,
   addTag = null,
   removeTag = null,
 }) => {

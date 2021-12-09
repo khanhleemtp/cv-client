@@ -65,8 +65,6 @@ const CvExperience = ({
                   fields?.length
                 )}
                 dayProps={`${baseName}.${k}.dateRange`}
-                index={k}
-                last={fields?.length - 1}
               />
             }
           >

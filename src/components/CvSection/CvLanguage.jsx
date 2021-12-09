@@ -61,8 +61,6 @@ const CvLanguage = ({
                 'name',
                 fields?.length
               )}
-              index={k}
-              length={fields?.length}
             />
           }
         >

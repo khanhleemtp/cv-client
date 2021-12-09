@@ -55,8 +55,6 @@ const CvSummary = ({
                 'text',
                 fields?.length
               )}
-              index={k}
-              length={fields?.length}
             />
           }
         >
