@@ -3,8 +3,7 @@ import CvSectionTitle from './CvSectionTitle';
 import { useFormContext, useFieldArray } from 'react-hook-form';
 import CvSettingTitle from './Setting/CvSettingTitle';
 import CvTags from './CvTags';
-// import { concat, dropRight, delay } from 'lodash-es';
-// import { useCallback } from 'react';
+
 
 const CvTechnology = ({
   index,

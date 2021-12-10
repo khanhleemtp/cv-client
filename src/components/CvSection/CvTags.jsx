@@ -41,10 +41,13 @@ const CvTags = ({
 
   const addTag = () => {
     append({ text: '' });
+    updateData();
   };
 
   const removeTag = () => {
     remove(fields?.length - 1);
+    updateData();
+    setFocus(`${name}.tags.${fields?.length - 2}.text`);
   };
 
   return (
