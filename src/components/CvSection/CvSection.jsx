@@ -1,7 +1,7 @@
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { updateCvStart } from '../../redux/cv/cv.action';
-
+import { useCallback } from 'react';
 import CvSummary from './CvSummary';
 import CvEducation from './CvEducation';
 
@@ -24,19 +24,18 @@ const CV_SECTION_COMPONENT = {
 };
 
 const CvSection = ({ record, index }) => {
-  const { control, setValue, setFocus } = useFormContext();
+  const { control, setValue, setFocus, getValues } = useFormContext();
   const dispatch = useDispatch();
-
-  const cvData = useWatch({ control });
 
   const isEnabled = useWatch({
     control,
     name: `sections.${index}.enabled`,
   });
 
-  const updateData = () => {
+  const updateData = useCallback(() => {
+    const cvData = getValues();
     dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
-  };
+  }, [dispatch, getValues]);
 
   const removeSection = () => {
     setValue(`sections.${index}.enabled`, false);
@@ -81,8 +80,8 @@ const CvSection = ({ record, index }) => {
     func(index, CV_SECTION_ITEM_DATA[record], {
       focusName: `${nextPosition}.${field}`,
     });
-    dispatch(selectSectionStart(nextPosition));
     updateData();
+    dispatch(selectSectionStart(nextPosition));
   };
 
   if (has(CV_SECTION_COMPONENT, record) && isEnabled) {

@@ -1,7 +1,9 @@
 import { Switch } from '@headlessui/react';
-import { Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
-const CustomSwitch = ({ control, name, label, cb }) => {
+const CustomSwitch = ({ name, label, cb }) => {
+  const { control } = useFormContext();
+
   return (
     <Controller
       control={control}

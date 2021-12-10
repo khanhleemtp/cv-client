@@ -16,7 +16,7 @@ const CvLanguage = ({
   upItem,
   addItem,
 }) => {
-  const { register, control } = useFormContext();
+  const { control } = useFormContext();
   const { move, append, remove, fields, insert } = useFieldArray({
     control,
     name: `sections.${index}.items`,
@@ -69,7 +69,7 @@ const CvLanguage = ({
               placeholder="Kỹ năng"
               medium
               className="mb-0"
-              {...register(`sections.${index}.items.${k}.name`)}
+              name={`sections.${index}.items.${k}.name`}
             />
             <CvSlider
               name={`sections.${index}.items.${k}.level`}

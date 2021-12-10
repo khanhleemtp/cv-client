@@ -15,7 +15,7 @@ const CvSummary = ({
   upItem,
   addItem,
 }) => {
-  const { register, control } = useFormContext();
+  const { control } = useFormContext();
   const { move, append, remove, fields, insert } = useFieldArray({
     control,
     name: `sections.${index}.items`,
@@ -66,7 +66,7 @@ const CvSummary = ({
           <CvTypography
             type="p"
             placeholder="Thông tin thêm"
-            {...register(`sections.${index}.items.${k}.text`)}
+            name={`sections.${index}.items.${k}.text`}
           />
         </CvSectionWrapper>
       ))}

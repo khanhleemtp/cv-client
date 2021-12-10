@@ -1,7 +1,17 @@
 import { createSelector } from 'reselect';
 
 const selectorViewState = (state) => state.viewState;
-// const selectorCart = (state) => state.cart;
+
+export const selectSelectedField = createSelector(
+  selectorViewState,
+  (viewState) => viewState.field
+);
+
+export const selectIsCurrentField = (currentField) =>
+  createSelector(
+    selectSelectedField,
+    (prevField) => prevField === currentField
+  );
 
 export const selectSelectedSection = createSelector(
   selectorViewState,
@@ -23,6 +33,15 @@ export const selectTypeModal = createSelector(
   selectModal,
   (modal) => modal.type
 );
+
+export const selectIsFullModal = createSelector(selectTypeModal, (type) => {
+  switch (type) {
+    case 'UPLOAD_IMAGE':
+      return false;
+    default:
+      return true;
+  }
+});
 
 export const selectIsOpenModal = createSelector(
   selectModal,

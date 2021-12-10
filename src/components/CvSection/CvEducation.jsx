@@ -16,7 +16,7 @@ const CvEducation = ({
   upItem,
   addItem,
 }) => {
-  const { register, control } = useFormContext();
+  const { control } = useFormContext();
 
   const baseName = `sections.${index}.items`;
 
@@ -63,13 +63,13 @@ const CvEducation = ({
             <CvTypography
               type="h3"
               placeholder="Ngành học"
-              {...register(`${baseName}.${k}.degree`)}
+              name={`${baseName}.${k}.degree`}
               medium
             />
             <CvTypography
               type="p"
               placeholder="Trường Đại học"
-              {...register(`${baseName}.${k}.institution`)}
+              name={`${baseName}.${k}.institution`}
               color="secondary"
               bold
             />
@@ -79,21 +79,21 @@ const CvEducation = ({
                   type="h4"
                   className="text-center"
                   placeholder="Loại"
-                  {...register(`${baseName}.${k}.gpaText`)}
+                  name={`${baseName}.${k}.gpaText`}
                 />
                 <div className="inline-flex items-center">
                   <CvTypography
                     type="h4"
                     className="text-center p-0"
                     placeholder="TB"
-                    {...register(`${baseName}.${k}.gpa`)}
+                    name={`${baseName}.${k}.gpa`}
                   />
                   <span className="mb-0.5">/</span>
                   <CvTypography
                     type="h4"
                     className="text-center p-0"
                     placeholder="Tổng"
-                    {...register(`${baseName}.${k}.maxGpa`)}
+                    name={`${baseName}.${k}.maxGpa`}
                   />
                 </div>
               </div>
@@ -108,7 +108,7 @@ const CvEducation = ({
                   <CvTypography
                     type="h4"
                     placeholder="Địa điểm"
-                    {...register(`${baseName}.${k}.location`)}
+                    name={`${baseName}.${k}.location`}
                     icon="location"
                   />
                 </div>

@@ -9,6 +9,15 @@ export const selectSectionFinish = () => ({
   type: viewStateActionTypes.CLOSE_SECTION,
 });
 
+export const openField = (field) => ({
+  type: viewStateActionTypes.OPEN_FIELD,
+  payload: field,
+});
+
+export const closeField = () => ({
+  type: viewStateActionTypes.CLOSE_FIELD,
+});
+
 export const openModal = (modalName) => ({
   type: viewStateActionTypes.OPEN_MODAL,
   payload: modalName,

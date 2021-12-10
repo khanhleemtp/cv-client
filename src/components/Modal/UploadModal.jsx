@@ -89,7 +89,7 @@ const UploadModal = ({ modalRef, close, updateCv, photo, isLoading }) => {
   };
 
   return (
-    <div className="w-full p-6">
+    <div className="bg-white mx-2 shadow-lg rounded-lg w-full p-6">
       <div className="flex items-center justify-between">
         <p>Ảnh</p>
         <button

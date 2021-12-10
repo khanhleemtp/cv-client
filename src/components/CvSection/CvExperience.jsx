@@ -17,7 +17,7 @@ const CvExperience = ({
   upItem,
   addItem,
 }) => {
-  const { register, control } = useFormContext();
+  const { control } = useFormContext();
 
   const baseName = `sections.${index}.items`;
 
@@ -71,13 +71,13 @@ const CvExperience = ({
             <CvTypography
               type="h3"
               placeholder="Vị trí"
-              {...register(`${baseName}.${k}.position`)}
+              name={`${baseName}.${k}.position`}
               medium
             />
             <CvTypography
               type="p"
               placeholder="Nơi làm việc"
-              {...register(`${baseName}.${k}.workplace`)}
+              name={`${baseName}.${k}.workplace`}
               color="secondary"
               bold
             />
@@ -93,14 +93,14 @@ const CvExperience = ({
                   <CvTypography
                     type="h4"
                     placeholder="Địa điểm"
-                    {...register(`${baseName}.${k}.location`)}
+                    name={`${baseName}.${k}.location`}
                     icon="location"
                   />
                 </div>
                 <CvTypography
                   type="p"
                   placeholder="Mô tả công việc"
-                  {...register(`${baseName}.${k}.description`)}
+                  name={`${baseName}.${k}.description`}
                 />
                 <CvBullets
                   name={`${baseName}.${k}.bullets`}

@@ -13,28 +13,12 @@ const CvConfigProfile = () => {
 
   return (
     <div className="p-6 w-64">
-      <CustomSwitch control={control} name="header.showName" label="Họ tên" />
-      <CustomSwitch
-        control={control}
-        name="showPosition"
-        label="Vị trí công việc"
-      />
-      <CustomSwitch
-        control={control}
-        name="header.showPhone"
-        label="Số điện thoại"
-      />
-      <CustomSwitch control={control} name="header.showEmail" label="Email" />
-      <CustomSwitch
-        control={control}
-        name="header.showLink"
-        label="Website/Link"
-      />
-      <CustomSwitch
-        control={control}
-        name="header.showAddress"
-        label="Địa chỉ"
-      />
+      <CustomSwitch name="header.showName" label="Họ tên" />
+      <CustomSwitch name="showPosition" label="Vị trí công việc" />
+      <CustomSwitch name="header.showPhone" label="Số điện thoại" />
+      <CustomSwitch name="header.showEmail" label="Email" />
+      <CustomSwitch name="header.showLink" label="Website/Link" />
+      <CustomSwitch name="header.showAddress" label="Địa chỉ" />
 
       <div className="flex">
         Photo style

@@ -11,7 +11,7 @@ const CvTags = ({
   upItem,
   downItem,
 }) => {
-  const { control, register, setFocus } = useFormContext();
+  const { control, setFocus, getValues } = useFormContext();
 
   const { fields, append, insert, remove } = useFieldArray({
     control,
@@ -22,13 +22,14 @@ const CvTags = ({
   const handleKeyPress = (event, l) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      insert(l, { text: '' }, { focusName: `${name}.tags.${l + 1}` });
+      insert(l + 1, { text: '' }, { focusName: `${name}.tags.${l + 1}` });
       updateData();
     }
   };
 
   const handleKeyDown = (event, l) => {
-    if (fields[l]?.text && event.key === 'Backspace') {
+    const tags = getValues(`${name}.tags`);
+    if (!tags[l].text && event.key === 'Backspace') {
       event.preventDefault();
       if (l === 0) {
         return;
@@ -59,7 +60,6 @@ const CvTags = ({
           remove={removeItem}
           up={upItem}
           down={downItem}
-          // addTag={addTag(k)}
           addTag={addTag}
           removeTag={fields?.length === 1 ? null : removeTag}
         />
@@ -68,7 +68,7 @@ const CvTags = ({
       <CvTypography
         type="p"
         placeholder="Nhóm kỹ năng"
-        {...register(`${name}.title`)}
+        name={`${name}.title`}
         color="secondary"
         bold
       />
@@ -80,7 +80,7 @@ const CvTags = ({
           onKeyDown={(e) => handleKeyDown(e, l)}
         >
           <CvTypography
-            {...register(`${name}.tags.${l}.text`)}
+            name={`${name}.tags.${l}.text`}
             className="text-center"
             type="h5"
             placeholder="Thông tin chi tiết"

@@ -3,8 +3,6 @@ import clsx from 'clsx';
 const ToolboxButton = ({
   rightIcon: RightIcon,
   leftIcon: LeftIcon,
-  rightIconClass = '',
-  leftIconClass = '',
   bgColorClass = 'bg-gray-200',
   className,
   onClick = () => {},
@@ -12,6 +10,7 @@ const ToolboxButton = ({
 }) => {
   return (
     <button
+      type="button"
       onClick={onClick}
       className={clsx(
         'inline-flex text-gray-600 hover:text-indigo-500 rounded-full py-1.5 px-2 items-center mr-2 text-sm',

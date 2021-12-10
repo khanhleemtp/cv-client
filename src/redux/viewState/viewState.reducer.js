@@ -10,10 +10,21 @@ const INITIAL_STATE = {
   section: null,
   modal: initModal,
   popover: null,
+  field: null,
 };
 
 const viewStateReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case viewStateActionTypes.OPEN_FIELD:
+      return {
+        ...state,
+        field: action.payload,
+      };
+    case viewStateActionTypes.CLOSE_FIELD:
+      return {
+        ...state,
+        field: null,
+      };
     case viewStateActionTypes.SELECT_SECTION:
       return {
         ...state,

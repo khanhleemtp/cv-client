@@ -17,7 +17,7 @@ const Loading = () => {
   }, []);
   return (
     <div className={styles.loadingOverlay}>
-      <div className={styles.loadingContainer} ref={anime}></div>;
+      <div className={styles.loadingContainer} ref={anime}></div>
     </div>
   );
 };

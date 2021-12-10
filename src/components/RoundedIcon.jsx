@@ -10,9 +10,9 @@ function RoundIcon({
   ...otherProps
 }) {
   return (
-    <button
+    <div
       className={clsx(
-        'p-1.5 rounded-full mr-2 inline-flex group',
+        'p-1.5 rounded-full mr-2 inline-flex hover:bg-opacity-80 cursor-pointer',
         iconColorClass,
         bgColorClass,
         className
@@ -20,8 +20,8 @@ function RoundIcon({
       onClick={onClick}
       {...otherProps}
     >
-      <Icon className="w-5 h-5 group-hover:text-indigo-300" />
-    </button>
+      <Icon className="w-5 h-5" />
+    </div>
   );
 }
 

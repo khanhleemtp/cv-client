@@ -8,12 +8,15 @@ import {
   selectTypeModal,
 } from '../redux/viewState/viewState.selectors';
 import { closeModal } from '../redux/viewState/viewState.action';
+import SectionCvModal from './Modal/SectionCvModal';
+import { selectIsFullModal } from './../redux/viewState/viewState.selectors';
 
 const MODAL_COMPONENTS = (modalRef) => ({
   UPLOAD_IMAGE: <UploadModal modalRef={modalRef} />,
+  SECTION_CV: <SectionCvModal modalRef={modalRef} />,
 });
 
-const RootModal = ({ typeModal, close, isOpen }) => {
+const RootModal = ({ typeModal, close, isOpen, isFull }) => {
   let closeButtonRef = useRef(null);
   return (
     <div>
@@ -25,9 +28,11 @@ const RootModal = ({ typeModal, close, isOpen }) => {
           open={isOpen}
         >
           <div className="min-h-screen w-full flex items-center justify-center">
-            <Transition.Child as={Fragment}>
-              <Dialog.Overlay className="fixed inset-0 opacity-60 bg-gray-900" />
-            </Transition.Child>
+            {!isFull && (
+              <Transition.Child as={Fragment}>
+                <Dialog.Overlay className="fixed inset-0 opacity-60 bg-gray-900" />
+              </Transition.Child>
+            )}
 
             <Transition.Child
               as={Fragment}
@@ -38,39 +43,19 @@ const RootModal = ({ typeModal, close, isOpen }) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0 transform -translate-x-20"
             >
-              {/* <aside className="fixed inset-y-0 z-50 flex-shrink-0 w-screen overflow-y-auto bg-white shadow-lg dark:bg-gray-800 lg:hidden">
-            <div className="grid grid-cols-5 items-center text-lg shadow-xl py-2 px-3">
-              <div className="col-span-1">
-                <RoundIcon
-                  icon={ChevronLeftIcon}
-                  bgColorClass="bg-indigo-100"
-                  iconColorClass="text-indigo-500"
-                  ref={closeButtonRef}
-                  onClick={closeSidebar}
-                />
-              </div>
-              <Dialog.Title className="text-center col-span-3">
-                Hello World
-              </Dialog.Title>
-              <div className="col-span-1"></div>
-            </div>
-            <div className="p-2">
-              <div>abc</div>
-              <div>abc</div>
-              <div>abc</div>
-            </div>
-          </aside> */}
-
-              <aside className="relative flex items-center justify-center w-full max-w-lg">
-                <div
-                  className="bg-white mx-2 shadow-lg rounded-lg w-full"
-                  // ref={closeButtonRef}
-                >
+              {isFull ? (
+                <aside className="fixed inset-y-0 z-50 flex-shrink-0 w-screen overflow-y-auto bg-white shadow-lg dark:bg-gray-800">
                   {typeModal
                     ? MODAL_COMPONENTS(closeButtonRef)[typeModal]
                     : null}
-                </div>
-              </aside>
+                </aside>
+              ) : (
+                <aside className="relative flex items-center justify-center w-full max-w-lg">
+                  {typeModal
+                    ? MODAL_COMPONENTS(closeButtonRef)[typeModal]
+                    : null}
+                </aside>
+              )}
             </Transition.Child>
           </div>
         </Dialog>
@@ -82,6 +67,7 @@ const RootModal = ({ typeModal, close, isOpen }) => {
 const mapStateToProps = createStructuredSelector({
   isOpen: selectIsOpenModal,
   typeModal: selectTypeModal,
+  isFull: selectIsFullModal,
 });
 
 const mapDispatchToProps = (dispatch) => ({

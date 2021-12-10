@@ -37,17 +37,19 @@ const CvContainer = ({ isSelected, cvData, isUpdating }) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <p className="px-2">{isUpdating ? 'Đang lưu...' : 'Đã lưu'}</p>
         <ToolboxContainer />
         <div
           className={clsx(
-            'bg-transparent container mx-auto transition-colors ease-in-out',
+            'bg-transparent container mx-auto transition-colors ease-in-out max-w-3xl md:p-12 md:border-2 md:shadow-2xl md:my-4',
             {
-              'bg-gray-300 bg-opacity-60': isSelected,
+              'bg-gray-300 bg-opacity-20': isSelected,
             }
           )}
         >
           <CvTitle />
+          <p className="hidden md:block px-2">
+            {isUpdating ? 'Đang lưu...' : 'Đã lưu'}
+          </p>
           <CvProfile />
           {fields.map((field, index) => (
             <CvSection index={index} key={field._id} record={field.record} />

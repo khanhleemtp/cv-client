@@ -13,9 +13,9 @@ import {
   selectSectionFinish,
   closePopover,
 } from './../../redux/viewState/viewState.action';
-import { useFormState, useFormContext, useWatch } from 'react-hook-form';
-import { updateCvStart } from './../../redux/cv/cv.action';
-import { isEmpty } from 'lodash-es';
+// import { useFormState, useFormContext, useWatch } from 'react-hook-form';
+// import { updateCvStart } from './../../redux/cv/cv.action';
+// import { isEmpty } from 'lodash-es';
 
 const CvSectionWrapper = ({
   name,
@@ -28,25 +28,25 @@ const CvSectionWrapper = ({
   popover,
 }) => {
   const ref = useRef();
-  const { control } = useFormContext();
+  // const { control } = useFormContext();
 
-  const cvData = useWatch({
-    control,
-  });
+  // const cvData = useWatch({
+  //   control,
+  // });
 
   const dispatch = useDispatch();
-  const { dirtyFields } = useFormState({ control });
+  // const { dirtyFields } = useFormState({ control });
 
   const handleClose = useCallback(() => {
     if (isModalOpen) return;
     if (isSelected) {
-      if (!isEmpty(dirtyFields)) {
-        dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
-      }
+      // if (!isEmpty(dirtyFields)) {
+      //   dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
+      // }
       return dispatch(selectSectionFinish());
     }
     return;
-  }, [dispatch, isSelected, isModalOpen, cvData, dirtyFields]);
+  }, [dispatch, isSelected, isModalOpen]);
 
   const handleOpen = (e) => {
     e.stopPropagation();
@@ -68,7 +68,7 @@ const CvSectionWrapper = ({
       onClick={(e) => handleOpen(e)}
       ref={ref}
       className={clsx(
-        'p-2 bg-transparent relative transition-colors',
+        'p-2 bg-transparent relative transition-colors rounded-md',
         {
           'bg-white': isSelected,
         },

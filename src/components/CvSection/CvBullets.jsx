@@ -2,11 +2,11 @@ import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import CvTypography from './CvTypography';
 
 const CvBullets = ({ name, showBullets }) => {
-  const { control, register, setFocus, setValue } = useFormContext();
+  const { control, setFocus, setValue, getValues } = useFormContext();
 
   const isEnable = useWatch({ control, name: showBullets });
 
-  const bullets = useWatch({ control, name });
+  const bullets = getValues(name);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -45,7 +45,7 @@ const CvBullets = ({ name, showBullets }) => {
       >
         <span className="flex items-center justify-center w-4 h-4">&bull;</span>
         <CvTypography
-          {...register(`${name}.${l}.text`)}
+          name={`${name}.${l}.text`}
           // onKeyDown={(e) => handleKeyDown(e, l)}
           type="h5"
           placeholder="Thông tin chi tiết"

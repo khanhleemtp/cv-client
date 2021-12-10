@@ -3,9 +3,21 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import CustomDatepicker from './../CustomDatepicker';
 import CustomSwitch from '../CustomSwitch';
+// import { updateCvStart } from '../../redux/cv/cv.action';
+// import { useDispatch } from 'react-redux';
 
 const CvDatepicker = ({ dayProps }) => {
-  const { control, setValue } = useFormContext();
+  const { setValue } = useFormContext();
+
+  // const dispatch = useDispatch();
+  // const { isDirty } = useFormState({ control, name: dayProps });
+
+  // useEffect(() => {
+  //   if (isDirty) {
+  //     const cvData = getValues();
+  //     dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
+  //   }
+  // }, [isDirty, getValues, dispatch]);
 
   const cbIsOngoing = () => setValue(`${dayProps}.to`, null);
   const cbTo = () => setValue(`${dayProps}.isOngoing`, false);
@@ -40,7 +52,6 @@ const CvDatepicker = ({ dayProps }) => {
         <div className="w-full flex flex-col items-center justify-center">
           <CustomSwitch
             label="Hiện tại"
-            control={control}
             name={`${dayProps}.isOngoing`}
             cb={cbIsOngoing}
           />

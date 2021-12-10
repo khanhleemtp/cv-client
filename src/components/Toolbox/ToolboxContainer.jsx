@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import RoundIcon from '../../components/RoundedIcon';
 import {
   PlusIcon,
@@ -14,20 +13,14 @@ import {
 } from '@heroicons/react/solid';
 import RootModal from '../RootModal';
 import ToolboxButton from './ToolboxButton';
-import StateModal from './../StateModal';
+import { connect } from 'react-redux';
+import { openModal } from './../../redux/viewState/viewState.action';
 
-const ToolboxContainer = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const ToolboxContainer = ({ openSectionModal }) => {
   return (
-    <div className="bg-white px-2 md:px-6 py-1.5 flex overflow-auto items-center">
-      <StateModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        modalType="UPLOAD_IMAGE"
-      />
+    <div className="bg-white p-2 md:px-6 flex overflow-auto items-center z-50 sticky top-0 md:top-16 md:border-t-2 shadow-lg">
       <RootModal />
-      <RoundIcon icon={PlusIcon} onClick={() => setIsOpen(true)} />
+      <RoundIcon icon={PlusIcon} onClick={openSectionModal} />
       <RoundIcon
         icon={ChevronRightIcon}
         bgColorClass="bg-indigo-100"
@@ -66,4 +59,8 @@ const ToolboxContainer = () => {
   );
 };
 
-export default ToolboxContainer;
+const mapDispatchToProps = (dispatch) => ({
+  openSectionModal: () => dispatch(openModal('SECTION_CV')),
+});
+
+export default connect(null, mapDispatchToProps)(ToolboxContainer);

@@ -1,9 +1,24 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { useDispatch } from 'react-redux';
+
+import { updateCvStart } from '../../redux/cv/cv.action';
+// import { useEffect } from 'react';
 
 const CvSlider = ({ name }) => {
-  const { control } = useFormContext();
+  const { control, getValues } = useFormContext();
+
+  const dispatch = useDispatch();
+  // const { isDirty, dirtyFields } = useFormState({ control, name: name });
+
+  // useEffect(() => {
+  //   console.log('dirty Fields: ', dirtyFields);
+  //   if (isDirty) {
+  //     const cvData = getValues();
+  //     dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
+  //   }
+  // }, [isDirty, getValues, dispatch, dirtyFields]);
 
   return (
     <Controller
@@ -23,7 +38,11 @@ const CvSlider = ({ name }) => {
           }}
           railStyle={{ backgroundColor: '#E7E5E4', height: 8 }}
           trackStyle={{ backgroundColor: '#3B82F6', height: 8 }}
-          onChange={(value) => onChange(value)}
+          onChange={(value) => {
+            onChange(value);
+            const cvData = getValues();
+            dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
+          }}
         />
       )}
     />
