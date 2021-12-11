@@ -18,7 +18,7 @@ import { openModal } from './../../redux/viewState/viewState.action';
 
 const ToolboxContainer = ({ openSectionModal }) => {
   return (
-    <div className="bg-white p-2 md:px-6 flex overflow-auto items-center z-50 sticky top-0 md:top-16 md:border-t-2 shadow-lg">
+    <div className="bg-white px-2 h-16 md:py-2 md:h-auto md:px-6 flex overflow-auto items-center z-40 md:z-40 sticky top-0 md:top-16 md:border-t-2 shadow-lg">
       <RootModal />
       <RoundIcon icon={PlusIcon} onClick={openSectionModal} />
       <RoundIcon

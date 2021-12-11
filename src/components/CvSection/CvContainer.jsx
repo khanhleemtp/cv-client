@@ -14,7 +14,6 @@ import CvTitle from './CvTitle';
 const CvContainer = ({ isSelected, cvData, isUpdating }) => {
   const methods = useForm({ defaultValues: cvData });
   const { control } = methods;
-
   const { reset } = methods;
 
   useEffect(() => {

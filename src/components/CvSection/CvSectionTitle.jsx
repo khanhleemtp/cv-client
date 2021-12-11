@@ -12,7 +12,7 @@ const CvSectionTitle = ({ placeholder, name, isSelected }) => {
         { 'rounded-t-lg': isSelected }
       )}
     >
-      <PencilIcon className="w-8 h-8 pt-1 mr-1 text-blue-500 md:hidden" />
+      <PencilIcon className="w-8 h-8 text-blue-500 md:hidden" />
       <CvTypography
         type="h1"
         bold
