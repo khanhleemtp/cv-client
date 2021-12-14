@@ -73,7 +73,7 @@ const CvEducation = ({
               color="secondary"
               bold
             />
-            <div className="flex flex-wrap md:flex-row-reverse items-center justify-start">
+            <div className="flex flex-wrap items-center justify-start">
               <div className="flex flex-col w-24">
                 <CvTypography
                   type="h4"
@@ -109,6 +109,7 @@ const CvEducation = ({
                     type="h4"
                     placeholder="Địa điểm"
                     name={`${baseName}.${k}.location`}
+                    className="flex-shrink"
                     icon="location"
                   />
                 </div>

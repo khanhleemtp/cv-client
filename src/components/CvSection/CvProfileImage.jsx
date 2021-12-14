@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { TrashIcon, UserIcon, CloudUploadIcon } from '@heroicons/react/outline';
-import { useFormContext, useWatch, useFormState } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { openModal } from '../../redux/viewState/viewState.action';
 import { connect } from 'react-redux';
 import { updateCvStart } from '../../redux/cv/cv.action';

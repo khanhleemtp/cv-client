@@ -15,7 +15,6 @@ import {
 } from './../../redux/viewState/viewState.action';
 // import { useFormState, useFormContext, useWatch } from 'react-hook-form';
 // import { updateCvStart } from './../../redux/cv/cv.action';
-// import { isEmpty } from 'lodash-es';
 
 const CvSectionWrapper = ({
   name,
@@ -68,12 +67,12 @@ const CvSectionWrapper = ({
       onClick={(e) => handleOpen(e)}
       ref={ref}
       className={clsx(
-        'p-2 bg-transparent relative transition-colors rounded-md',
+        'p-2 bg-transparent relative transition-colors',
         {
-          'bg-white': isSelected,
+          'bg-white ring-0 md:ring-1 ring-blue-500 md:rounded-lg': isSelected,
         },
         {
-          'ring-1 ring-blue-500 rounded-lg': !container && isSelected,
+          'ring-1 rounded-lg': !container && isSelected,
         },
         { 'border-b-2': isBorder }
       )}
@@ -88,7 +87,7 @@ const CvSectionWrapper = ({
         leaveFrom="opacity-100 scale-100"
         leaveTo="opacity-0 scale-95"
       >
-        <div className="absolute z-20 -top-8 left-1/2 transform -translate-x-1/2 bg-white rounded-full border-t-2">
+        <div className="absolute z-10 -top-8 left-1/2 transform -translate-x-1/2 bg-white rounded-full border-t-2">
           <div className="inline-flex items-center divide-x-2">{setting}</div>
         </div>
       </Transition>

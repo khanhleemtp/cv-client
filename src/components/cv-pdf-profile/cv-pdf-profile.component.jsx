@@ -3,9 +3,9 @@ import CvTitle from '../cv-title/cv-title.component';
 
 const ContactItem = ({ src, info }) => (
   <View style={styles.contactItem}>
-    <View style={styles.iconContainer}>
+    {/* <View style={styles.iconContainer}>
       <Image style={styles.icon} src={src} />
-    </View>
+    </View> */}
     <Text style={styles.contactInfo}>{info}</Text>
   </View>
 );

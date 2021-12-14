@@ -50,9 +50,11 @@ const CvContainer = ({ isSelected, cvData, isUpdating }) => {
             {isUpdating ? 'Đang lưu...' : 'Đã lưu'}
           </p>
           <CvProfile />
-          {fields.map((field, index) => (
-            <CvSection index={index} key={field._id} record={field.record} />
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {fields.map((field, index) => (
+              <CvSection index={index} key={field._id} record={field.record} />
+            ))}
+          </div>
         </div>
       </form>
     </FormProvider>

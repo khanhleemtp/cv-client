@@ -17,7 +17,7 @@ const CvCalendar = ({ from, to, isOngoing, open, isOpen, close }) => {
 
   return (
     <div
-      className="inline-flex items-center text-sm text-gray-500 cursor-pointer hover:bg-gray-200 w-80 select-none"
+      className="flex flex-grow w-full items-center text-sm text-gray-500 cursor-pointer hover:bg-gray-200 select-none"
       onClick={isOpen ? close : open}
     >
       <div className="text-blue-500 pointer-events-none w-4 h-4">
@@ -26,7 +26,7 @@ const CvCalendar = ({ from, to, isOngoing, open, isOpen, close }) => {
       <div>{fromDate && moment(fromDate).format('DD/MM/YYYY')}</div>
       <span className="mx-0.5">-</span>
       {isGoing ? (
-        <div className="">Hiện tại</div>
+        <div className="truncate">Hiện tại</div>
       ) : (
         <div>{toDate && moment(toDate).format('DD/MM/YYYY')}</div>
       )}

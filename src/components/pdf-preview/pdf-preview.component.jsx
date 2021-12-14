@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { pdfjs, Document, Page } from 'react-pdf';
 import { pdf } from '@react-pdf/renderer';
 import { useResizeDetector } from 'react-resize-detector';
+import Loading from './../loading/loading.component';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -18,17 +19,27 @@ const PDFViewer = ({ children }) => {
       });
   }, [children]);
   const { width, ref } = useResizeDetector();
+
+  const [numPages, setNumPages] = useState(null);
   return (
-    <div
-      ref={ref}
-      className="max-w-md shadow-2xl m-4 hidden md:block md:flex-grow"
-    >
+    <div ref={ref} className="max-w-3xl mx-auto container  my-8">
       <Document
         file={pdfUrl}
-        loading={() => <div>Loading...</div>}
-        noData={() => <div>Loading...</div>}
+        loading={() => <Loading />}
+        noData={() => <Loading />}
+        onLoadSuccess={({ numPages }) => setNumPages(numPages)}
       >
-        <Page renderMode="svg" pageNumber={1} width={width ? width : 1} />
+        {Array.apply(null, Array(numPages))
+          .map((x, i) => i + 1)
+          .map((page) => (
+            <Page
+              className="my-8 shadow-lg rounded-lg"
+              // className="my-6 relative"
+              renderMode="svg"
+              pageNumber={page}
+              width={width ? width : 1}
+            />
+          ))}
       </Document>
     </div>
   );

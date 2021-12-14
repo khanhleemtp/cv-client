@@ -64,7 +64,7 @@ const CvLanguage = ({
             />
           }
         >
-          <div className="pt-4 pb-2">
+          <div className="">
             <CvTypography
               placeholder="Kỹ năng"
               medium

@@ -9,14 +9,11 @@ import { closeModal } from './../../redux/viewState/viewState.action';
 import { updateCvStart } from '../../redux/cv/cv.action';
 import { createStructuredSelector } from 'reselect';
 import { selectCvPhoto, selectLoadingApi } from '../../redux/cv/cv.selectors';
-import { useFormContext } from 'react-hook-form';
 
 const UploadModal = ({ modalRef, close, updateCv, photo, isLoading }) => {
   const [image, setImage] = useState('');
   const [cropData, setCropData] = useState(photo);
   const [cropper, setCropper] = useState();
-
-  const { setValue } = useFormContext();
 
   const onChange = (e) => {
     e.preventDefault();

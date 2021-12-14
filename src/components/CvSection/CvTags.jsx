@@ -75,7 +75,7 @@ const CvTags = ({
       {fields?.map((field, l) => (
         <div
           key={field._id}
-          className="inline-flex border-2 border-gray-400 p-1 rounded-lg mr-2 mb-2 text-center w-1/4"
+          className="inline-flex border-2 border-gray-400 p-1 rounded-lg mr-2 mb-2 text-center w-1/3"
           onKeyPress={(e) => handleKeyPress(e, l)}
           onKeyDown={(e) => handleKeyDown(e, l)}
         >
