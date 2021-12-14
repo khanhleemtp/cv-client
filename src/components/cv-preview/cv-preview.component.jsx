@@ -1,8 +1,7 @@
-import PDFViewer from './../pdf-preview/pdf-preview.component';
-// import CvTemplateOne from './../cv-template/cv-template-one/cv-template-one';
 import CvPdfTemplate from '../CvBuilderPdf/CvPdfTemplate';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { Link } from 'react-router-dom';
+import CvWrapperPdf from './cv-wrapper-pdf.component';
 const CvPreview = () => {
   return (
     <div>
@@ -11,15 +10,18 @@ const CvPreview = () => {
           Trang chủ
         </Link>
         <PDFDownloadLink document={<CvPdfTemplate />} fileName="somename.pdf">
-          {({ blob, url, loading, error }) =>
-            loading ? 'Đang tải...' : 'Tải xuống ngay 🖨️!'
+          {({ loading, error }) =>
+            loading ? (
+              'Đang tải...'
+            ) : error ? (
+              <div>{JSON.stringify(error)}</div>
+            ) : (
+              'Tải xuống ngay 🖨️!'
+            )
           }
         </PDFDownloadLink>
       </div>
-      <PDFViewer>
-        {/* <CvTemplateOne /> */}
-        <CvPdfTemplate />
-      </PDFViewer>
+      <CvWrapperPdf />
     </div>
   );
 };

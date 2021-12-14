@@ -74,44 +74,46 @@ const CvEducation = ({
               bold
             />
             <div className="flex flex-wrap items-center justify-start">
-              <div className="flex flex-col w-24">
-                <CvTypography
-                  type="h4"
-                  className="text-center"
-                  placeholder="Loại"
-                  name={`${baseName}.${k}.gpaText`}
-                />
-                <div className="inline-flex items-center">
-                  <CvTypography
-                    type="h4"
-                    className="text-center p-0"
-                    placeholder="TB"
-                    name={`${baseName}.${k}.gpa`}
-                  />
-                  <span className="mb-0.5">/</span>
-                  <CvTypography
-                    type="h4"
-                    className="text-center p-0"
-                    placeholder="Tổng"
-                    name={`${baseName}.${k}.maxGpa`}
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col flex-grow">
+              <div className="flex flex-col">
                 <div className="flex items-center">
-                  <CvCalendar
-                    from={`${baseName}.${k}.dateRange.from`}
-                    to={`${baseName}.${k}.dateRange.to`}
-                    isOngoing={`${baseName}.${k}.dateRange.isOngoing`}
-                    dayProps={`${baseName}.${k}.dateRange`}
-                  />
-                  <CvTypography
-                    type="h4"
-                    placeholder="Địa điểm"
-                    name={`${baseName}.${k}.location`}
-                    className="flex-shrink"
-                    icon="location"
-                  />
+                  <div className="flex items-center flex-wrap">
+                    <CvCalendar
+                      from={`${baseName}.${k}.dateRange.from`}
+                      to={`${baseName}.${k}.dateRange.to`}
+                      isOngoing={`${baseName}.${k}.dateRange.isOngoing`}
+                      dayProps={`${baseName}.${k}.dateRange`}
+                    />
+                    <CvTypography
+                      type="h4"
+                      placeholder="Địa điểm"
+                      name={`${baseName}.${k}.location`}
+                      className="flex-shrink"
+                      icon="location"
+                    />
+                  </div>
+                  <div className="flex flex-col w-24 border-l-2">
+                    <CvTypography
+                      type="h4"
+                      className="text-center"
+                      placeholder="Loại"
+                      name={`${baseName}.${k}.gpaText`}
+                    />
+                    <div className="inline-flex items-center">
+                      <CvTypography
+                        type="h4"
+                        className="text-center p-0"
+                        placeholder="TB"
+                        name={`${baseName}.${k}.gpa`}
+                      />
+                      <span className="mb-0.5">/</span>
+                      <CvTypography
+                        type="h4"
+                        className="text-center p-0"
+                        placeholder="Tổng"
+                        name={`${baseName}.${k}.maxGpa`}
+                      />
+                    </div>
+                  </div>
                 </div>
                 <CvBullets
                   name={`${baseName}.${k}.bullets`}

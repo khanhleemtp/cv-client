@@ -5,14 +5,15 @@ const CvSilder = () => {
   const styles = StyleSheet.create({
     silderContainer: {
       backgroundColor: '#E7E5E4',
-      width: 300,
+      width: '100%',
       height: 8,
       borderRadius: 4,
+      lineHeight: 1.5,
     },
     silderValue: {
       position: 'relative',
       backgroundColor: '#3B82F6',
-      width: 100 * 2,
+      width: `${100 / 2}%`,
       height: 8,
       borderRadius: 4,
     },

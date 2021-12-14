@@ -4,16 +4,29 @@ import CvTitle from './Typography/CvTitle';
 
 const CvEducation = () => {
   const styles = StyleSheet.create({
-    cpaConatainer: {
+    locationCpa: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      // width: '100%',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+    },
+    cpaContainer: {
       textAlign: 'center',
       display: 'flex',
       flexDirection: 'column',
-      width: 80,
+      width: '20%',
+      borderLeft: 1,
+      borderColor: '#71717A',
     },
     calendarContainer: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
+      flexWrap: 'wrap',
+      flexShrink: 1,
+      width: '60%',
     },
     bulletContainer: {
       display: 'flex',
@@ -31,28 +44,33 @@ const CvEducation = () => {
   });
 
   return (
-    <View>
+    <View
+      style={{
+        width: '100%',
+      }}
+    >
       <CvTitle>Học Vấn</CvTitle>
       <View>
         <CvText type="h3" bold>
           IT-3
         </CvText>
-        <CvText type="h3" bold>
+        <CvText type="h3" bold color="primary">
           Đại học Bách Khoa Hà Nội
         </CvText>
-        <View style={styles.cpaConatainer}>
-          <CvText type="h4">CPA</CvText>
-          <View>
+        <View style={styles.locationCpa}>
+          <View style={styles.calendarContainer}>
+            <CvText type="h4" icon="calendar">
+              3/5/2021 - Hiện tại
+            </CvText>
+
+            <CvText type="h4" icon="location">
+              Hà Nội thứ 7 phải lên đồ
+            </CvText>
+          </View>
+          <View style={styles.cpaContainer}>
+            <CvText type="h4">CPA</CvText>
             <CvText type="h4">3 / 5</CvText>
           </View>
-        </View>
-        <View style={styles.calendarContainer}>
-          <CvText type="h4" icon="calendar">
-            3/5/2021 - Hiện tại
-          </CvText>
-          <CvText type="h4" icon="location">
-            Hà Nội
-          </CvText>
         </View>
         <View style={styles.bulletContainer}>
           <View style={styles.bullet}></View>

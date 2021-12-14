@@ -3,6 +3,7 @@ import { Dialog } from '@headlessui/react';
 import { ChevronLeftIcon } from '@heroicons/react/solid';
 import { connect } from 'react-redux';
 import { closeModal } from '../../redux/viewState/viewState.action';
+import CvWrapperPdf from '../cv-preview/cv-wrapper-pdf.component';
 
 const SectionCvModal = ({ modalRef, close }) => {
   return (
@@ -17,14 +18,12 @@ const SectionCvModal = ({ modalRef, close }) => {
           />
         </div>
         <Dialog.Title className="text-center col-span-3">
-          Hello World
+          Xem trước
         </Dialog.Title>
         <div className="col-span-1"></div>
       </div>
       <div className="p-2">
-        <div>abc</div>
-        <div>abc</div>
-        <div>abc</div>
+        <CvWrapperPdf />
       </div>
     </>
   );

@@ -50,11 +50,35 @@ const CvContainer = ({ isSelected, cvData, isUpdating }) => {
             {isUpdating ? 'Đang lưu...' : 'Đã lưu'}
           </p>
           <CvProfile />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {fields.map((field, index) => (
-              <CvSection index={index} key={field._id} record={field.record} />
-            ))}
+          <div className="flex flex-col md:flex-row">
+            <div className="flex flex-col w-full md:w-8/12">
+              {fields.map((field, index) => {
+                if (field.column === 0) return null;
+                return (
+                  <CvSection
+                    index={index}
+                    key={field._id}
+                    record={field.record}
+                  />
+                );
+              })}
+            </div>
+            <div className="flex flex-col w-full md:w-6/12">
+              {fields.map((field, index) => {
+                if (field.column === 1) return null;
+                return (
+                  <CvSection
+                    index={index}
+                    key={field._id}
+                    record={field.record}
+                  />
+                );
+              })}
+            </div>
           </div>
+          {/* {fields.map((field, index) => (
+              <CvSection index={index} key={field._id} record={field.record} />
+            ))} */}
         </div>
       </form>
     </FormProvider>

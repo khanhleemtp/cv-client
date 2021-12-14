@@ -16,23 +16,33 @@ import CvSkills from './CvSkills';
 import CvEducation from './CvEducation';
 import CvSummary from './CvSummary';
 import CvExperience from './CvExperience';
+import CvText from './Typography/CvText';
 
 const CvPdfTemplate = () => {
   return (
     <Document title="Ld Khánh">
       <Page size="A4" style={styles.main}>
-        <View>
-          <CvProfile />
-          <CvLanguage />
-          <CvSkills />
-          <CvEducation />
-          <CvSummary />
-          <CvExperience />
+        <CvProfile />
+        <View style={styles.colContainer}>
+          <View style={styles.colOne}>
+            <CvLanguage />
+            <CvSkills />
+            <CvEducation />
+          </View>
+          <View style={styles.colTwo}>
+            <CvSummary />
+            <CvExperience />
+          </View>
+        </View>
+        <View style={styles.app} fixed>
+          <CvText type="h4" medium color="primary">
+            @Copyright LDCV
+          </CvText>
         </View>
         <Text
           style={styles.pageNumber}
           render={({ pageNumber, totalPages }) =>
-            `${pageNumber} / ${totalPages}`
+            `${pageNumber} / ${totalPages} `
           }
           fixed
         />
@@ -85,6 +95,27 @@ const styles = StyleSheet.create({
     right: 0,
     textAlign: 'center',
     color: 'grey',
+  },
+  app: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+  },
+  colContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  colOne: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '55%',
+    // flexFlow: 'wrap',
+  },
+  colTwo: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '40%',
   },
 });
 

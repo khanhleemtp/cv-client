@@ -83,7 +83,7 @@ const CvExperience = ({
             />
             <div className="flex flex-wrap md:flex-row-reverse items-center justify-start">
               <div className="flex flex-col flex-grow">
-                <div className="flex items-center">
+                <div className="flex items-center flex-wrap">
                   <CvCalendar
                     from={`${baseName}.${k}.dateRange.from`}
                     to={`${baseName}.${k}.dateRange.to`}

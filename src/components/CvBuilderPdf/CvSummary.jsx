@@ -6,7 +6,9 @@ const CvSummary = () => {
   return (
     <View>
       <CvTitle>Thông tin thêm</CvTitle>
-      <CvText type="h3">Hey abc</CvText>
+      <CvText type="h4" medium>
+        Hey abc
+      </CvText>
     </View>
   );
 };

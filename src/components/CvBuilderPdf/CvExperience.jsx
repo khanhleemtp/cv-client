@@ -14,6 +14,7 @@ const CvExperience = () => {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
+      flexWrap: 'wrap',
     },
     bulletContainer: {
       display: 'flex',
@@ -45,7 +46,7 @@ const CvExperience = () => {
             3/5/2021 - Hiện tại
           </CvText>
           <CvText type="h4" icon="location">
-            Hà Nội
+            Hà Nội Thứ 7 Phải lên đồ
           </CvText>
         </View>
         <CvText type="h4" medium>
