@@ -16,12 +16,14 @@ export const selectUpdatingCv = createSelector(
 export const selectCvData = createSelector(selectorCv, (state) => state.cv);
 export const selectCvSections = createSelector(
   selectCvData,
-  (cv) => cv.sections
+  (cv) => cv?.sections
 );
+
+export const selectCvStyle = createSelector(selectCvData, (cv) => cv?.style);
 
 export const selectCvSection = (sectionName) =>
   createSelector(selectCvSections, (sections) =>
-    sections.filter((section) => section.record === sectionName)
+    sections.filter((section) => section?.record === sectionName)
   );
 
 export const selectCvHeader = createSelector(selectCvData, (cv) => cv?.header);

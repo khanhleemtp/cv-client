@@ -29,6 +29,21 @@ export const selectModal = createSelector(
   (viewState) => viewState.modal
 );
 
+export const selectOtherPropsModal = createSelector(
+  selectModal,
+  (modal) => modal.otherProps
+);
+
+export const selectTypeInOtherPropsModal = createSelector(
+  selectOtherPropsModal,
+  (otherProps) => otherProps?.type
+);
+
+export const selectTitleInOtherPropsModal = createSelector(
+  selectOtherPropsModal,
+  (otherProps) => otherProps?.title
+);
+
 export const selectTypeModal = createSelector(
   selectModal,
   (modal) => modal.type

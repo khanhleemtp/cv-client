@@ -1,8 +1,7 @@
-import { useEffect } from 'react';
 import PDFViewer from '../pdf-preview/pdf-preview.component';
 import CvPdfTemplate from '../CvBuilderPdf/CvPdfTemplate';
-import { loadCvStart } from '../../redux/cv/cv.action';
 import {
+  selectCvData,
   selectCvHeader,
   selectCvSections,
   selectCvStyle,
@@ -11,13 +10,7 @@ import {
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-const CvWrapperPdf = ({ loadCv, sections, header, isLoadingCv, style }) => {
-  console.log('abc');
-
-  useEffect(() => {
-    loadCv();
-  }, [loadCv]);
-
+const CvPreviewFromBuilder = ({ sections, header, isLoadingCv, style }) => {
   return (
     <div>
       {isLoadingCv ? (
@@ -32,16 +25,11 @@ const CvWrapperPdf = ({ loadCv, sections, header, isLoadingCv, style }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
+  cvData: selectCvData,
   sections: selectCvSections,
   header: selectCvHeader,
   style: selectCvStyle,
   isLoadingCv: selectLoadingApi,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  loadCv: () => {
-    return dispatch(loadCvStart('619ff2dd3f5cd425c0e24dd4'));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CvWrapperPdf);
+export default connect(mapStateToProps, null)(CvPreviewFromBuilder);

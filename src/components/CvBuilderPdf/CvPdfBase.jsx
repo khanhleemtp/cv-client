@@ -1,11 +1,10 @@
 import PDFViewer from './../pdf-preview/pdf-preview.component';
-
 import CvPdfTemplate from './CvPdfTemplate';
 
-const CvPdfBase = () => {
+const CvPdfBase = ({ sections, header }) => {
   return (
     <PDFViewer>
-      <CvPdfTemplate />
+      <CvPdfTemplate sections={sections} header={header} />
     </PDFViewer>
   );
 };

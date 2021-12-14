@@ -11,29 +11,39 @@ import sansNormal from '../../fonts/Sans/OpenSans-Regular.ttf';
 import sansMedium from '../../fonts/Sans/OpenSans-Medium.ttf';
 import sansBold from '../../fonts/Sans/OpenSans-SemiBold.ttf';
 import CvProfile from './CvProfile';
-import CvLanguage from './CvLanguage';
-import CvSkills from './CvSkills';
-import CvEducation from './CvEducation';
-import CvSummary from './CvSummary';
-import CvExperience from './CvExperience';
 import CvText from './Typography/CvText';
+import CvPdfSection from './CvPdfSection';
 
-const CvPdfTemplate = () => {
+const CvPdfTemplate = ({ sections, header, style }) => {
+  console.log(header, style);
   return (
     <Document title="Ld Khánh">
       <Page size="A4" style={styles.main}>
-        <CvProfile />
-        <View style={styles.colContainer}>
-          <View style={styles.colOne}>
-            <CvLanguage />
-            <CvSkills />
-            <CvEducation />
+        <CvProfile header={header} />
+        {style?.layout === 'double' ? (
+          <View style={styles.colContainer}>
+            <View style={styles.colOne}>
+              {sections
+                ?.filter((section) => section.column === 1)
+                ?.map((sectionCol) => (
+                  <CvPdfSection section={sectionCol} />
+                ))}
+            </View>
+            <View style={styles.colTwo}>
+              {sections
+                ?.filter((section) => section.column === 0)
+                ?.map((sectionCol) => (
+                  <CvPdfSection section={sectionCol} />
+                ))}
+            </View>
           </View>
-          <View style={styles.colTwo}>
-            <CvSummary />
-            <CvExperience />
+        ) : (
+          <View>
+            {sections?.map((sectionCol) => (
+              <CvPdfSection section={sectionCol} />
+            ))}
           </View>
-        </View>
+        )}
         <View style={styles.app} fixed>
           <CvText type="h4" medium color="primary">
             @Copyright LDCV
@@ -46,7 +56,6 @@ const CvPdfTemplate = () => {
           }
           fixed
         />
-        {/* <Image src="/assets/topography.png" style={styles.pageBackground} /> */}
       </Page>
     </Document>
   );

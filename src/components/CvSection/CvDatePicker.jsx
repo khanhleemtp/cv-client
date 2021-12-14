@@ -4,13 +4,16 @@ import { useState } from 'react';
 import CustomDatepicker from './../CustomDatepicker';
 import CustomSwitch from '../CustomSwitch';
 // import { updateCvStart } from '../../redux/cv/cv.action';
-// import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import { updateCvStart } from './../../redux/cv/cv.action';
 
-const CvDatepicker = ({ dayProps }) => {
+const CvDatepicker = ({ dayProps, updateCv }) => {
   const { setValue } = useFormContext();
 
   // const dispatch = useDispatch();
   // const { isDirty } = useFormState({ control, name: dayProps });
+
+  const { getValues } = useFormContext();
 
   // useEffect(() => {
   //   if (isDirty) {
@@ -19,8 +22,19 @@ const CvDatepicker = ({ dayProps }) => {
   //   }
   // }, [isDirty, getValues, dispatch]);
 
-  const cbIsOngoing = () => setValue(`${dayProps}.to`, null);
-  const cbTo = () => setValue(`${dayProps}.isOngoing`, false);
+  const updateData = () => {
+    const cvData = getValues();
+    updateCv({ updateData: cvData, id: cvData.id });
+  };
+
+  const cbIsOngoing = () => {
+    setValue(`${dayProps}.to`, null);
+    updateData();
+  };
+  const cbTo = () => {
+    setValue(`${dayProps}.isOngoing`, false);
+    updateData();
+  };
 
   const [isFrom, setIsFrom] = useState(true);
   return (
@@ -46,7 +60,7 @@ const CvDatepicker = ({ dayProps }) => {
 
       {isFrom ? (
         <div className="w-full flex items-center justify-center">
-          <CustomDatepicker name={`${dayProps}.from`} />
+          <CustomDatepicker name={`${dayProps}.from`} updateData={updateData} />
         </div>
       ) : (
         <div className="w-full flex flex-col items-center justify-center">
@@ -59,6 +73,7 @@ const CvDatepicker = ({ dayProps }) => {
             name={`${dayProps}.to`}
             isOngoing={`${dayProps}.isOngoing`}
             cb={cbTo}
+            updateData={updateData}
           />
         </div>
       )}
@@ -66,4 +81,8 @@ const CvDatepicker = ({ dayProps }) => {
   );
 };
 
-export default CvDatepicker;
+const mapDispatchToProps = (dispatch) => ({
+  updateCv: (data) => dispatch(updateCvStart(data)),
+});
+
+export default connect(null, mapDispatchToProps)(CvDatepicker);

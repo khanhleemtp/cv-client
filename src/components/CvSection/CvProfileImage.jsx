@@ -53,7 +53,7 @@ const CvProfileImage = ({ name, openImageModal, updateCv, photo }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  openImageModal: () => dispatch(openModal('UPLOAD_IMAGE')),
+  openImageModal: () => dispatch(openModal('UPLOAD_IMAGE'), {}),
   updateCv: (data) => dispatch(updateCvStart(data)),
 });
 const mapStateToProps = createStructuredSelector({

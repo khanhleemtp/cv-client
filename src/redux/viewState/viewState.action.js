@@ -18,9 +18,12 @@ export const closeField = () => ({
   type: viewStateActionTypes.CLOSE_FIELD,
 });
 
-export const openModal = (modalName) => ({
+export const openModal = (modalName, otherProps) => ({
   type: viewStateActionTypes.OPEN_MODAL,
-  payload: modalName,
+  payload: {
+    modalName,
+    otherProps,
+  },
 });
 
 export const closeModal = () => ({

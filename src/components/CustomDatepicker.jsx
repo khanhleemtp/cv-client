@@ -6,12 +6,13 @@ import moment from 'moment';
 import { useFormContext, useWatch } from 'react-hook-form';
 import './CustomDatePicker.css';
 
-const CustomDatepicker = ({ name, cb }) => {
+const CustomDatepicker = ({ name, cb, updateData }) => {
   const { setValue, control } = useFormContext();
 
   const handleDayClick = (day) => {
     cb && cb();
     setValue(name, moment(day).toISOString(), { shouldDirty: true });
+    updateData && updateData();
   };
 
   const selectedDays = useWatch({ control, name });

@@ -146,7 +146,14 @@ const UploadModal = ({ modalRef, close, updateCv, photo, isLoading }) => {
       <div className="flex items-center justify-between mt-12">
         {image ? (
           <>
-            <Button type="outline" text="Trở về" onClick={() => setImage('')} />
+            <Button
+              type="outline"
+              text="Trở về"
+              onClick={() => {
+                setImage('');
+                setCropData(photo);
+              }}
+            />
             <Button text="Đồng ý" onClick={getCropData} />
           </>
         ) : (

@@ -1,7 +1,7 @@
 import { StyleSheet, View, Image } from '@react-pdf/renderer';
 import CvText from './Typography/CvText';
 
-const CvProfile = ({ children }) => {
+const CvProfile = ({ header }) => {
   const styles = StyleSheet.create({
     profileContainer: {
       display: 'flex',
@@ -22,34 +22,36 @@ const CvProfile = ({ children }) => {
     <View style={styles.profileContainer}>
       <View style={[styles.textContainer]}>
         <CvText type="h1" bold>
-          Lê Đình Khánh
+          {header?.name}
         </CvText>
         <CvText type="h2" bold color="primary">
-          Fullstack Developer
+          {header?.title}
         </CvText>
         <CvText type="h4" color="secondary" icon="phone">
-          0914078960
+          {header?.phone}
         </CvText>
         <CvText type="h4" color="secondary" icon="mail">
-          khanhleemtp@gmail.com
+          {header?.email}
         </CvText>
         <CvText type="h4" color="secondary" icon="link">
-          https://www.facebook.com/khanh.lee.3958/
+          {header?.link}
         </CvText>
         <CvText type="h4" color="secondary" icon="location">
-          Ngõ 402, Ngách 7, Số nhà 26, Mỹ Đình 2, Hà Nội
+          {header?.address}
         </CvText>
       </View>
       <View>
-        <Image
-          style={styles.imageContainer}
-          src={{
-            uri: 'https://ld-cv-file.s3.ap-southeast-1.amazonaws.com/2021-12-13T07%3A41%3A36.953Z-profile-image',
-            method: 'GET',
-            headers: { 'Cache-Control': 'no-cache' },
-            body: '',
-          }}
-        />
+        {header?.photo && (
+          <Image
+            style={styles.imageContainer}
+            src={{
+              uri: `${header?.photo}`,
+              method: 'GET',
+              headers: { 'Cache-Control': 'no-cache' },
+              body: '',
+            }}
+          />
+        )}
       </View>
     </View>
   );
