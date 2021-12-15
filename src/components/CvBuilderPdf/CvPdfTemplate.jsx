@@ -14,10 +14,9 @@ import CvProfile from './CvProfile';
 import CvText from './Typography/CvText';
 import CvPdfSection from './CvPdfSection';
 
-const CvPdfTemplate = ({ sections, header, style }) => {
-  console.log(header, style);
+const CvPdfTemplate = ({ sections, header, style, title }) => {
   return (
-    <Document title="Ld Khánh">
+    <Document title={title}>
       <Page size="A4" style={styles.main}>
         <CvProfile header={header} />
         {style?.layout === 'double' ? (

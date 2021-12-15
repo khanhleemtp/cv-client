@@ -27,6 +27,7 @@ export const selectCvSection = (sectionName) =>
   );
 
 export const selectCvHeader = createSelector(selectCvData, (cv) => cv?.header);
+export const selectCvTitle = createSelector(selectCvData, (cv) => cv?.title);
 
 export const selectCvPhoto = createSelector(
   selectCvHeader,
