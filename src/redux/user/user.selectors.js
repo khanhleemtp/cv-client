@@ -5,7 +5,12 @@ const selectorUser = (state) => state.user;
 
 export const selectCurrentUser = createSelector(
   selectorUser,
-  (user) => user.currentUser
+  (user) => user?.currentUser
+);
+
+export const selectUserResumes = createSelector(
+  selectCurrentUser,
+  (user) => user?.resumes
 );
 
 export const selectLoadingApi = createSelector(

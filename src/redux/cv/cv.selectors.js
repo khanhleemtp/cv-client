@@ -31,5 +31,5 @@ export const selectCvTitle = createSelector(selectCvData, (cv) => cv?.title);
 
 export const selectCvPhoto = createSelector(
   selectCvHeader,
-  (header) => header.photo
+  (header) => header?.photo
 );

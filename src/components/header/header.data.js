@@ -46,8 +46,8 @@ export const navigation = [
         icon: AiOutlineMedicineBox,
       },
       {
-        name: 'Mẫu CV',
-        to: '/preview',
+        name: 'Danh sách CV',
+        to: '/list-cv',
         icon: AiOutlineFileMarkdown,
       },
     ],

@@ -16,9 +16,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import SignOut from './components/sign-out/sign-out.component';
 import Loading from './components/loading/loading.component';
 
+const CvListPage = lazy(() =>
+  pMinDelay(import('./pages/cv-list/cv-list.page'), 1200)
+);
+
 const Homepage = lazy(() =>
   pMinDelay(import('./pages/homepage/homepage.component'), 1200)
 );
+
 const SignInAndSignUpPage = lazy(() =>
   pMinDelay(
     import('./pages/sign-in-and-sign-up/sign-in-and-sign-up.component'),
@@ -57,6 +62,9 @@ function App() {
         <Route path="/preview">
           <CvPreview />
         </Route>
+        <PrivateRoute exact path="/list-cv">
+          <CvListPage />
+        </PrivateRoute>
         <PrivateRoute exact path="/profile">
           <UserProfile />
         </PrivateRoute>

@@ -22,19 +22,19 @@ const PDFViewer = ({ children }) => {
 
   const [numPages, setNumPages] = useState(null);
   return (
-    <div ref={ref} className="max-w-3xl mx-auto container  my-8">
+    <div ref={ref} className="max-w-3xl mx-auto container my-8 relative">
       <Document
         file={pdfUrl}
-        loading={() => <Loading />}
-        noData={() => <Loading />}
+        loading={() => <div>Tạo Cv ...</div>}
+        noData={() => <div>Lấy dữ liệu ...</div>}
         onLoadSuccess={({ numPages }) => setNumPages(numPages)}
       >
         {Array.apply(null, Array(numPages))
           .map((x, i) => i + 1)
           .map((page) => (
             <Page
+              key={page}
               className="my-8 shadow-lg rounded-lg"
-              // className="my-6 relative"
               renderMode="svg"
               pageNumber={page}
               width={width ? width : 1}

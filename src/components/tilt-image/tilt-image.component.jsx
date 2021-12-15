@@ -10,11 +10,7 @@ const TitlImage = forwardRef((props, ref) => {
       options={{ max: 25 }}
       style={{ height: 297 * 0.7, width: 210 * 0.7 }}
     >
-      <img
-        src="/assets/cv1.png"
-        alt="cv"
-        className="w-full h-full Tilt-inner"
-      />
+      {props.children}
     </Tilt>
   );
 });
