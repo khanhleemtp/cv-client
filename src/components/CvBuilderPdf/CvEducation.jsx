@@ -83,7 +83,7 @@ const CvEducation = ({ data }) => {
               </View>
             </View>
             {item?.bullets?.map((bullet) => (
-              <View style={styles.bulletContainer}>
+              <View style={styles.bulletContainer} key={bullet?._id}>
                 <View style={styles.bullet}></View>
                 <CvText type="h4">{bullet?.text}</CvText>
               </View>

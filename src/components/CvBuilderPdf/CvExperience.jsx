@@ -1,8 +1,9 @@
 import { StyleSheet, View } from '@react-pdf/renderer';
 import CvText from './Typography/CvText';
 import CvTitle from './Typography/CvTitle';
+import moment from 'moment';
 
-const CvExperience = () => {
+const CvExperience = ({ data }) => {
   const styles = StyleSheet.create({
     cpaConatainer: {
       textAlign: 'center',
@@ -33,40 +34,41 @@ const CvExperience = () => {
 
   return (
     <View>
-      <CvTitle>Kinh nghiệm</CvTitle>
-      <View>
-        <CvText type="h3" bold>
-          Front-end Developer
-        </CvText>
-        <CvText type="h3" bold color="primary">
-          MDC
-        </CvText>
-        <View style={styles.calendarContainer}>
-          <CvText type="h4" icon="calendar">
-            3/5/2021 - Hiện tại
+      <CvTitle>{data?.name}</CvTitle>
+      {data?.items?.map((item) => (
+        <View key={item?._id}>
+          <CvText type="h3" bold>
+            {item?.position}
           </CvText>
-          <CvText type="h4" icon="location">
-            Hà Nội Thứ 7 Phải lên đồ
+          <CvText type="h3" bold color="primary">
+            {item?.workplace}
           </CvText>
+          <View style={styles.calendarContainer}>
+            <CvText type="h4" icon="calendar">
+              {item?.dateRange?.from &&
+                moment(item?.dateRange?.from).format('MM/YYYY')}
+              {' - '}
+              {item?.dateRange?.to &&
+                moment(item?.dateRange?.to).format('MM/YYYY')}
+              {item?.dateRange?.isOngoing && 'Hiện tại'}
+            </CvText>
+            <CvText type="h4" icon="location">
+              {item?.location}
+            </CvText>
+          </View>
+          <CvText type="h4" medium>
+            {item?.description}
+          </CvText>
+          {item?.bullets?.map((bullet) => (
+            <View key={bullet._id}>
+              <View style={styles.bulletContainer}>
+                <View style={styles.bullet}></View>
+                <CvText type="h4">{bullet?.text}</CvText>
+              </View>
+            </View>
+          ))}
         </View>
-        <CvText type="h4" medium>
-          Xây dựng bảng quản lý phiên
-        </CvText>
-        <View>
-          <View style={styles.bulletContainer}>
-            <View style={styles.bullet}></View>
-            <CvText type="h4">Hey abcccccccccc</CvText>
-          </View>
-          <View style={styles.bulletContainer}>
-            <View style={styles.bullet}></View>
-            <CvText type="h4">Hey abcccccccccc</CvText>
-          </View>
-          <View style={styles.bulletContainer}>
-            <View style={styles.bullet}></View>
-            <CvText type="h4">Hey abcccccccccc</CvText>
-          </View>
-        </View>
-      </View>
+      ))}
     </View>
   );
 };

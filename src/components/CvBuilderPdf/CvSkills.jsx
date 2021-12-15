@@ -3,7 +3,7 @@ import CvTag from './Typography/CvTag';
 import CvText from './Typography/CvText';
 import CvTitle from './Typography/CvTitle';
 
-const CvSkills = () => {
+const CvSkills = ({ data }) => {
   const styles = StyleSheet.create({
     tagContainer: {
       display: 'flex',
@@ -14,18 +14,19 @@ const CvSkills = () => {
 
   return (
     <View>
-      <CvTitle>Kỹ năng chính</CvTitle>
-      <View>
-        <CvText type="h3" bold color="primary">
-          Front-end
-        </CvText>
-        <View style={styles.tagContainer}>
-          <CvTag>Javascript</CvTag>
-          <CvTag>ReactJs</CvTag>
-          <CvTag>NodeJs</CvTag>
-          <CvTag>MongoDB</CvTag>
+      <CvTitle>{data?.name}</CvTitle>
+      {data?.items?.map((item) => (
+        <View key={item._id}>
+          <CvText type="h3" bold color="primary">
+            {item?.title}
+          </CvText>
+          <View style={styles.tagContainer}>
+            {item?.tags?.map((tag) => (
+              <CvTag key={item?._id}>{tag?.text}</CvTag>
+            ))}
+          </View>
         </View>
-      </View>
+      ))}
       <View></View>
     </View>
   );

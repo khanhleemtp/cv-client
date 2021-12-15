@@ -1,7 +1,7 @@
 import { StyleSheet, View } from '@react-pdf/renderer';
 import CvText from './CvText';
 
-const CvSilder = () => {
+const CvSilder = ({ level, name }) => {
   const styles = StyleSheet.create({
     silderContainer: {
       backgroundColor: '#E7E5E4',
@@ -13,7 +13,7 @@ const CvSilder = () => {
     silderValue: {
       position: 'relative',
       backgroundColor: '#3B82F6',
-      width: `${100 / 2}%`,
+      width: `${(100 * level) / 10}%`,
       height: 8,
       borderRadius: 4,
     },
@@ -35,7 +35,7 @@ const CvSilder = () => {
     <View>
       <View style={styles.sliderText}>
         <CvText type="h3" bold>
-          PACK OFFICE: Word, Excel, PowerPoint
+          {name}
         </CvText>
       </View>
       <View style={styles.silderContainer}>
