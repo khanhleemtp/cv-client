@@ -4,7 +4,7 @@ import {
   AiOutlineSearch,
   AiOutlineFileMarkdown,
   AiOutlineHeart,
-  AiOutlineMedicineBox,
+  // AiOutlineMedicineBox,
   AiOutlineReconciliation,
   AiOutlineRise,
 } from 'react-icons/ai';
@@ -40,11 +40,6 @@ export const navigation = [
     name: 'Quản lý CV',
     to: '/builder',
     child: [
-      {
-        name: 'Builder',
-        to: '/builder/123',
-        icon: AiOutlineMedicineBox,
-      },
       {
         name: 'Danh sách CV',
         to: '/list-cv',

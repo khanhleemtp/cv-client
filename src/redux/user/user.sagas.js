@@ -67,11 +67,11 @@ export function* isAuthenticated() {
     const {
       data: { data },
     } = yield axiosInstance.get('/users/me');
-    const resumesData = yield axiosInstance.get(`/resumes`);
+    // const resumesData = yield axiosInstance.get(`/resumes`);
     yield put(
       signInSuccess({
         ...data,
-        resumes: resumesData?.data?.data,
+        // resumes: resumesData?.data?.data,
       })
     );
   } catch (error) {

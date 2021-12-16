@@ -14,6 +14,12 @@ export const selectUpdatingCv = createSelector(
 );
 
 export const selectCvData = createSelector(selectorCv, (state) => state.cv);
+
+export const selectListCvData = createSelector(
+  selectorCv,
+  (state) => state.listCv
+);
+
 export const selectCvSections = createSelector(
   selectCvData,
   (cv) => cv?.sections

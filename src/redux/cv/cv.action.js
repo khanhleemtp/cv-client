@@ -23,6 +23,20 @@ export const loadCvFailure = (errorMsg) => ({
   payload: errorMsg,
 });
 
+export const loadListCvStart = () => ({
+  type: CvActionTypes.LOAD_LIST_CV_START,
+});
+
+export const loadListCvFinish = (cvData) => ({
+  type: CvActionTypes.LOAD_LIST_CV_FINISH,
+  payload: cvData,
+});
+
+export const loadListCvFailure = (errorMsg) => ({
+  type: CvActionTypes.LOAD_LIST_CV_FAILURE,
+  payload: errorMsg,
+});
+
 export const updateCvStart = (data) => ({
   type: CvActionTypes.UPDATE_CV_START,
   payload: data,
@@ -35,5 +49,34 @@ export const updateCvFinish = (newCv) => ({
 
 export const updateCvFailure = (errorMsg) => ({
   type: CvActionTypes.UPDATE_CV_FAILURE,
+  payload: errorMsg,
+});
+
+export const deleteCvStart = (id) => ({
+  type: CvActionTypes.DELETE_CV_START,
+  payload: id,
+});
+
+export const deleteCvFinish = (id) => ({
+  type: CvActionTypes.DELETE_CV_FINISH,
+  payload: id,
+});
+
+export const deleteCvFailure = (errorMsg) => ({
+  type: CvActionTypes.DELETE_CV_FAILURE,
+  payload: errorMsg,
+});
+
+export const createCvStart = () => ({
+  type: CvActionTypes.CREATE_CV_START,
+});
+
+export const createCvFinish = (newCv) => ({
+  type: CvActionTypes.CREATE_CV_FINISH,
+  payload: newCv,
+});
+
+export const createCvFailure = (errorMsg) => ({
+  type: CvActionTypes.CREATE_CV_FAILURE,
   payload: errorMsg,
 });

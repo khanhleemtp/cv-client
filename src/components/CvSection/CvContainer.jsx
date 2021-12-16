@@ -9,7 +9,7 @@ import { selectCvData, selectUpdatingCv } from './../../redux/cv/cv.selectors';
 import ToolboxContainer from '../Toolbox/ToolboxContainer';
 import CvProfile from './CvProfile';
 import CvSection from './CvSection';
-import CvTitle from './CvTitle';
+import CvTypography from './CvTypography';
 
 const CvContainer = ({ isSelected, cvData, isUpdating }) => {
   const methods = useForm({ defaultValues: cvData });
@@ -45,7 +45,12 @@ const CvContainer = ({ isSelected, cvData, isUpdating }) => {
             }
           )}
         >
-          <CvTitle />
+          <div className="flex items-center">
+            <div className="whitespace-nowrap mx-2 pb-1 text-lg text-indigo-500">
+              Tiêu đề:{' '}
+            </div>
+            <CvTypography name="title" />
+          </div>
           <p className="hidden md:block px-2">
             {isUpdating ? 'Đang lưu...' : 'Đã lưu'}
           </p>

@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   isLoading: false,
   isUpdating: false,
   cv: null,
+  listCv: null,
 };
 
 const cvReducer = (state = INITIAL_STATE, action) => {
@@ -29,6 +30,27 @@ const cvReducer = (state = INITIAL_STATE, action) => {
         cv: action.payload,
         isLoading: false,
       };
+    case CvActionTypes.DELETE_CV_FINISH:
+      return {
+        ...state,
+        error: null,
+        listCv: state?.listCv?.filter((cv) => cv._id !== action.payload),
+        isLoading: false,
+      };
+    case CvActionTypes.LOAD_LIST_CV_FINISH:
+      return {
+        ...state,
+        error: null,
+        listCv: action.payload,
+        isLoading: false,
+      };
+    case CvActionTypes.CREATE_CV_FINISH:
+      return {
+        ...state,
+        error: null,
+        listCv: [action.payload, ...state?.listCv],
+        isLoading: false,
+      };
     case CvActionTypes.UPDATE_CV_FINISH:
       return {
         ...state,
@@ -36,8 +58,11 @@ const cvReducer = (state = INITIAL_STATE, action) => {
         cv: action.payload,
         isUpdating: false,
       };
+    case CvActionTypes.CREATE_CV_FAILURE:
+    case CvActionTypes.DELETE_CV_FAILURE:
     case CvActionTypes.UPDATE_CV_FAILURE:
     case CvActionTypes.LOAD_CV_FAILURE:
+    case CvActionTypes.LOAD_LIST_CV_FAILURE:
       return {
         ...state,
         error: action.payload,

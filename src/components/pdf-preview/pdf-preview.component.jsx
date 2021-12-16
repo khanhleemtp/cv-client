@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { pdfjs, Document, Page } from 'react-pdf';
 import { pdf } from '@react-pdf/renderer';
 import { useResizeDetector } from 'react-resize-detector';
-import Loading from './../loading/loading.component';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 

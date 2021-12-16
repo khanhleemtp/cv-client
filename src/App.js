@@ -59,7 +59,7 @@ function App() {
         <Route path="/builder/:id">
           <CvBuilderPage />
         </Route>
-        <Route path="/preview">
+        <Route path="/preview/:id">
           <CvPreview />
         </Route>
         <PrivateRoute exact path="/list-cv">

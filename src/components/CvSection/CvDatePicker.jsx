@@ -9,19 +9,7 @@ import { updateCvStart } from './../../redux/cv/cv.action';
 
 const CvDatepicker = ({ dayProps, updateCv }) => {
   const { setValue } = useFormContext();
-
-  // const dispatch = useDispatch();
-  // const { isDirty } = useFormState({ control, name: dayProps });
-
   const { getValues } = useFormContext();
-
-  // useEffect(() => {
-  //   if (isDirty) {
-  //     const cvData = getValues();
-  //     dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
-  //   }
-  // }, [isDirty, getValues, dispatch]);
-
   const updateData = () => {
     const cvData = getValues();
     updateCv({ updateData: cvData, id: cvData.id });

@@ -3,6 +3,7 @@ import { useDispatch, connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { lazy } from '@loadable/component';
 import pMinDelay from 'p-min-delay';
+import { useParams } from 'react-router-dom';
 
 // COMPONENT
 import NavContainer from '../../components/nav-container/nav-container.component';
@@ -21,10 +22,12 @@ const CvContainer = lazy(() =>
 const CvBuilderPage = ({ isLoading }) => {
   const dispatch = useDispatch();
 
+  const { id } = useParams();
+
   useEffect(() => {
-    dispatch(loadCvStart('619ff2dd3f5cd425c0e24dd4'));
+    dispatch(loadCvStart(id));
     return () => {};
-  }, [dispatch]);
+  }, [id, dispatch]);
 
   return isLoading ? (
     <Loading />

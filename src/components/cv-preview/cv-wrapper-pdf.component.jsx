@@ -10,13 +10,13 @@ import {
 } from '../../redux/cv/cv.selectors';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { useParams } from 'react-router-dom';
 
 const CvWrapperPdf = ({ loadCv, sections, header, isLoadingCv, style }) => {
-  console.log('abc');
-
+  const { id } = useParams();
   useEffect(() => {
-    loadCv();
-  }, [loadCv]);
+    loadCv(id);
+  }, [loadCv, id]);
 
   return (
     <div>
@@ -39,9 +39,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadCv: () => {
-    return dispatch(loadCvStart('619ff2dd3f5cd425c0e24dd4'));
-  },
+  loadCv: (id) => dispatch(loadCvStart(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CvWrapperPdf);
