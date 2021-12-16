@@ -1,10 +1,9 @@
 import clsx from 'clsx';
-import { useFormContext, useFormState, useWatch } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import CustomSwitch from '../../../CustomSwitch';
-import { useDispatch } from 'react-redux';
 
 const CvConfigProfile = () => {
-  const { control, setValue, getValues } = useFormContext();
+  const { control, setValue } = useFormContext();
   // const { dirtyFields } = useFormState({
   //   name: 'header',
   // });

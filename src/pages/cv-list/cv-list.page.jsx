@@ -4,7 +4,6 @@ import NavContainer from '../../components/nav-container/nav-container.component
 import { createStructuredSelector } from 'reselect';
 import Button from './../../components/button/button.component';
 import {
-  StarIcon,
   EyeIcon,
   DownloadIcon,
   TrashIcon,
