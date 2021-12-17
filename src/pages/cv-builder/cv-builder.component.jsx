@@ -12,7 +12,6 @@ import NavContainer from '../../components/nav-container/nav-container.component
 // REDUX
 import { loadCvStart } from '../../redux/cv/cv.action';
 import { selectLoadingApi } from './../../redux/cv/cv.selectors';
-import Loading from './../../components/loading/loading.component';
 // import CvContainer from '../../components/CvSection/CvContainer';
 
 const CvContainer = lazy(() =>
@@ -30,7 +29,7 @@ const CvBuilderPage = ({ isLoading }) => {
   }, [id, dispatch]);
 
   return isLoading ? (
-    <Loading />
+    <div>Đang tải...</div>
   ) : (
     <NavContainer>
       <Suspense fallback={<div>Đang tải...</div>}>

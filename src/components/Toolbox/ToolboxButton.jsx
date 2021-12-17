@@ -19,7 +19,7 @@ const ToolboxButton = ({
       )}
     >
       <LeftIcon className="w-5 h-5 pt-1 mr-1" />
-      {children}
+      <p className="truncate">{children}</p>
       <RightIcon className="w-5 h-5 pt-1 ml-1" />
     </button>
   );

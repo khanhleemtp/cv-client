@@ -27,10 +27,7 @@ const CvSettings = () => {
 
         {/* ...  */}
       </Tab.List>
-      <Tab.Panels
-        className=" overflow-y-scroll
-                      no-scrollbar pb-28 pt-6"
-      >
+      <Tab.Panels className="overflow-y-scroll no-scrollbar pb-28 pt-6">
         <Tab.Panel>
           <div className="mx-auto max-w-xs md:max-w-sm md:mx-0 grid grid-cols-2 gap-4 md:px-4">
             {[1, 2, 3, 4, 5, 6, 7, 8]?.map((item) => (

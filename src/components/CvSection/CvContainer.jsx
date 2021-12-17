@@ -4,7 +4,12 @@ import clsx from 'clsx';
 import { selectSelectedSection } from './../../redux/viewState/viewState.selectors';
 
 import { useEffect } from 'react';
-import { useFieldArray, useForm, FormProvider } from 'react-hook-form';
+import {
+  useFieldArray,
+  useForm,
+  FormProvider,
+  useWatch,
+} from 'react-hook-form';
 import { selectCvData, selectUpdatingCv } from './../../redux/cv/cv.selectors';
 import ToolboxContainer from '../Toolbox/ToolboxContainer';
 import CvProfile from './CvProfile';
@@ -22,6 +27,9 @@ const CvContainer = ({ isSelected, cvData, isUpdating }) => {
       keepValues: true,
     });
   }, [cvData, reset]);
+
+  const layout = useWatch({ control, name: 'style.layout' });
+  console.log('layout', layout);
 
   const { fields } = useFieldArray({
     control,
@@ -55,35 +63,38 @@ const CvContainer = ({ isSelected, cvData, isUpdating }) => {
             {isUpdating ? 'Đang lưu...' : 'Đã lưu'}
           </p>
           <CvProfile />
-          <div className="flex flex-col md:flex-row">
-            <div className="flex flex-col w-full md:w-8/12">
-              {fields.map((field, index) => {
-                if (field.column === 0) return null;
-                return (
-                  <CvSection
-                    index={index}
-                    key={field._id}
-                    record={field.record}
-                  />
-                );
-              })}
+          {layout === 'double' ? (
+            <div className="flex flex-col md:flex-row">
+              <div className="flex flex-col w-full md:w-8/12">
+                {fields.map((field, index) => {
+                  if (field.column === 0) return null;
+                  return (
+                    <CvSection
+                      index={index}
+                      key={field._id}
+                      record={field.record}
+                    />
+                  );
+                })}
+              </div>
+              <div className="flex flex-col w-full md:w-6/12">
+                {fields.map((field, index) => {
+                  if (field.column === 1) return null;
+                  return (
+                    <CvSection
+                      index={index}
+                      key={field._id}
+                      record={field.record}
+                    />
+                  );
+                })}
+              </div>
             </div>
-            <div className="flex flex-col w-full md:w-6/12">
-              {fields.map((field, index) => {
-                if (field.column === 1) return null;
-                return (
-                  <CvSection
-                    index={index}
-                    key={field._id}
-                    record={field.record}
-                  />
-                );
-              })}
-            </div>
-          </div>
-          {/* {fields.map((field, index) => (
+          ) : (
+            fields.map((field, index) => (
               <CvSection index={index} key={field._id} record={field.record} />
-            ))} */}
+            ))
+          )}
         </div>
       </form>
     </FormProvider>

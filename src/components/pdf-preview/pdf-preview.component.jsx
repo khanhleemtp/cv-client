@@ -5,7 +5,7 @@ import { useResizeDetector } from 'react-resize-detector';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-const PDFViewer = ({ children }) => {
+const PDFViewer = ({ children, isOnePage = false }) => {
   const [pdfUrl, setPdfUrl] = useState(null);
 
   useEffect(() => {
@@ -28,17 +28,26 @@ const PDFViewer = ({ children }) => {
         noData={() => <div>Lấy dữ liệu ...</div>}
         onLoadSuccess={({ numPages }) => setNumPages(numPages)}
       >
-        {Array.apply(null, Array(numPages))
-          .map((x, i) => i + 1)
-          .map((page) => (
-            <Page
-              key={page}
-              className="my-8 shadow-lg rounded-lg"
-              renderMode="svg"
-              pageNumber={page}
-              width={width ? width : 1}
-            />
-          ))}
+        {isOnePage ? (
+          <Page
+            className="my-8 shadow-2xl rounded-lg"
+            renderMode="svg"
+            pageNumber={1}
+            width={width ? width : 1}
+          />
+        ) : (
+          Array.apply(null, Array(numPages))
+            .map((x, i) => i + 1)
+            .map((page) => (
+              <Page
+                key={page}
+                className="my-8 shadow-2xl rounded-lg"
+                renderMode="svg"
+                pageNumber={page}
+                width={width ? width : 1}
+              />
+            ))
+        )}
       </Document>
     </div>
   );

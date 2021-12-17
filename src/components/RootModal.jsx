@@ -33,7 +33,11 @@ const RootModal = ({ typeModal, close, isOpen, isFull }) => {
                 <Dialog.Overlay className="fixed inset-0 opacity-60 bg-gray-900" />
               </Transition.Child>
             )}
-
+            {isFull && (
+              <Transition.Child as={Fragment}>
+                <Dialog.Overlay className="hidden md:block md:fixed inset-0" />
+              </Transition.Child>
+            )}
             <Transition.Child
               as={Fragment}
               enter="transition ease-in-out duration-150"
@@ -44,7 +48,7 @@ const RootModal = ({ typeModal, close, isOpen, isFull }) => {
               leaveTo="opacity-0 transform -translate-x-20"
             >
               {isFull ? (
-                <aside className="fixed inset-y-0 z-50 flex-shrink-0 w-screen overflow-y-auto bg-white shadow-lg dark:bg-gray-800">
+                <aside className="fixed inset-y-0 z-40 flex-shrink-0 w-screen bg-white shadow-lg md:max-w-sm md:inset-0">
                   {typeModal
                     ? MODAL_COMPONENTS(closeButtonRef)[typeModal]
                     : null}

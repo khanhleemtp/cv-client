@@ -31,7 +31,7 @@ const Button = ({
       })}
     >
       {LeftIcon && <LeftIcon className="h-5 w-5 mr-2 -ml-1" />}
-      {text}
+      <p className="truncate">{text}</p>
       {Icon && <Icon className="w-5 h-5" />}
       {RightIcon && <RightIcon className="w-5 h-5 ml-2 -mr-1" />}
     </button>

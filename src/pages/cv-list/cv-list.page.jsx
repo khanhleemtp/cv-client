@@ -41,7 +41,7 @@ const CvListPage = ({ listCv, isLoading, loadListCv, deleteCv, createCv }) => {
         <Loading />
       ) : (
         <>
-          <div className="text-lg bg-white rounded-b-2xl p-2 text-center flex items-center justify-between container mx-auto max-w-4xl mb-2">
+          <div className="text-sm md:text-lg bg-white rounded-b-2xl p-2 text-center flex items-center justify-between container mx-auto max-w-4xl mb-2">
             Chào mừng 🚀 bạn đã trở lại 😃
             <div className="flex justify-end">
               <Button
@@ -71,7 +71,7 @@ const CvListPage = ({ listCv, isLoading, loadListCv, deleteCv, createCv }) => {
                       <TitlImage>
                         <div className="w-28 md:w-40 h-full flex items-center justify-center cursor-pointer">
                           {cv && (
-                            <PDFViewer>
+                            <PDFViewer isOnePage>
                               <CvPdfTemplate
                                 sections={cv?.sections}
                                 header={cv?.header}
@@ -95,12 +95,6 @@ const CvListPage = ({ listCv, isLoading, loadListCv, deleteCv, createCv }) => {
 
                       <div className="flex">
                         <div className="flex items-center flex-wrap">
-                          {/* <Button
-                            text="Đặt CV chính"
-                            leftIcon={StarIcon}
-                            size="small"
-                            className="bg-gray-200 text-gray-500 hover:bg-gray-300 m-1"
-                          /> */}
                           <Link to={`/preview/${cv?._id}`}>
                             <Button
                               text="Xem thử"
