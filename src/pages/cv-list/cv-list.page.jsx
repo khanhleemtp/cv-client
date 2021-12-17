@@ -26,7 +26,6 @@ import {
   deleteCvStart,
   createCvStart,
 } from './../../redux/cv/cv.action';
-import Loading from '../../components/loading/loading.component';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
 
@@ -38,9 +37,9 @@ const CvListPage = ({ listCv, isLoading, loadListCv, deleteCv, createCv }) => {
   return (
     <NavContainer>
       {isLoading ? (
-        <Loading />
+        <div>Đang tải..</div>
       ) : (
-        <>
+        <div className="">
           <div className="text-sm md:text-lg bg-white rounded-b-2xl p-2 text-center flex items-center justify-between container mx-auto max-w-4xl mb-2">
             Chào mừng 🚀 bạn đã trở lại 😃
             <div className="flex justify-end">
@@ -159,7 +158,7 @@ const CvListPage = ({ listCv, isLoading, loadListCv, deleteCv, createCv }) => {
               <div className="text-center">Hello World</div>
             </div>
           </div>
-        </>
+        </div>
       )}
     </NavContainer>
   );

@@ -30,14 +30,14 @@ const HoverDropdown = ({
             key={link.name}
           >
             <Link
-              className="hover:bg-gray-100 py-3 px-6 inline-flex items-center
+              className="hover:bg-gray-100 px-2 py-2 flex
                 min-w-max hover:text-indigo-500"
               to={link.to}
             >
-              <span className="items-center mt-1 mr-2">
+              <span className="items-center mt-1">
                 <link.icon />
               </span>
-              <span>{link.name}</span>
+              <span className="flex-shirk truncate ml-2">{link.name}</span>
             </Link>
           </li>
         ))}
