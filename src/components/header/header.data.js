@@ -39,17 +39,10 @@ export const navigation = [
   {
     name: 'Quản lý CV',
     to: '/list-cv',
-    // child: [
-    //   {
-    //     name: 'Danh sách CV',
-    //     to: '/list-cv',
-    //     icon: AiOutlineFileMarkdown,
-    //   },
-    // ],
   },
   {
     name: 'Công ty',
-    to: 'company',
+    to: '/company',
     child: [
       {
         name: 'Danh sách công ty',

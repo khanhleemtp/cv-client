@@ -2,7 +2,7 @@
 import { Fragment } from 'react';
 import { Disclosure, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import HoverDropdown from '../hover-dropdown/hover-dropdown.component';
 import LogoApp from './../logo/logo.component';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
@@ -16,6 +16,9 @@ import ProfileSeparate from './profile-seperate.component';
 
 function Navbar({ user }) {
   const location = useLocation();
+
+  console.log('location', location);
+
   return (
     <Disclosure
       as="nav"
@@ -41,16 +44,37 @@ function Navbar({ user }) {
                 <LogoApp />
                 <div className="hidden sm:flex sm:ml-6 item-center">
                   <div className="flex space-x-4 items-center">
-                    {navigation.map((item) => (
-                      <HoverDropdown
-                        to={item.to}
-                        key={item.name}
-                        button={item.name}
-                        links={item.child}
-                        isActive={location.pathname === item.to}
-                        isDesktop={true}
-                      />
-                    ))}
+                    {navigation.map((item) => {
+                      if (!item?.child)
+                        return (
+                          <Link
+                            key={item.name}
+                            to={item.to}
+                            className={clsx(
+                              'font-semibold py-1 rounded inline-flex items-center group-hover:text-indigo-500',
+                              {
+                                'text-indigo-500':
+                                  location?.pathname === item?.to,
+                              }
+                            )}
+                          >
+                            <span className="md:px-4 md:py-2 md:rounded-lg py-2 hover:bg-gray-100 inline-flex items-center">
+                              {item.name}
+                            </span>
+                          </Link>
+                        );
+
+                      return (
+                        <HoverDropdown
+                          to={item?.to}
+                          key={item?.name}
+                          button={item.name}
+                          links={item.child}
+                          isActive={location?.pathname === item?.to}
+                          isDesktop={true}
+                        />
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -94,12 +118,28 @@ function Navbar({ user }) {
                       location.pathname === item.to ? 'page' : undefined
                     }
                   >
-                    <HoverDropdown
-                      button={item.name}
-                      links={item.child}
-                      key={item.name}
-                      isActive={location.pathname === item.to}
-                    />
+                    {!item?.child ? (
+                      <Link
+                        to={item.to}
+                        className={clsx(
+                          'font-semibold py-1 rounded inline-flex items-center group-hover:text-indigo-500',
+                          {
+                            'text-indigo-500': location?.pathname === item?.to,
+                          }
+                        )}
+                      >
+                        <span className="md:px-4 md:py-2 md:rounded-lg py-2 hover:bg-gray-100 inline-flex items-center">
+                          {item.name}
+                        </span>
+                      </Link>
+                    ) : (
+                      <HoverDropdown
+                        button={item.name}
+                        links={item.child}
+                        key={item.name}
+                        isActive={location.pathname === item.to}
+                      />
+                    )}
                   </Disclosure.Button>
                 ))}
 

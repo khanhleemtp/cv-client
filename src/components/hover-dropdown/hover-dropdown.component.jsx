@@ -6,7 +6,6 @@ const HoverDropdown = ({
   button = 'Dropdown',
   isActive = false,
   isDesktop = false,
-  to,
 }) => {
   return (
     <div
@@ -14,32 +13,16 @@ const HoverDropdown = ({
         group: isDesktop,
       })}
     >
-      {links?.length === 0 ? (
-        <Link
-          className={clsx(
-            'font-semibold py-1 rounded inline-flex items-center group-hover:text-indigo-500',
-            { 'text-indigo-500': isActive }
-          )}
-          to={to}
-        >
-          <span className="md:px-4 md:py-2 md:rounded-lg py-2 hover:bg-gray-100 inline-flex items-center">
-            {button}
-          </span>
-        </Link>
-      ) : (
-        <div
-          className={clsx(
-            'font-semibold py-1 rounded inline-flex items-center group-hover:text-indigo-500',
-            { 'text-indigo-500': isActive }
-          )}
-          to={to}
-        >
-          <span className="md:px-4 md:py-2 md:rounded-lg py-2 hover:bg-gray-100 inline-flex items-center">
-            {button}
-          </span>
-        </div>
-      )}
-
+      <div
+        className={clsx(
+          'font-semibold py-1 rounded inline-flex items-center group-hover:text-indigo-500',
+          { 'text-indigo-500': isActive }
+        )}
+      >
+        <span className="md:px-4 md:py-2 md:rounded-lg py-2 hover:bg-gray-100 inline-flex items-center">
+          {button}
+        </span>
+      </div>
       <ul className="absolute hidden text-gray-600 pt-3 group-hover:block shadow-xl border-1 z-10">
         {links?.map((link) => (
           <li
