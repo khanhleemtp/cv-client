@@ -6,8 +6,8 @@ const CvSummary = ({ data }) => {
   return (
     <View>
       <CvTitle>{data?.name}</CvTitle>
-      {data?.items?.map((item) => (
-        <CvText type="h4" medium key={item._id}>
+      {data?.items?.map((item, index) => (
+        <CvText type="h4" medium key={index}>
           {item?.text}
         </CvText>
       ))}

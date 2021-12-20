@@ -35,8 +35,8 @@ const CvExperience = ({ data }) => {
   return (
     <View>
       <CvTitle>{data?.name}</CvTitle>
-      {data?.items?.map((item) => (
-        <View key={item?._id}>
+      {data?.items?.map((item, index) => (
+        <View key={index}>
           <CvText type="h3" bold>
             {item?.position}
           </CvText>
@@ -59,8 +59,8 @@ const CvExperience = ({ data }) => {
           <CvText type="h4" medium>
             {item?.description}
           </CvText>
-          {item?.bullets?.map((bullet) => (
-            <View key={bullet._id}>
+          {item?.bullets?.map((bullet, index) => (
+            <View key={index}>
               <View style={styles.bulletContainer}>
                 <View style={styles.bullet}></View>
                 <CvText type="h4">{bullet?.text}</CvText>

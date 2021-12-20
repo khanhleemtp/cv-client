@@ -10,14 +10,26 @@ import {
   FormProvider,
   useWatch,
 } from 'react-hook-form';
-import { selectCvData, selectUpdatingCv } from './../../redux/cv/cv.selectors';
+import {
+  selectCvData,
+  selectSectionNormalize,
+  selectUpdatingCv,
+} from './../../redux/cv/cv.selectors';
 import ToolboxContainer from '../Toolbox/ToolboxContainer';
 import CvProfile from './CvProfile';
 import CvSection from './CvSection';
 import CvTypography from './CvTypography';
 
-const CvContainer = ({ isSelected, cvData, isUpdating }) => {
+const CvContainer = ({ isSelected, cvData, isUpdating, cvNormalize }) => {
   const methods = useForm({ defaultValues: cvData });
+
+  console.log(
+    'cvNormalize',
+    cvNormalize,
+    Object.values(cvNormalize)?.map((section) => section?.[0]),
+    cvData
+  );
+
   const { control } = methods;
   const { reset } = methods;
 
@@ -31,7 +43,7 @@ const CvContainer = ({ isSelected, cvData, isUpdating }) => {
   const layout = useWatch({ control, name: 'style.layout' });
   console.log('layout', layout);
 
-  const { fields } = useFieldArray({
+  const { fields, move } = useFieldArray({
     control,
     name: 'sections',
     keyName: '_id',
@@ -44,7 +56,7 @@ const CvContainer = ({ isSelected, cvData, isUpdating }) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <ToolboxContainer />
+        <ToolboxContainer move={move} />
         <div
           className={clsx(
             'bg-transparent container mx-auto transition-colors ease-in-out max-w-3xl md:p-12 md:border-2 md:shadow-2xl md:my-4',
@@ -104,6 +116,7 @@ const CvContainer = ({ isSelected, cvData, isUpdating }) => {
 const mapStateToProps = createStructuredSelector({
   isSelected: selectSelectedSection,
   cvData: selectCvData,
+  cvNormalize: selectSectionNormalize,
   isUpdating: selectUpdatingCv,
 });
 

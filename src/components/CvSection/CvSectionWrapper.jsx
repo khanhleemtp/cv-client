@@ -1,5 +1,5 @@
 import useOnClickOutside from './../../hook/useOutsideClick';
-import { useRef, useCallback, Fragment } from 'react';
+import { useRef, useCallback, Fragment, memo } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import clsx from 'clsx';
 import { Transition } from '@headlessui/react';
@@ -32,6 +32,8 @@ const CvSectionWrapper = ({
   // const cvData = useWatch({
   //   control,
   // });
+
+  console.log('render Wrapper');
 
   const dispatch = useDispatch();
   // const { dirtyFields } = useFormState({ control });
@@ -68,13 +70,13 @@ const CvSectionWrapper = ({
       ref={ref}
       className={clsx(
         'p-2 bg-transparent relative transition-colors',
+        { 'border-b-2': isBorder },
         {
           'bg-white ring-0 md:ring-1 ring-blue-500 md:rounded-lg': isSelected,
         },
         {
           'ring-1 rounded-lg': !container && isSelected,
-        },
-        { 'border-b-2': isBorder }
+        }
       )}
     >
       <Transition
@@ -102,4 +104,4 @@ const mapStateToProps = (state, ownProps) => ({
   popover: selectSelectedPopover(state),
 });
 
-export default connect(mapStateToProps)(CvSectionWrapper);
+export default connect(mapStateToProps)(memo(CvSectionWrapper));

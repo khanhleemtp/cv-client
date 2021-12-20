@@ -15,14 +15,14 @@ const CvSkills = ({ data }) => {
   return (
     <View>
       <CvTitle>{data?.name}</CvTitle>
-      {data?.items?.map((item) => (
-        <View key={item._id}>
+      {data?.items?.map((item, index) => (
+        <View key={index}>
           <CvText type="h3" bold color="primary">
             {item?.title}
           </CvText>
           <View style={styles.tagContainer}>
-            {item?.tags?.map((tag) => (
-              <CvTag key={item?._id}>{tag?.text}</CvTag>
+            {item?.tags?.map((tag, index) => (
+              <CvTag key={index}>{tag?.text}</CvTag>
             ))}
           </View>
         </View>

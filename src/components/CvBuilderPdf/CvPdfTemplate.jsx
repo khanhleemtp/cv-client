@@ -24,22 +24,22 @@ const CvPdfTemplate = ({ sections, header, style, title }) => {
             <View style={styles.colOne}>
               {sections
                 ?.filter((section) => section.column === 1)
-                ?.map((sectionCol) => (
-                  <CvPdfSection section={sectionCol} key={sectionCol._id} />
+                ?.map((sectionCol, index) => (
+                  <CvPdfSection section={sectionCol} key={index} />
                 ))}
             </View>
             <View style={styles.colTwo}>
               {sections
                 ?.filter((section) => section.column === 0)
-                ?.map((sectionCol) => (
-                  <CvPdfSection section={sectionCol} key={sectionCol._id} />
+                ?.map((sectionCol, index) => (
+                  <CvPdfSection section={sectionCol} key={index} />
                 ))}
             </View>
           </View>
         ) : (
           <View>
-            {sections?.map((sectionCol) => (
-              <CvPdfSection section={sectionCol} key={sectionCol._id} />
+            {sections?.map((sectionCol, index) => (
+              <CvPdfSection section={sectionCol} key={index} />
             ))}
           </View>
         )}

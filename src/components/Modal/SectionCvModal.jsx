@@ -12,6 +12,7 @@ import {
 import CvPreviewFromBuilder from './../cv-preview/cv-preview-from-builder';
 import CvTemplate from '../CvTemplate';
 import CvListSectionPreview from './../CvListSectionPreview';
+import CvDragSection from '../CvDragSection';
 
 const SectionCvModal = ({ modalRef, close, title, type }) => {
   const renderChildrenModal = useCallback(() => {
@@ -22,6 +23,8 @@ const SectionCvModal = ({ modalRef, close, title, type }) => {
         return <CvPreviewFromBuilder />;
       case 'TEMPLATE':
         return <CvTemplate />;
+      case 'DRAG':
+        return <CvDragSection />;
       default:
         return null;
     }

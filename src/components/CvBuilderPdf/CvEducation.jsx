@@ -52,8 +52,8 @@ const CvEducation = ({ data }) => {
     >
       <CvTitle>{data?.name}</CvTitle>
       <View>
-        {data?.items?.map((item) => (
-          <View key={item._id}>
+        {data?.items?.map((item, index) => (
+          <View key={index}>
             <CvText type="h3" bold>
               {item?.degree}
             </CvText>
@@ -82,8 +82,8 @@ const CvEducation = ({ data }) => {
                 </CvText>
               </View>
             </View>
-            {item?.bullets?.map((bullet) => (
-              <View style={styles.bulletContainer} key={bullet?._id}>
+            {item?.bullets?.map((bullet, index) => (
+              <View style={styles.bulletContainer} key={index}>
                 <View style={styles.bullet}></View>
                 <CvText type="h4">{bullet?.text}</CvText>
               </View>

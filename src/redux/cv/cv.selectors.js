@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { groupBy } from './../../utils/groupBy';
 
 const selectorCv = (state) => state.cv;
 // const selectorCart = (state) => state.cart;
@@ -14,6 +15,10 @@ export const selectUpdatingCv = createSelector(
 );
 
 export const selectCvData = createSelector(selectorCv, (state) => state.cv);
+
+export const selectSectionNormalize = createSelector(selectCvData, (cv) => {
+  return groupBy(cv?.sections, 'column');
+});
 
 export const selectListCvData = createSelector(
   selectorCv,

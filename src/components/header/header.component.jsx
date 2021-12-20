@@ -43,6 +43,7 @@ function Navbar({ user }) {
                   <div className="flex space-x-4 items-center">
                     {navigation.map((item) => (
                       <HoverDropdown
+                        to={item.to}
                         key={item.name}
                         button={item.name}
                         links={item.child}

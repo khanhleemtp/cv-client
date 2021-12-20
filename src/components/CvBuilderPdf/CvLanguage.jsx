@@ -12,8 +12,8 @@ const CvLanguage = ({ data }) => {
   return (
     <View>
       <CvTitle>{data?.name}</CvTitle>
-      {data?.items?.map((item) => (
-        <View style={styles.sliderContainer} key={item._id}>
+      {data?.items?.map((item, index) => (
+        <View style={styles.sliderContainer} key={index}>
           <CvSlider level={item?.level} name={item?.name} />
         </View>
       ))}

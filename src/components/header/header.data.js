@@ -38,14 +38,14 @@ export const navigation = [
   },
   {
     name: 'Quản lý CV',
-    to: '/builder',
-    child: [
-      {
-        name: 'Danh sách CV',
-        to: '/list-cv',
-        icon: AiOutlineFileMarkdown,
-      },
-    ],
+    to: '/list-cv',
+    // child: [
+    //   {
+    //     name: 'Danh sách CV',
+    //     to: '/list-cv',
+    //     icon: AiOutlineFileMarkdown,
+    //   },
+    // ],
   },
   {
     name: 'Công ty',

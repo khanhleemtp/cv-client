@@ -23,6 +23,8 @@ const ToolboxContainer = ({
   openSectionModal,
   previewCvModal,
   templateCvModal,
+  dragCvModal,
+  move,
 }) => {
   const { id } = useParams();
   return (
@@ -35,7 +37,11 @@ const ToolboxContainer = ({
         iconColorClass="text-indigo-500"
         onClick={openSectionModal}
       />
-      <RoundIcon icon={TemplateIcon} title="Thêm trường" />
+      <RoundIcon
+        icon={TemplateIcon}
+        title="Thay đổi thứ tự"
+        onClick={dragCvModal}
+      />
       <RoundIcon
         icon={EyeIcon}
         bgColorClass="bg-indigo-500"
@@ -82,7 +88,7 @@ const ToolboxContainer = ({
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   openSectionModal: () =>
     dispatch(
       openModal('SECTION_CV', {
@@ -94,6 +100,14 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(openModal('SECTION_CV', { title: 'Xem trước', type: 'PREVIEW' })),
   templateCvModal: () =>
     dispatch(openModal('SECTION_CV', { title: 'Mẫu CV', type: 'TEMPLATE' })),
+  dragCvModal: () =>
+    dispatch(
+      openModal('SECTION_CV', {
+        title: 'Thay đổi thứ tự',
+        type: 'DRAG',
+        move: ownProps?.move,
+      })
+    ),
 });
 
 export default connect(null, mapDispatchToProps)(ToolboxContainer);
