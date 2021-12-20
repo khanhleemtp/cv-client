@@ -17,7 +17,15 @@ export const selectUpdatingCv = createSelector(
 export const selectCvData = createSelector(selectorCv, (state) => state.cv);
 
 export const selectSectionNormalize = createSelector(selectCvData, (cv) => {
+  if (cv?.style.layout === 'single')
+    return {
+      0: cv?.sections,
+    };
   return groupBy(cv?.sections, 'column');
+});
+
+export const selectCvLayout = createSelector(selectCvData, (cv) => {
+  return cv?.style?.layout;
 });
 
 export const selectListCvData = createSelector(
