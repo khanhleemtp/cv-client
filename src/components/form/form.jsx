@@ -37,7 +37,6 @@ export default function EditCv() {
     formState: { isSubmitting },
     handleSubmit,
     register,
-    formState: { errors },
   } = methods;
 
   function onSubmit(values) {
@@ -48,8 +47,6 @@ export default function EditCv() {
       }, 3000);
     });
   }
-
-  console.log('Errors: ', errors);
 
   return (
     <FormProvider {...methods}>

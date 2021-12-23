@@ -18,6 +18,12 @@ const Loading = () => {
   return (
     <div className={styles.loadingOverlay}>
       <div className={styles.loadingContainer} ref={anime}></div>
+      <div>
+        <span className="truncate text-gray-900 font-semibold subpixel-antialiased italic md:text-xl">
+          Tìm việc không khó, có LD CV
+        </span>
+        <span className="ml-1 md:text-xl">🤖</span>
+      </div>
     </div>
   );
 };

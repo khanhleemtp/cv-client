@@ -1,5 +1,5 @@
 .loadingOverlay {
-  @apply absolute w-full h-full inset-0 overflow-hidden bg-gray-200 flex justify-center items-center;
+  @apply absolute w-full h-full inset-0 overflow-hidden bg-gray-200 flex flex-col justify-center items-center;
 }
 
 .loadingContainer {

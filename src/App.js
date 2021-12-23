@@ -15,20 +15,19 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import SignOut from './components/sign-out/sign-out.component';
 import Loading from './components/loading/loading.component';
+import ErrorBoundary from './components/error-boundary/error-boundary.component';
+import NotFound from './components/not-found/not-found.component';
 
 const CvListPage = lazy(() =>
-  pMinDelay(import('./pages/cv-list/cv-list.page'), 1200)
+  pMinDelay(import('./pages/cv-list/cv-list.page'))
 );
 
 const Homepage = lazy(() =>
-  pMinDelay(import('./pages/homepage/homepage.component'), 1200)
+  pMinDelay(import('./pages/homepage/homepage.component'), 1000)
 );
 
 const SignInAndSignUpPage = lazy(() =>
-  pMinDelay(
-    import('./pages/sign-in-and-sign-up/sign-in-and-sign-up.component'),
-    1000
-  )
+  pMinDelay(import('./pages/sign-in-and-sign-up/sign-in-and-sign-up.component'))
 );
 
 const CvBuilderPage = lazy(() =>
@@ -56,26 +55,31 @@ function App() {
         pauseOnHover
       />
       <Switch>
-        <Route path="/builder/:id">
-          <CvBuilderPage />
-        </Route>
-        <Route path="/preview/:id">
-          <CvPreview />
-        </Route>
-        <PrivateRoute exact path="/list-cv">
-          <CvListPage />
-        </PrivateRoute>
-        <PrivateRoute exact path="/profile">
-          <UserProfile />
-        </PrivateRoute>
-        <PublicRoute path="/login">
-          <SignInAndSignUpPage />
-        </PublicRoute>
-        <Route path="/signout">
-          <SignOut />
-        </Route>
-        <Route exact path="/">
-          <Homepage />
+        <ErrorBoundary>
+          <Route path="/builder/:id">
+            <CvBuilderPage />
+          </Route>
+          <Route path="/preview/:id">
+            <CvPreview />
+          </Route>
+          <PrivateRoute exact path="/list-cv">
+            <CvListPage />
+          </PrivateRoute>
+          <PrivateRoute exact path="/profile">
+            <UserProfile />
+          </PrivateRoute>
+          <PublicRoute exact path="/login">
+            <SignInAndSignUpPage />
+          </PublicRoute>
+          <Route exact path="/signout">
+            <SignOut />
+          </Route>
+          <Route exact path="/">
+            <Homepage />
+          </Route>
+        </ErrorBoundary>
+        <Route path="*">
+          <NotFound text="Không tìm thấy địa chỉ" />
         </Route>
       </Switch>
     </Suspense>

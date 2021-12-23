@@ -16,6 +16,9 @@ module.exports = {
         cyan: colors.cyan,
         transparent: 'transparent',
       },
+      backgroundImage: {
+        'error-boundary': "url('https://i.imgur.com/oEUksmz.png')",
+      },
     },
   },
   variants: {

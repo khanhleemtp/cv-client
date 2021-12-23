@@ -19,9 +19,9 @@ const CvPreviewFromBuilder = ({
   title,
 }) => {
   return (
-    <div>
+    <>
       {isLoadingCv ? (
-        <div>Đang tải</div>
+        <div>Đang tải...</div>
       ) : (
         <PDFViewer>
           <CvPdfTemplate
@@ -32,7 +32,7 @@ const CvPreviewFromBuilder = ({
           />
         </PDFViewer>
       )}
-    </div>
+    </>
   );
 };
 
@@ -41,7 +41,6 @@ const mapStateToProps = createStructuredSelector({
   sections: selectCvSections,
   header: selectCvHeader,
   style: selectCvStyle,
-
   title: selectCvTitle,
   isLoadingCv: selectLoadingApi,
 });

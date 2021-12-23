@@ -47,7 +47,6 @@ export function* onLoadListCvAsync() {
   try {
     yield put(loadingApi());
     const { data } = yield axiosInstance.get(`/resumes`);
-    console.log('data');
     yield put(loadListCvFinish(data?.data));
   } catch (error) {
     yield toast.error(error.message);

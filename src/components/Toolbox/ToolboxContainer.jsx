@@ -24,7 +24,6 @@ const ToolboxContainer = ({
   previewCvModal,
   templateCvModal,
   dragCvModal,
-  move,
 }) => {
   const { id } = useParams();
   return (
@@ -68,7 +67,7 @@ const ToolboxContainer = ({
         Font
       </ToolboxButton> */}
       <CopyToClipboard
-        text={`https://cv-client.vercel.app/preview/${id}`}
+        text={`{process.env.REACT_APP_STATIC}/preview/${id}`}
         onCopy={() => toast.success('Sao chép thành công')}
       >
         <ToolboxButton leftIcon={ShareIcon} rightIcon={ChevronDownIcon}>
@@ -106,6 +105,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         title: 'Thay đổi thứ tự',
         type: 'DRAG',
         move: ownProps?.move,
+        update: ownProps?.update,
       })
     ),
 });

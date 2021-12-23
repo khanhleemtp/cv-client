@@ -25,8 +25,6 @@ const CvSettingEducation = ({ list }) => {
     }
   }, []);
 
-  console.log('render here');
-
   return list?.map((item) => (
     <CvSettingIcon
       key={item?.icon}

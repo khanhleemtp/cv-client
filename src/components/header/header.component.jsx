@@ -17,8 +17,6 @@ import ProfileSeparate from './profile-seperate.component';
 function Navbar({ user }) {
   const location = useLocation();
 
-  console.log('location', location);
-
   return (
     <Disclosure
       as="nav"

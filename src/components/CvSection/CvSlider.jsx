@@ -10,15 +10,6 @@ const CvSlider = ({ name }) => {
   const { control, getValues } = useFormContext();
 
   const dispatch = useDispatch();
-  // const { isDirty, dirtyFields } = useFormState({ control, name: name });
-
-  // useEffect(() => {
-  //   console.log('dirty Fields: ', dirtyFields);
-  //   if (isDirty) {
-  //     const cvData = getValues();
-  //     dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
-  //   }
-  // }, [isDirty, getValues, dispatch, dirtyFields]);
 
   return (
     <Controller

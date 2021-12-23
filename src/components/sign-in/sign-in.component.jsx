@@ -41,7 +41,6 @@ const SignIn = ({ onToggleForm, isLoading }) => {
   const [hiddenPassword, setHiddenPassword] = useState(true);
 
   const onSubmit = (data) => {
-    console.log(data);
     dispatch(emailSignInStart(data));
   };
 

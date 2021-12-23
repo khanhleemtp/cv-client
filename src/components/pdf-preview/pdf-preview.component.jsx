@@ -17,6 +17,7 @@ const PDFViewer = ({ children, isOnePage = false }) => {
         setPdfUrl(URL.createObjectURL(blob));
       });
   }, [children]);
+
   const { width, ref } = useResizeDetector();
 
   const [numPages, setNumPages] = useState(null);

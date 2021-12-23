@@ -8,11 +8,14 @@ import {
   selectCvLayout,
   selectSectionNormalize,
 } from '../redux/cv/cv.selectors';
-import { selectMoveInOtherPropsModal } from '../redux/viewState/viewState.selectors';
+import {
+  selectMoveInOtherPropsModal,
+  selectUpdateInOtherPropsModal,
+} from '../redux/viewState/viewState.selectors';
 import { updateCvStart } from './../redux/cv/cv.action';
 import { selectCvSection } from './../redux/cv/cv.selectors';
 
-const Task = ({ task, index }) => {
+const Task = ({ task, index, col, sections }) => {
   const taskText = useMemo(() => {
     switch (task?.record) {
       case 'SummarySection':
@@ -42,7 +45,8 @@ const Task = ({ task, index }) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            {taskText}
+            {index}-{taskText} -
+            {sections.findIndex((section) => section.record === task.record)}
           </div>
         )}
       </Draggable>
@@ -50,7 +54,7 @@ const Task = ({ task, index }) => {
   );
 };
 
-const Column = ({ id, column }) => {
+const Column = ({ id, column, sections }) => {
   return (
     <div className="bg-gray-200 w-full flex flex-col">
       <Droppable droppableId={id} key={id}>
@@ -63,7 +67,15 @@ const Column = ({ id, column }) => {
             })}
           >
             {column?.map((section, index) => {
-              return <Task key={section?._id} task={section} index={index} />;
+              return (
+                <Task
+                  key={section?._id}
+                  task={section}
+                  index={index}
+                  col={id}
+                  sections={sections}
+                />
+              );
             })}
             {provided.placeholder}
           </div>
@@ -73,8 +85,8 @@ const Column = ({ id, column }) => {
   );
 };
 
-const CvDragSection = ({ cvNormalize, move, updateCvData, layout }) => {
-  const { setValue, control } = useFormContext();
+const CvDragSection = ({ cvNormalize, move, updateCvData, layout, update }) => {
+  const { setValue, control, getValues } = useFormContext();
 
   const [data, setData] = useState(cvNormalize);
 
@@ -93,6 +105,7 @@ const CvDragSection = ({ cvNormalize, move, updateCvData, layout }) => {
     const start = source.droppableId;
     const finish = destination.droppableId;
 
+    // Single Column
     if (start === finish) {
       const newTaskIds = Array.from(data[source.droppableId]);
       const indexDrag = cvData?.sections.findIndex(
@@ -107,10 +120,6 @@ const CvDragSection = ({ cvNormalize, move, updateCvData, layout }) => {
       // remove from index
       newTaskIds.splice(source.index, 1);
 
-      console.log('indexDes', indexDes, '\n', 'index Drag', indexDrag);
-
-      // console.log('index Drag', indexDrag);
-
       newTaskIds.splice(destination.index, 0, {
         ...dragItem,
       });
@@ -121,44 +130,133 @@ const CvDragSection = ({ cvNormalize, move, updateCvData, layout }) => {
       };
       setData(newData);
       move(indexDrag, indexDes);
-
-      updateCvData({ id: cvData._id, updateData: cvData });
+      const cvValues = getValues();
+      updateCvData({ id: cvValues._id, updateData: cvValues });
 
       return;
     }
 
-    const startIds = Array.from(data[source.droppableId]);
+    // TwoColumn
 
-    const dragItem = startIds.filter((task) => task._id === draggableId)[0];
+    // data column
+    const startIds = Array.from(data[source.droppableId]);
 
     const finishIds = data?.[destination.droppableId]
       ? data?.[destination.droppableId]
       : [];
 
+    // data section
+    const dragItem = startIds.filter((task) => task._id === draggableId)[0];
+    // find Index in form
+    // console.log('dragItem', dragItem);
+
+    // drag
+
+    // setValue(`sections.${indexDrag}.column`, Number(destination.droppableId), {
+    //   shouldDirty: true,
+    // });
+
     const indexDrag = cvData?.sections.findIndex(
       (section) => section.record === startIds[source.index]?.record
     );
+    // previous
+    const indexPrevious = cvData?.sections.findIndex(
+      (section) => section.record === finishIds[destination.index - 1]?.record
+    );
 
-    const indexDes = cvData?.sections.findIndex(
+    const indexDestination = cvData?.sections.findIndex(
       (section) => section.record === finishIds[destination.index]?.record
     );
+    // next
 
     setValue(`sections.${indexDrag}.column`, Number(destination.droppableId));
 
-    move(indexDrag, indexDes);
+    if (indexPrevious === -1) {
+      let cvSections = Array.from(cvData?.sections);
+      cvSections.splice(indexDrag, 1);
+      cvSections.splice(indexDestination, 0, {
+        ...dragItem,
+        column: Number(destination.droppableId),
+      });
+
+      const swapArrayLoc = (arr, from, to) => {
+        arr.splice(from, 1, arr.splice(to, 1, arr[from])[0]);
+      };
+
+      if (
+        finishIds[destination.index]?.record ===
+        cvSections?.[indexDestination - 1]?.record
+      ) {
+        swapArrayLoc(cvSections, indexDestination - 1, indexDestination);
+      }
+      let updateCvSection = cvSections.filter((item) => item !== undefined);
+      update(updateCvSection);
+    } else if (indexDestination === -1) {
+      // const cvValues = getValues();
+      let cvSections = Array.from(cvData?.sections);
+
+      cvSections.splice(indexDrag, 1);
+      cvSections.splice(indexPrevious, 0, {
+        ...dragItem,
+        column: Number(destination.droppableId),
+      });
+      // console.log('sections: ', cvSections);
+      const swapArrayLoc = (arr, from, to) => {
+        arr.splice(from, 1, arr.splice(to, 1, arr[from])[0]);
+      };
+
+      if (dragItem?.record === cvSections?.[indexPrevious]?.record) {
+        swapArrayLoc(cvSections, indexPrevious, indexPrevious + 1);
+      }
+
+      let updateCvSection = cvSections.filter((item) => item !== undefined);
+      update(updateCvSection);
+    } else {
+      let cvSections = Array.from(cvData?.sections);
+
+      cvSections.splice(indexDrag, 1);
+      cvSections.splice(indexPrevious, 0, {
+        ...dragItem,
+        column: Number(destination.droppableId),
+      });
+      const swapArrayLoc = (arr, from, to) => {
+        arr.splice(from, 1, arr.splice(to, 1, arr[from])[0]);
+      };
+
+      if (dragItem?.record === cvSections?.[indexPrevious]?.record) {
+        swapArrayLoc(cvSections, indexPrevious, indexPrevious + 1);
+      }
+
+      /*      console.log(
+        'indexPrevious: ',
+        indexPrevious,
+        '\n',
+        'recorDrag',
+        dragItem?.record,
+        '\n',
+        'recordNext',
+        cvSections?.[indexPrevious]?.record
+      );
+
+      console.log('sections: ', cvSections); */
+
+      let updateCvSection = cvSections.filter((item) => item !== undefined);
+      update(updateCvSection);
+    }
+
+    const cvValues = getValues();
+    updateCvData({ id: cvValues._id, updateData: cvValues });
 
     startIds.splice(source.index, 1);
     finishIds.splice(destination.index, 0, {
       ...dragItem,
       column: Number(destination.droppableId),
     });
-
     const newData = {
       ...data,
       [source.droppableId]: startIds,
       [destination.droppableId]: finishIds,
     };
-    updateCvData({ id: cvData._id, updateData: cvData });
     setData(newData);
   };
 
@@ -170,7 +268,14 @@ const CvDragSection = ({ cvNormalize, move, updateCvData, layout }) => {
           <DragDropContext onDragEnd={onDragEnd}>
             {['1', '0'].map((columnId) => {
               const column = data?.[columnId];
-              return <Column id={columnId} column={column} key={columnId} />;
+              return (
+                <Column
+                  id={columnId}
+                  column={column}
+                  key={columnId}
+                  sections={cvData?.sections}
+                />
+              );
             })}
           </DragDropContext>
         )}
@@ -192,6 +297,7 @@ const mapStateToProps = createStructuredSelector({
   cvSingle: selectCvSection,
   move: selectMoveInOtherPropsModal,
   layout: selectCvLayout,
+  update: selectUpdateInOtherPropsModal,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -49,6 +49,11 @@ export const selectMoveInOtherPropsModal = createSelector(
   (otherProps) => otherProps?.move
 );
 
+export const selectUpdateInOtherPropsModal = createSelector(
+  selectOtherPropsModal,
+  (otherProps) => otherProps?.update
+);
+
 export const selectTypeModal = createSelector(
   selectModal,
   (modal) => modal.type

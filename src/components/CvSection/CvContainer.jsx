@@ -18,17 +18,13 @@ import {
 import ToolboxContainer from '../Toolbox/ToolboxContainer';
 import CvProfile from './CvProfile';
 import CvSection from './CvSection';
+import { isEmpty } from 'lodash';
 import CvTypography from './CvTypography';
+import NotFound from '../not-found/not-found.component';
+import NavContainer from '../nav-container/nav-container.component';
 
-const CvContainer = ({ isSelected, cvData, isUpdating, cvNormalize }) => {
+const CvContainer = ({ isSelected, cvData, isUpdating }) => {
   const methods = useForm({ defaultValues: cvData });
-
-  console.log(
-    'cvNormalize',
-    cvNormalize,
-    Object.values(cvNormalize)?.map((section) => section?.[0]),
-    cvData
-  );
 
   const { control } = methods;
   const { reset } = methods;
@@ -41,9 +37,8 @@ const CvContainer = ({ isSelected, cvData, isUpdating, cvNormalize }) => {
   }, [cvData, reset]);
 
   const layout = useWatch({ control, name: 'style.layout' });
-  console.log('layout', layout);
 
-  const { fields, move } = useFieldArray({
+  const { fields, move, replace } = useFieldArray({
     control,
     name: 'sections',
     keyName: '_id',
@@ -53,63 +48,71 @@ const CvContainer = ({ isSelected, cvData, isUpdating, cvNormalize }) => {
     alert(JSON.stringify(data));
   };
 
-  return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <ToolboxContainer move={move} />
-        <div
-          className={clsx(
-            'bg-transparent container mx-auto transition-colors ease-in-out max-w-3xl md:p-12 md:border-2 md:shadow-2xl md:my-4',
-            {
-              'bg-gray-300 bg-opacity-20': isSelected,
-            }
-          )}
-        >
-          <div className="flex items-center">
-            <div className="whitespace-nowrap mx-2 pb-1 text-lg text-indigo-500">
-              Tiêu đề:{' '}
+  return !isEmpty(cvData) ? (
+    <NavContainer>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <ToolboxContainer move={move} update={replace} />
+          <div
+            className={clsx(
+              'bg-transparent container mx-auto transition-colors ease-in-out max-w-3xl md:p-12 md:border-2 md:shadow-2xl md:my-4',
+              {
+                'bg-gray-300 bg-opacity-20': isSelected,
+              }
+            )}
+          >
+            <div className="flex items-center">
+              <div className="whitespace-nowrap mx-2 pb-1 text-lg text-indigo-500">
+                Tiêu đề:{' '}
+              </div>
+              <CvTypography name="title" />
             </div>
-            <CvTypography name="title" />
+            <p className="hidden md:block px-2">
+              {isUpdating ? 'Đang lưu...' : 'Đã lưu'}
+            </p>
+            <CvProfile />
+            {layout === 'double' ? (
+              <div className="flex flex-col md:flex-row">
+                <div className="flex flex-col w-full md:w-8/12">
+                  {fields?.map((field, index) => {
+                    if (field.column === 0) return null;
+                    return (
+                      <CvSection
+                        index={index}
+                        key={field._id}
+                        record={field.record}
+                      />
+                    );
+                  })}
+                </div>
+                <div className="flex flex-col w-full md:w-6/12">
+                  {fields?.map((field, index) => {
+                    if (field.column === 1) return null;
+                    return (
+                      <CvSection
+                        index={index}
+                        key={field._id}
+                        record={field.record}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              fields?.map((field, index) => (
+                <CvSection
+                  index={index}
+                  key={field._id}
+                  record={field.record}
+                />
+              ))
+            )}
           </div>
-          <p className="hidden md:block px-2">
-            {isUpdating ? 'Đang lưu...' : 'Đã lưu'}
-          </p>
-          <CvProfile />
-          {layout === 'double' ? (
-            <div className="flex flex-col md:flex-row">
-              <div className="flex flex-col w-full md:w-8/12">
-                {fields.map((field, index) => {
-                  if (field.column === 0) return null;
-                  return (
-                    <CvSection
-                      index={index}
-                      key={field._id}
-                      record={field.record}
-                    />
-                  );
-                })}
-              </div>
-              <div className="flex flex-col w-full md:w-6/12">
-                {fields.map((field, index) => {
-                  if (field.column === 1) return null;
-                  return (
-                    <CvSection
-                      index={index}
-                      key={field._id}
-                      record={field.record}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          ) : (
-            fields.map((field, index) => (
-              <CvSection index={index} key={field._id} record={field.record} />
-            ))
-          )}
-        </div>
-      </form>
-    </FormProvider>
+        </form>
+      </FormProvider>
+    </NavContainer>
+  ) : (
+    <NotFound />
   );
 };
 

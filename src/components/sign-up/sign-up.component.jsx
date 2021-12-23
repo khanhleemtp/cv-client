@@ -41,7 +41,6 @@ const SignUp = ({ onToggleForm }) => {
   const [hiddenPassword, setHiddenPassword] = useState(true);
 
   const onSubmit = (data) => {
-    console.log(data);
     dispatch(signUpStart(data));
   };
 
