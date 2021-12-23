@@ -122,7 +122,7 @@ const CvListPage = ({ listCv, isLoading, loadListCv, deleteCv, createCv }) => {
                           />
                         </PDFDownloadLink>
                         <CopyToClipboard
-                          text={`{process.env.REACT_APP_STATIC}/preview/${cv?.id}`}
+                          text={`${process.env.REACT_APP_STATIC}/preview/${cv?.id}`}
                           onCopy={() => toast.success('Sao chép thành công')}
                         >
                           <Button

@@ -67,7 +67,7 @@ const ToolboxContainer = ({
         Font
       </ToolboxButton> */}
       <CopyToClipboard
-        text={`{process.env.REACT_APP_STATIC}/preview/${id}`}
+        text={`${process.env.REACT_APP_STATIC}/preview/${id}`}
         onCopy={() => toast.success('Sao chép thành công')}
       >
         <ToolboxButton leftIcon={ShareIcon} rightIcon={ChevronDownIcon}>
