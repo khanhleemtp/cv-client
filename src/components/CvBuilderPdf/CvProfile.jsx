@@ -14,7 +14,7 @@ const CvProfile = ({ header }) => {
     imageContainer: {
       width: 90,
       height: 90,
-      borderRadius: 45,
+      borderRadius: header?.photoStyle === 'rounded' ? 45 : 6,
     },
   });
 
@@ -24,24 +24,44 @@ const CvProfile = ({ header }) => {
         <CvText type="h1" bold>
           {header?.name}
         </CvText>
-        <CvText type="h2" bold color="primary">
+        <CvText type="h2" bold color="primary" isEnabled={header?.showTitle}>
           {header?.title}
         </CvText>
-        <CvText type="h4" color="secondary" icon="phone">
+        <CvText
+          type="h4"
+          color="secondary"
+          icon="phone"
+          isEnabled={header?.showPhone}
+        >
           {header?.phone}
         </CvText>
-        <CvText type="h4" color="secondary" icon="mail">
+        <CvText
+          type="h4"
+          color="secondary"
+          icon="mail"
+          isEnabled={header?.showEmail}
+        >
           {header?.email}
         </CvText>
-        <CvText type="h4" color="secondary" icon="link">
+        <CvText
+          type="h4"
+          color="secondary"
+          icon="link"
+          isEnabled={header?.showLink}
+        >
           {header?.link}
         </CvText>
-        <CvText type="h4" color="secondary" icon="location">
+        <CvText
+          type="h4"
+          color="secondary"
+          icon="location"
+          isEnabled={header?.showAddress}
+        >
           {header?.address}
         </CvText>
       </View>
       <View>
-        {header?.photo && (
+        {header?.photo && header?.showPhoto && (
           <Image
             style={styles.imageContainer}
             src={{

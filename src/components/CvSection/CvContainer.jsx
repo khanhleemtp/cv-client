@@ -63,7 +63,7 @@ const CvContainer = ({ isSelected, cvData, isUpdating }) => {
           >
             <div className="flex items-center">
               <div className="whitespace-nowrap mx-2 pb-1 text-lg text-indigo-500">
-                Tiêu đề:{' '}
+                Tiêu đề:
               </div>
               <CvTypography name="title" />
             </div>

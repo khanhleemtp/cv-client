@@ -29,6 +29,7 @@ const CvTypography = ({
   isCurrentField,
   setField,
   closeField,
+  isEnabled = true,
 }) => {
   const renderStyle = useCallback(() => {
     switch (type) {
@@ -108,35 +109,37 @@ const CvTypography = ({
   useOnClickOutside(ref, handleClose);
 
   return (
-    <div
-      className={clsx('w-full bg-transparent relative', { 'pl-5': icon })}
-      onClick={handleOpen}
-      ref={ref}
-    >
-      {icon && (
-        <div className="text-blue-500 pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-0">
-          {renderIcon()}
-        </div>
-      )}
-      <TextareaAutosize
-        maxRows={9999}
-        type="text"
-        className={clsx(
-          'w-full py-0 bg-transparent border-0 focus:ring-0 outline-none resize-none px-0',
-          renderColor(),
-          renderStyle(),
-          {
-            'font-semibold': bold,
-          },
-          {
-            'font-medium': medium,
-          },
-          className
+    isEnabled && (
+      <div
+        className={clsx('w-full bg-transparent relative', { 'pl-5': icon })}
+        onClick={handleOpen}
+        ref={ref}
+      >
+        {icon && (
+          <div className="text-blue-500 pointer-events-none w-4 h-4 absolute top-1/2 transform -translate-y-1/2 left-0">
+            {renderIcon()}
+          </div>
         )}
-        {...register(name)}
-        placeholder={placeholder}
-      />
-    </div>
+        <TextareaAutosize
+          maxRows={9999}
+          type="text"
+          className={clsx(
+            'w-full py-0 bg-transparent border-0 focus:ring-0 outline-none resize-none px-0',
+            renderColor(),
+            renderStyle(),
+            {
+              'font-semibold': bold,
+            },
+            {
+              'font-medium': medium,
+            },
+            className
+          )}
+          {...register(name)}
+          placeholder={placeholder}
+        />
+      </div>
+    )
   );
 };
 

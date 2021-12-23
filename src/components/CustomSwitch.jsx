@@ -1,9 +1,11 @@
 import { Switch } from '@headlessui/react';
 import { Controller, useFormContext } from 'react-hook-form';
+import { updateCvStart } from './../redux/cv/cv.action';
+import { connect } from 'react-redux';
 
-const CustomSwitch = ({ name, label, cb }) => {
-  const { control } = useFormContext();
-
+const CustomSwitch = ({ name, label, cb, updateCv }) => {
+  const { control, getValues } = useFormContext();
+  console.log(updateCv);
   return (
     <Controller
       control={control}
@@ -17,6 +19,8 @@ const CustomSwitch = ({ name, label, cb }) => {
               onChange={(e) => {
                 cb && cb();
                 onChange(e);
+                const cvData = getValues();
+                updateCv({ updateData: cvData, id: cvData.id });
               }}
               className={`${
                 value ? 'bg-blue-600' : 'bg-gray-200'
@@ -35,4 +39,8 @@ const CustomSwitch = ({ name, label, cb }) => {
   );
 };
 
-export default CustomSwitch;
+const mapDispatchToProps = (dispatch) => ({
+  updateCv: (data) => dispatch(updateCvStart(data)),
+});
+
+export default connect(null, mapDispatchToProps)(CustomSwitch);

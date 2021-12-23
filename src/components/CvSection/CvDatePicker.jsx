@@ -8,8 +8,7 @@ import { connect } from 'react-redux';
 import { updateCvStart } from './../../redux/cv/cv.action';
 
 const CvDatepicker = ({ dayProps, updateCv }) => {
-  const { setValue } = useFormContext();
-  const { getValues } = useFormContext();
+  const { getValues, setValue } = useFormContext();
   const updateData = () => {
     const cvData = getValues();
     updateCv({ updateData: cvData, id: cvData.id });
@@ -17,11 +16,9 @@ const CvDatepicker = ({ dayProps, updateCv }) => {
 
   const cbIsOngoing = () => {
     setValue(`${dayProps}.to`, null);
-    updateData();
   };
   const cbTo = () => {
     setValue(`${dayProps}.isOngoing`, false);
-    updateData();
   };
 
   const [isFrom, setIsFrom] = useState(true);

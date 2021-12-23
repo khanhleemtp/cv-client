@@ -1,7 +1,16 @@
 import { useMemo } from 'react';
 import { Text, StyleSheet, View, Image } from '@react-pdf/renderer';
 
-const CvText = ({ icon, type, color, children, uppercase, bold, medium }) => {
+const CvText = ({
+  icon,
+  type,
+  color,
+  children,
+  uppercase,
+  bold,
+  medium,
+  isEnabled = true,
+}) => {
   const styles = StyleSheet.create({
     uppercase: {
       textTransform: 'uppercase',
@@ -113,21 +122,23 @@ const CvText = ({ icon, type, color, children, uppercase, bold, medium }) => {
   }, [styles, type]);
 
   return (
-    <View>
-      <View
-        style={[
-          styles.text,
-          colorStyles,
-          typeStyles,
-          uppercase && styles.uppercase,
-          bold && styles.bold,
-          medium && medium,
-        ]}
-      >
-        {icon && <Image src={iconSrc} style={styles.icon} />}
-        <Text>{children}</Text>
+    isEnabled && (
+      <View>
+        <View
+          style={[
+            styles.text,
+            colorStyles,
+            typeStyles,
+            uppercase && styles.uppercase,
+            bold && styles.bold,
+            medium && medium,
+          ]}
+        >
+          {icon && <Image src={iconSrc} style={styles.icon} />}
+          <Text>{children}</Text>
+        </View>
       </View>
-    </View>
+    )
   );
 };
 

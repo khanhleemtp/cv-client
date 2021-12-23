@@ -1,3 +1,9 @@
 .DayPicker-Caption {
   @apply capitalize;
 }
+
+.DayPicker-NavButton {
+  /* display: flex; */
+  top: 20px;
+  right: 8px;
+}

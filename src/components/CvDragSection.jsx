@@ -15,7 +15,7 @@ import {
 import { updateCvStart } from './../redux/cv/cv.action';
 import { selectCvSection } from './../redux/cv/cv.selectors';
 
-const Task = ({ task, index, col, sections }) => {
+const Task = ({ task, index, sections }) => {
   const taskText = useMemo(() => {
     switch (task?.record) {
       case 'SummarySection':
@@ -148,13 +148,8 @@ const CvDragSection = ({ cvNormalize, move, updateCvData, layout, update }) => {
     // data section
     const dragItem = startIds.filter((task) => task._id === draggableId)[0];
     // find Index in form
-    // console.log('dragItem', dragItem);
 
     // drag
-
-    // setValue(`sections.${indexDrag}.column`, Number(destination.droppableId), {
-    //   shouldDirty: true,
-    // });
 
     const indexDrag = cvData?.sections.findIndex(
       (section) => section.record === startIds[source.index]?.record
@@ -171,7 +166,10 @@ const CvDragSection = ({ cvNormalize, move, updateCvData, layout, update }) => {
 
     setValue(`sections.${indexDrag}.column`, Number(destination.droppableId));
 
-    if (indexPrevious === -1) {
+    if (indexPrevious === -1 && indexDestination === -1) {
+      move(indexDrag, indexDestination);
+    } else if (indexPrevious === -1) {
+      console.log('run here');
       let cvSections = Array.from(cvData?.sections);
       cvSections.splice(indexDrag, 1);
       cvSections.splice(indexDestination, 0, {
