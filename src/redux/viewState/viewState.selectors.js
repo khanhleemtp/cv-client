@@ -7,6 +7,11 @@ export const selectSelectedField = createSelector(
   (viewState) => viewState.field
 );
 
+export const selectSelectedItem = createSelector(
+  selectorViewState,
+  (viewState) => viewState.item
+);
+
 export const selectIsCurrentField = (currentField) =>
   createSelector(
     selectSelectedField,
@@ -16,6 +21,11 @@ export const selectIsCurrentField = (currentField) =>
 export const selectSelectedSection = createSelector(
   selectorViewState,
   (viewState) => viewState.section
+);
+
+export const selectSelectedSectionAndItem = createSelector(
+  selectorViewState,
+  (viewState) => ({ section: viewState.section, item: viewState.item })
 );
 
 export const selectIsCurrentSection = (currentSection) =>
@@ -83,3 +93,24 @@ export const selectIsCurrentPopover = (currentPopover) =>
     selectSelectedPopover,
     (prevPopover) => prevPopover === currentPopover
   );
+
+export const selectCurrentSection = (selectedSection) =>
+  createSelector(selectSelectedSectionAndItem, (section) => {
+    if (section.section === selectedSection && section.item === undefined)
+      return true;
+    return false;
+  });
+
+export const selectCurrentSectionItem = (selectedSection, selectedItem) =>
+  createSelector(selectSelectedSectionAndItem, (viewState) => {
+    if (
+      viewState?.section === selectedSection &&
+      viewState?.item === selectedItem
+    )
+      return true;
+
+    return false;
+  });
+
+export const selectCurrentField = (currentField) =>
+  createSelector(selectSelectedField, (field) => field === currentField);

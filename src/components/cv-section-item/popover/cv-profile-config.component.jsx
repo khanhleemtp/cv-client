@@ -1,10 +1,11 @@
 import clsx from 'clsx';
 import { useFormContext, useWatch } from 'react-hook-form';
-import CustomSwitch from '../../../CustomSwitch';
-import { updateCvStart } from './../../../../redux/cv/cv.action';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectCvHeader } from '../../../../redux/cv/cv.selectors';
+import { selectCvHeader } from '../../../redux/cv/cv.selectors';
+import { updateCvStart } from '../../../redux/cv/cv.action';
+import CvListSwitch from './cv-list-switch.component';
+import { DATA_SECTION_CONFIG } from './configData';
 
 const CvConfigProfile = ({ updateCv, header }) => {
   const { control, setValue, getValues } = useFormContext();
@@ -20,14 +21,14 @@ const CvConfigProfile = ({ updateCv, header }) => {
     defaultValue: header?.photoStyle,
   });
 
+  const handlePhotoStyle = (style) => () => {
+    setValue('header.photoStyle', style);
+    updateData();
+  };
+
   return (
     <div className="p-6 w-64">
-      <CustomSwitch name="header.showTitle" label="Vị trí công việc" />
-      <CustomSwitch name="header.showPhone" label="Số điện thoại" />
-      <CustomSwitch name="header.showEmail" label="Email" />
-      <CustomSwitch name="header.showLink" label="Website/Link" />
-      <CustomSwitch name="header.showAddress" label="Địa chỉ" />
-      <CustomSwitch name="header.showPhoto" label="Ảnh" />
+      <CvListSwitch list={DATA_SECTION_CONFIG.profile} profile={true} />
 
       <div className="flex">
         Photo style
@@ -38,19 +39,13 @@ const CvConfigProfile = ({ updateCv, header }) => {
               'bg-blue-500': photoStyle === 'rounded',
             }
           )}
-          onClick={() => {
-            setValue('header.photoStyle', 'rounded');
-            updateData();
-          }}
+          onClick={handlePhotoStyle('rounded')}
         ></div>
         <div
           className={clsx('w-5 h-5 mx-1  bg-gray-500 cursor-pointer', {
             'bg-blue-500': photoStyle === 'square',
           })}
-          onClick={() => {
-            setValue('header.photoStyle', 'square');
-            updateData();
-          }}
+          onClick={handlePhotoStyle('square')}
         ></div>
       </div>
     </div>

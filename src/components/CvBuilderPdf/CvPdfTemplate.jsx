@@ -14,7 +14,12 @@ import CvProfile from './CvProfile';
 import CvText from './Typography/CvText';
 import CvPdfSection from './CvPdfSection';
 
-const CvPdfTemplate = ({ sections, header, style, title }) => {
+const CvPdfTemplate = ({
+  sections = [],
+  header = {},
+  style = {},
+  title = '',
+}) => {
   return (
     <Document title={title}>
       <Page size="A4" style={styles.main}>

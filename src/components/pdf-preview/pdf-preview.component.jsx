@@ -37,7 +37,7 @@ const PDFViewer = ({ children, isOnePage = false }) => {
             width={width ? width : 1}
           />
         ) : (
-          Array.apply(null, Array(numPages))
+          Array?.apply(null, Array(numPages))
             .map((x, i) => i + 1)
             .map((page) => (
               <Page

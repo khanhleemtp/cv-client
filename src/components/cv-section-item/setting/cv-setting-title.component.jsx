@@ -1,6 +1,7 @@
 import React from 'react';
-import CvSettingIcon from './CvSettingIcon';
+
 import { TrashIcon, PlusIcon, TemplateIcon } from '@heroicons/react/outline';
+import CvSettingIcon from './cv-setting-icon.component';
 
 const CvSettingTitle = ({
   add = () => {},

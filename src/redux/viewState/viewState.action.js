@@ -38,3 +38,10 @@ export const openPopover = (popoverName) => ({
 export const closePopover = () => ({
   type: viewStateActionTypes.CLOSE_POPOVER,
 });
+export const setFields = (data) => ({
+  type: viewStateActionTypes.SET_FIELDS,
+  payload: data,
+});
+export const clearBackground = () => ({
+  type: viewStateActionTypes.CLEAR_BACKGROUND,
+});

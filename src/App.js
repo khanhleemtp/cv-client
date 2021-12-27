@@ -23,7 +23,7 @@ const CvListPage = lazy(() =>
 );
 
 const Homepage = lazy(() =>
-  pMinDelay(import('./pages/homepage/homepage.component'), 1000)
+  pMinDelay(import('./pages/homepage/homepage.component'))
 );
 
 const SignInAndSignUpPage = lazy(() =>
@@ -56,18 +56,11 @@ function App() {
       />
       <Switch>
         <ErrorBoundary>
-          <Route path="/builder/:id">
-            <CvBuilderPage />
-          </Route>
-          <Route path="/preview/:id">
-            <CvPreview />
-          </Route>
-          <PrivateRoute exact path="/list-cv">
-            <CvListPage />
-          </PrivateRoute>
-          <PrivateRoute exact path="/profile">
-            <UserProfile />
-          </PrivateRoute>
+          <Route path="/builder/:id" component={CvBuilderPage} />
+          <Route path="/preview/:id" component={CvPreview} />
+          <PrivateRoute exact path="/list-cv" component={CvListPage} />
+          <PrivateRoute exact path="/profile" component={UserProfile} />
+
           <PublicRoute exact path="/login">
             <SignInAndSignUpPage />
           </PublicRoute>

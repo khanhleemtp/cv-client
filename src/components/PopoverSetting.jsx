@@ -4,8 +4,8 @@ import { usePopper } from 'react-popper';
 import { selectIsCurrentPopover } from './../redux/viewState/viewState.selectors';
 import { connect } from 'react-redux';
 import {
-  openPopover,
-  closePopover,
+  setFields,
+  clearBackground,
 } from './../redux/viewState/viewState.action';
 
 const PopoverSetting = ({ children, setting, open, close, isOpen }) => {
@@ -87,8 +87,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  open: () => dispatch(openPopover(ownProps?.name)),
-  close: () => dispatch(closePopover()),
+  open: () => dispatch(setFields({ popover: ownProps?.name })),
+  close: () => dispatch(clearBackground()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopoverSetting);

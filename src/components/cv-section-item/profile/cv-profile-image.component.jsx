@@ -1,12 +1,12 @@
+import clsx from 'clsx';
 import { useEffect } from 'react';
 import { TrashIcon, UserIcon, CloudUploadIcon } from '@heroicons/react/outline';
 import { useFormContext, useWatch } from 'react-hook-form';
-import { openModal } from '../../redux/viewState/viewState.action';
 import { connect } from 'react-redux';
-import { updateCvStart } from '../../redux/cv/cv.action';
 import { createStructuredSelector } from 'reselect';
-import { selectCvPhoto, selectCvHeader } from './../../redux/cv/cv.selectors';
-import clsx from 'clsx';
+import { selectCvHeader, selectCvPhoto } from '../../../redux/cv/cv.selectors';
+import { openModal } from './../../../redux/viewState/viewState.action';
+import { updateCvStart } from './../../../redux/cv/cv.action';
 
 const CvProfileImage = ({ name, openImageModal, updateCv, photo, header }) => {
   const { getValues, setValue, control } = useFormContext();
@@ -88,6 +88,7 @@ const mapDispatchToProps = (dispatch) => ({
   openImageModal: () => dispatch(openModal('UPLOAD_IMAGE'), {}),
   updateCv: (data) => dispatch(updateCvStart(data)),
 });
+
 const mapStateToProps = createStructuredSelector({
   photo: selectCvPhoto,
   header: selectCvHeader,

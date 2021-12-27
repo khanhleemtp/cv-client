@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { updateCvStart } from './../../redux/cv/cv.action';
+import { updateCvStart } from '../../redux/cv/cv.action';
 import { useDispatch } from 'react-redux';
 
 const TemplateSetting = () => {

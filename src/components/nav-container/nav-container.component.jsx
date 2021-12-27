@@ -1,11 +1,11 @@
 import Navbar from './../header/header.component';
 
-const NavContainer = ({ children }) => {
+const NavContainer = ({ children, onClick = () => {}, ...props }) => {
   return (
-    <>
-      <Navbar />
+    <div {...props}>
+      <Navbar onClick={onClick} />
       <div className="mt-16">{children}</div>
-    </>
+    </div>
   );
 };
 

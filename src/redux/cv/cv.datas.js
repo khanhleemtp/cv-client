@@ -13,7 +13,7 @@ export const CV_DATAS = {
     showEmail: true,
     showAddress: true,
     showPhoto: true,
-    photoStyle: 'round',
+    photoStyle: 'rounded',
     photo: null,
   },
   sections: [
@@ -54,7 +54,7 @@ export const CV_DATAS = {
           showGpa: true,
           showLocation: true,
           showDateRange: true,
-          showBullets: false,
+          showBullets: true,
           bullets: [
             {
               text: '',
@@ -85,7 +85,7 @@ export const CV_DATAS = {
           showBullets: true,
           showLocation: true,
           showDateRange: true,
-          showLink: false,
+          showLink: true,
           bullets: [
             {
               text: '',

@@ -7,10 +7,11 @@ const initModal = {
 };
 
 const INITIAL_STATE = {
-  section: null,
-  modal: initModal,
-  popover: null,
   field: null,
+  modal: initModal,
+  section: null,
+  item: null,
+  popover: null,
 };
 
 const viewStateReducer = (state = INITIAL_STATE, action) => {
@@ -59,6 +60,19 @@ const viewStateReducer = (state = INITIAL_STATE, action) => {
     case viewStateActionTypes.CLOSE_POPOVER:
       return {
         ...state,
+        popover: null,
+      };
+    case viewStateActionTypes.SET_FIELDS:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case viewStateActionTypes.CLEAR_BACKGROUND:
+      return {
+        ...state,
+        field: null,
+        section: null,
+        item: null,
         popover: null,
       };
     default:

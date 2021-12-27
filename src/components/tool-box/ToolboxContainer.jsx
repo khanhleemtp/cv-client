@@ -1,4 +1,4 @@
-import RoundIcon from '../../components/RoundedIcon';
+import RoundIcon from '../RoundedIcon';
 import {
   // PlusIcon,
   EyeIcon,
@@ -7,27 +7,34 @@ import {
   ChevronDownIcon,
   ShareIcon,
   SwitchHorizontalIcon,
+  DownloadIcon,
   // ColorSwatchIcon,
   // PhotographIcon,
   // DocumentTextIcon,
 } from '@heroicons/react/solid';
 import RootModal from '../RootModal';
-import ToolboxButton from './ToolboxButton';
 import { connect } from 'react-redux';
-import { openModal } from './../../redux/viewState/viewState.action';
+import { openModal } from '../../redux/viewState/viewState.action';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import ToolboxButton from '../tool-box/ToolboxButton';
 
 const ToolboxContainer = ({
   openSectionModal,
   previewCvModal,
   templateCvModal,
   dragCvModal,
+  onClick,
+  cv,
 }) => {
   const { id } = useParams();
+
   return (
-    <div className="bg-white overflow-auto px-2 h-16 md:py-2 md:h-auto md:px-6 flex  items-center z-40 md:z-20 sticky top-0 md:top-16 shadow-inner">
+    <div
+      className="bg-white overflow-auto px-2 h-16 md:py-2 md:h-auto md:px-6 flex  items-center z-40 md:z-20 sticky top-0 md:top-16 shadow-inner"
+      onClick={onClick}
+    >
       <RootModal />
       <RoundIcon
         icon={ChevronRightIcon}
@@ -74,6 +81,11 @@ const ToolboxContainer = ({
           Chia sẻ
         </ToolboxButton>
       </CopyToClipboard>
+      <Link to={`/preview/${cv?._id}`}>
+        <ToolboxButton leftIcon={DownloadIcon} rightIcon={ChevronDownIcon}>
+          Tải xuống
+        </ToolboxButton>
+      </Link>
       {/* <ToolboxButton
         leftIcon={SwitchHorizontalIcon}
         rightIcon={ChevronDownIcon}

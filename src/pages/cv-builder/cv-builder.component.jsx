@@ -16,9 +16,9 @@ const CvContainer = lazy(() =>
   pMinDelay(import('../../components/CvSection/CvContainer'))
 );
 
-const CvBuilderPage = ({ isLoading }) => {
+const CvBuilderPage = ({ isLoading, ...props }) => {
   const dispatch = useDispatch();
-
+  console.log(props.match.params.id);
   const { id } = useParams();
 
   useEffect(() => {

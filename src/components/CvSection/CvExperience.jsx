@@ -16,6 +16,7 @@ const CvExperience = ({
   downItem,
   upItem,
   addItem,
+  dragCvModal,
 }) => {
   const { control } = useFormContext();
 
@@ -35,6 +36,7 @@ const CvExperience = ({
         <CvSettingTitle
           add={createItem(append, `${baseName}.${fields?.length}`)}
           remove={removeSection}
+          dragCvModal={dragCvModal}
         />
       }
     >

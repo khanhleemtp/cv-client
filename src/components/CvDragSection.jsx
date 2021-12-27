@@ -45,8 +45,7 @@ const Task = ({ task, index, sections }) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            {index}-{taskText} -
-            {sections.findIndex((section) => section.record === task.record)}
+            {taskText}
           </div>
         )}
       </Draggable>
@@ -108,14 +107,16 @@ const CvDragSection = ({ cvNormalize, move, updateCvData, layout, update }) => {
     // Single Column
     if (start === finish) {
       const newTaskIds = Array.from(data[source.droppableId]);
-      const indexDrag = cvData?.sections.findIndex(
+      const indexDrag = cvData?.sections?.findIndex(
         (section) => section.record === newTaskIds[source.index]?.record
       );
 
-      const indexDes = cvData?.sections.findIndex(
+      const indexDes = cvData?.sections?.findIndex(
         (section) => section.record === newTaskIds[destination.index]?.record
       );
-      const dragItem = newTaskIds.filter((task) => task._id === draggableId)[0];
+      const dragItem = newTaskIds?.filter(
+        (task) => task._id === draggableId
+      )[0];
 
       // remove from index
       newTaskIds.splice(source.index, 1);
@@ -151,15 +152,15 @@ const CvDragSection = ({ cvNormalize, move, updateCvData, layout, update }) => {
 
     // drag
 
-    const indexDrag = cvData?.sections.findIndex(
+    const indexDrag = cvData?.sections?.findIndex(
       (section) => section.record === startIds[source.index]?.record
     );
     // previous
-    const indexPrevious = cvData?.sections.findIndex(
+    const indexPrevious = cvData?.sections?.findIndex(
       (section) => section.record === finishIds[destination.index - 1]?.record
     );
 
-    const indexDestination = cvData?.sections.findIndex(
+    const indexDestination = cvData?.sections?.findIndex(
       (section) => section.record === finishIds[destination.index]?.record
     );
     // next

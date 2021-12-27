@@ -1,11 +1,14 @@
 import { useFormContext, useWatch } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
 import { updateCvStart } from '../../redux/cv/cv.action';
 import { useCallback } from 'react';
 import CvSummary from './CvSummary';
 import CvEducation from './CvEducation';
 
-import { selectSectionStart } from '../../redux/viewState/viewState.action';
+import {
+  openModal,
+  selectSectionStart,
+} from '../../redux/viewState/viewState.action';
 
 import CvLanguage from './CvLanguage';
 import { CV_SECTION_ITEM_DATA } from './cv.data';
@@ -23,7 +26,7 @@ const CV_SECTION_COMPONENT = {
   TechnologySection: CvTechnology,
 };
 
-const CvSection = ({ record, index }) => {
+const CvSection = ({ record, index, dragCvModal }) => {
   const { control, setValue, setFocus, getValues } = useFormContext();
   const dispatch = useDispatch();
 
@@ -96,10 +99,23 @@ const CvSection = ({ record, index }) => {
         updateData={updateData}
         addItem={addItem}
         child={CV_SECTION_COMPONENT[record]}
+        dragCvModal={dragCvModal}
       />
     );
   }
   return null;
 };
 
-export default CvSection;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  dragCvModal: () =>
+    dispatch(
+      openModal('SECTION_CV', {
+        title: 'Thay đổi thứ tự',
+        type: 'DRAG',
+        move: ownProps?.move,
+        update: ownProps?.update,
+      })
+    ),
+});
+
+export default connect(null, mapDispatchToProps)(CvSection);

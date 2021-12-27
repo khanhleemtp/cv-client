@@ -30,11 +30,19 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
 import Loading from './../../components/loading/loading.component';
 
-const CvListPage = ({ listCv, isLoading, loadListCv, deleteCv, createCv }) => {
+const CvListPage = ({
+  listCv,
+  isLoading,
+  loadListCv,
+  deleteCv,
+  createCv,
+  ...props
+}) => {
   useEffect(() => {
     loadListCv();
   }, [loadListCv]);
 
+  console.log('props', props);
   return isLoading ? (
     <Loading />
   ) : (
@@ -115,7 +123,7 @@ const CvListPage = ({ listCv, isLoading, loadListCv, deleteCv, createCv }) => {
                           fileName={`${cv?.title}.ld-cv.pdf`}
                         >
                           <Button
-                            text="Đang tải"
+                            text="Tải xuống"
                             leftIcon={DownloadIcon}
                             size="small"
                             className="bg-gray-200 text-gray-500 hover:bg-gray-300 m-1"

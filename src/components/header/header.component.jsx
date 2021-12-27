@@ -14,13 +14,14 @@ import ProfileDropdown from './profile-dropdown.component';
 import ButtonBeforeLogin from './button-before-login.component';
 import ProfileSeparate from './profile-seperate.component';
 
-function Navbar({ user }) {
+function Navbar({ user, onClick }) {
   const location = useLocation();
 
   return (
     <Disclosure
       as="nav"
       className="bg-white shadow-xl fixed top-0 left-0 h-16 right-0 z-30 text-gray-600"
+      onClick={onClick}
     >
       {({ open }) => (
         <>

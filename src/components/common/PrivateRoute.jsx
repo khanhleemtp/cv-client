@@ -3,13 +3,13 @@ import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './../../redux/user/user.selectors';
 import { connect } from 'react-redux';
 
-function PrivateRoute({ children, isAuthenticated, ...rest }) {
+function PrivateRoute({ component: Component, isAuthenticated, ...rest }) {
   return (
     <Route
       {...rest}
       render={({ location }) =>
         isAuthenticated ? (
-          children
+          <Component {...rest} />
         ) : (
           <Redirect
             to={{
