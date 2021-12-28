@@ -46,17 +46,17 @@ const CvExperience = ({ data }) => {
           <View style={styles.calendarContainer}>
             <CvText type="h4" icon="calendar" isEnabled={item.showDateRange}>
               {item?.dateRange?.from &&
-                moment(item?.dateRange?.from).format('MM/YYYY')}
+                moment(item?.dateRange?.from).format('DD/MM/YYYY')}
               {' - '}
               {item?.dateRange?.to &&
-                moment(item?.dateRange?.to).format('MM/YYYY')}
+                moment(item?.dateRange?.to).format('DD/MM/YYYY')}
               {item?.dateRange?.isOngoing && 'Hiện tại'}
             </CvText>
             <CvText type="h4" icon="location" isEnabled={item.showLocation}>
               {item?.location}
             </CvText>
           </View>
-          <CvText type="h4" medium icon={item.showDescription}>
+          <CvText type="h4" medium isEnabled={item.showDescription}>
             {item?.description}
           </CvText>
 

@@ -51,8 +51,8 @@ const SignUp = ({ onToggleForm }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-lg">
       <div className="bg-transparent px-4 sm:px-8 lg:bg-white lg:shadow-lg rounded lg:border-2 lg:px-14 lg:py-16">
-        <div className="text-center text-2xl font-sans text-indigo-500">
-          Tạo tài khoản với
+        <div className="text-center text-xl font-sans text-indigo-500">
+          Đăng ký với
         </div>
         <SignSocial />
         <div className="font-sans text-indigo-500 text-center my-8">

@@ -9,13 +9,13 @@ import {
   CalendarIcon,
 } from '@heroicons/react/solid';
 
-import useOnClickOutside from './../../hook/useOutsideClick';
+import useOnClickOutside from '../../hook/useOutsideClick';
 import { connect, useDispatch } from 'react-redux';
 import { closeField, openField } from '../../redux/viewState/viewState.action';
 import { selectIsCurrentField } from '../../redux/viewState/viewState.selectors';
 import { useFormState, useFormContext } from 'react-hook-form';
 import { isEmpty } from 'lodash-es';
-import { updateCvStart } from './../../redux/cv/cv.action';
+import { updateCvStart } from '../../redux/cv/cv.action';
 
 const CvTypography = ({
   placeholder = '',

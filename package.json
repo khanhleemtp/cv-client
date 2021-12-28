@@ -28,6 +28,7 @@
     "rc-slider": "^9.7.4",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
+    "react-burger-menu": "^3.0.6",
     "react-copy-to-clipboard": "^5.0.4",
     "react-cropper": "^2.1.8",
     "react-day-picker": "^7.4.10",

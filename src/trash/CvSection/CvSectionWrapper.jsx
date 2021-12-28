@@ -1,4 +1,4 @@
-import useOnClickOutside from './../../hook/useOutsideClick';
+import useOnClickOutside from '../../hook/useOutsideClick';
 import { useRef, useCallback, Fragment, memo } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import clsx from 'clsx';
@@ -12,7 +12,7 @@ import {
   selectSectionStart,
   selectSectionFinish,
   closePopover,
-} from './../../redux/viewState/viewState.action';
+} from '../../redux/viewState/viewState.action';
 // import { useFormState, useFormContext, useWatch } from 'react-hook-form';
 // import { updateCvStart } from './../../redux/cv/cv.action';
 

@@ -68,10 +68,10 @@ const CvEducation = ({ data }) => {
                   isEnabled={item?.showDateRange}
                 >
                   {item?.dateRange?.from &&
-                    moment(item?.dateRange?.from).format('MM/YYYY')}
+                    moment(item?.dateRange?.from).format('DD/MM/YYYY')}
                   {' - '}
                   {item?.dateRange?.to &&
-                    moment(item?.dateRange?.to).format('MM/YYYY')}
+                    moment(item?.dateRange?.to).format('DD/MM/YYYY')}
                   {item?.dateRange?.isOngoing && 'Hiện tại'}
                 </CvText>
 

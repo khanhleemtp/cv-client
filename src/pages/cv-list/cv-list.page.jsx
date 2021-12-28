@@ -29,6 +29,7 @@ import {
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
 import Loading from './../../components/loading/loading.component';
+import UserProfile from './../../components/user-profile/user-profile.component';
 
 const CvListPage = ({
   listCv,
@@ -162,8 +163,8 @@ const CvListPage = ({
               ))
             )}
           </div>
-          <div className="w-full md:w-4/12 bg-white rounded-sm shadow-lg">
-            <div className="text-center">Hello World</div>
+          <div className="w-full md:w-4/12 bg-white rounded-lg shadow-lg">
+            <UserProfile />
           </div>
         </div>
       </div>

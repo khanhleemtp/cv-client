@@ -1,15 +1,14 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { updateCvStart } from '../../../../redux/cv/cv.action';
+import { setFields } from '../../../../redux/viewState/viewState.action';
 
 // import { useEffect } from 'react';
 
-const CvSlider = ({ name }) => {
+const CvSlider = ({ name, setInput, updateCv }) => {
   const { control, getValues } = useFormContext();
-
-  const dispatch = useDispatch();
 
   return (
     <Controller
@@ -32,7 +31,8 @@ const CvSlider = ({ name }) => {
           onChange={(value) => {
             onChange(value);
             const cvData = getValues();
-            dispatch(updateCvStart({ updateData: cvData, id: cvData.id }));
+            setInput();
+            updateCv({ updateData: cvData, id: cvData.id });
           }}
         />
       )}
@@ -40,4 +40,17 @@ const CvSlider = ({ name }) => {
   );
 };
 
-export default CvSlider;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  setInput: () =>
+    dispatch(
+      setFields({
+        item: ownProps?.item,
+        section: ownProps?.section,
+        field: ownProps?.name,
+      })
+    ),
+
+  updateCv: (data) => dispatch(updateCvStart(data)),
+});
+
+export default connect(null, mapDispatchToProps)(CvSlider);

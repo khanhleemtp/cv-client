@@ -12,23 +12,29 @@ const Button = ({
   rightIcon: RightIcon,
   margin = false,
   onClick = () => {},
+  disabled = false,
   ...otherProps
 }) => {
   return (
     <button
       onClick={onClick}
+      disabled={disabled}
       {...otherProps}
-      className={clsx(styles.btnContainer, className, {
-        [styles.btnPrimary]: type === 'primary',
-        [styles.btnOutline]: type === 'outline',
-        [styles.btnLink]: type === 'link',
-        [styles.btnNormal]: size === 'normal' && text,
-        [styles.btnSmall]: size === 'small' && text,
-        [styles.btnLarge]: size === 'large' && text,
-        [styles.btnFull]: full,
-        [styles.btnIcon]: Icon,
-        [styles.btnMargin]: margin,
-      })}
+      className={clsx(
+        styles.btnContainer,
+        {
+          [styles.btnPrimary]: type === 'primary',
+          [styles.btnOutline]: type === 'outline',
+          [styles.btnLink]: type === 'link',
+          [styles.btnNormal]: size === 'normal' && text,
+          [styles.btnSmall]: size === 'small' && text,
+          [styles.btnLarge]: size === 'large' && text,
+          [styles.btnFull]: full,
+          [styles.btnIcon]: Icon,
+          [styles.btnMargin]: margin,
+        },
+        className
+      )}
     >
       {LeftIcon && <LeftIcon className="h-5 w-5 mr-2 -ml-1" />}
       <p className="truncate">{text}</p>

@@ -51,8 +51,8 @@ const SignIn = ({ onToggleForm, isLoading }) => {
   return (
     <div className="bg-transparent px-4 sm:px-8 lg:bg-white lg:shadow-lg rounded lg:border-2 lg:px-14 lg:py-16 w-full max-w-lg">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="text-center text-2xl font-sans text-indigo-500">
-          Đăng nhập vào tài khoản
+        <div className="text-center font-sans text-xl text-indigo-500">
+          Đăng nhập với
         </div>
         <SignSocial />
         <div className="font-sans text-indigo-500 text-center my-8">

@@ -1,0 +1,39 @@
+.wrapper {
+  @apply transform transition-all left-0 top-16 bottom-0 z-50 w-16 bg-white flex flex-col h-screen items-start py-6 overflow-auto;
+}
+
+.logo {
+  @apply text-4xl text-gray-800;
+}
+
+.navListItems {
+  @apply flex flex-col w-full;
+}
+
+.navItem {
+  @apply text-gray-400 hover:text-gray-800 h-12 text-lg py-4 cursor-pointer inline-flex items-center hover:bg-gray-200;
+}
+
+.navItemActive {
+  @apply text-blue-600 hover:text-blue-700;
+}
+
+.tooltip {
+  @apply absolute w-auto min-w-max left-16 text-base font-medium hidden;
+}
+
+.bottomWrapper {
+  @apply flex flex-col justify-between items-center;
+}
+
+.notifications {
+  @apply w-10 h-10 bg-gray-100 hover:bg-gray-200 cursor-pointer rounded-xl flex items-center justify-center text-gray-800 text-lg relative mb-4;
+}
+
+.badge {
+  @apply h-5 w-5 flex justify-center items-center text-white absolute -top-1 -right-1 bg-red-500 text-xs rounded-full;
+}
+
+.settingsLogo {
+  @apply text-3xl text-gray-400 hover:text-gray-800 cursor-pointer;
+}

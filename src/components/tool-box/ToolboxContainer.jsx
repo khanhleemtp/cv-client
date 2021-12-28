@@ -32,7 +32,7 @@ const ToolboxContainer = ({
 
   return (
     <div
-      className="bg-white overflow-auto px-2 h-16 md:py-2 md:h-auto md:px-6 flex  items-center z-40 md:z-20 sticky top-0 md:top-16 shadow-inner"
+      className="bg-white -auto px-2 h-16 md:py-2 md:h-auto md:px-6 flex  items-center z-40 md:z-20 sticky top-0 md:top-16 shadow-inner"
       onClick={onClick}
     >
       <RootModal />

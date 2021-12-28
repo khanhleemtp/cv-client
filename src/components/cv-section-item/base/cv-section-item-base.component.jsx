@@ -10,8 +10,8 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import { setFields } from '../../../redux/viewState/viewState.action';
 import { updateCvStart } from './../../../redux/cv/cv.action';
 import { connect } from 'react-redux';
-import CvDatePicker from '../../CvSection/CvDatePicker';
 import CvListSwitch from '../popover/cv-list-switch.component';
+import CvDatepicker from './../common/date-picker/cv-date-picker.component';
 
 const CvSectionItemBase = ({
   section,
@@ -104,7 +104,7 @@ const CvSectionItemBase = ({
             icon: 'calendar',
             popover: `sections.${section}.items.${item}.dateRange`,
             component: (
-              <CvDatePicker
+              <CvDatepicker
                 dayProps={`sections.${section}.items.${item}.dateRange`}
               />
             ),

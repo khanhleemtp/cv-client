@@ -62,7 +62,10 @@ export function* signOut() {
 
 export function* isAuthenticated() {
   try {
-    if (!localStorage.getItem('ldtoken')) return;
+    if (!localStorage.getItem('ldtoken')) {
+      // yield put(push('/login'));
+      return;
+    }
     yield put(loadingApi());
     const {
       data: { data },
@@ -76,6 +79,7 @@ export function* isAuthenticated() {
     );
   } catch (error) {
     yield put(signInFailure(error));
+    // yield put(push('/login'));
   }
 }
 

@@ -12,8 +12,12 @@ import { loadCvStart } from '../../redux/cv/cv.action';
 import { selectLoadingApi } from './../../redux/cv/cv.selectors';
 import Loading from '../../components/loading/loading.component';
 
-const CvContainer = lazy(() =>
-  pMinDelay(import('../../components/CvSection/CvContainer'))
+const CvSectionOverview = lazy(() =>
+  pMinDelay(
+    import(
+      './../../components/cv-section-overview/cv-section-overview.component'
+    )
+  )
 );
 
 const CvBuilderPage = ({ isLoading, ...props }) => {
@@ -25,7 +29,7 @@ const CvBuilderPage = ({ isLoading, ...props }) => {
     dispatch(loadCvStart(id));
   }, [id, dispatch]);
 
-  return isLoading ? <Loading /> : <CvContainer />;
+  return isLoading ? <Loading /> : <CvSectionOverview />;
 };
 
 const mapStateToProps = createStructuredSelector({

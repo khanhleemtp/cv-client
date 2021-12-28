@@ -23,14 +23,14 @@ const ProfileDropdown = ({ user, userNavigation }) => {
           <Menu.Button className="bg-gray-100 inline-flex items-center px-2 text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-white">
             {user?.imageUrl ? (
               <img
-                className="h-8 w-8 rounded-full"
+                className="h-6 w-6 rounded-full"
                 src={user?.imageUrl}
                 alt="avatar"
               />
             ) : (
-              <UserIcon className="w-8 h-8 rounded-full" />
+              <UserIcon className="w-6 h-6 rounded-full" />
             )}
-            {user?.name}
+            <p className="truncate w-16"> {user?.name}</p>
           </Menu.Button>
         </div>
         <Transition

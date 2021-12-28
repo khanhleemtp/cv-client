@@ -60,6 +60,5 @@ export const navigation = [
 
 export const userNavigation = [
   { name: 'Thông tin', to: '/profile' },
-  { name: 'Cài đặt', to: '/' },
   { name: 'Đăng xuất', to: '/signout' },
 ];

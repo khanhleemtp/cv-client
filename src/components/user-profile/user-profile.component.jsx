@@ -1,81 +1,85 @@
-import React, { useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { checkUserSession } from '../../redux/user/user.action';
+import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './../../redux/user/user.selectors';
 import { UserIcon } from '@heroicons/react/solid';
-import { AiOutlineCheck } from 'react-icons/ai';
-import EmailCheckList from './email-check-list.component';
+// import EmailCheckList from './email-check-list.component';
 import { Link } from 'react-router-dom';
+import Button from './../button/button.component';
+import { useForm, FormProvider } from 'react-hook-form';
+import BaseSwitch from './../switch/BaseSwitch.component';
 
 const UserProfile = ({ user }) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(checkUserSession());
-    return () => {};
-  }, [dispatch]);
+  const methods = useForm({
+    defaultValues: {
+      isFindJob: true,
+      isEmployerFind: true,
+    },
+  });
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
-    <div className="w-full flex items-center justify-center p-2">
-      <div className="text-gray-600 grid md:grid-cols-12 gap-6 w-full max-w-4xl">
-        <div className="bg-white shadow-lg p-4 rounded-lg col-span-7 md:col-span-5">
-          <div className="flex items-center my-4">
-            <div className="flex items-center flex-col">
+    <FormProvider {...methods}>
+      <form
+        className="text-gray-600 w-full p-4"
+        onSubmit={methods.handleSubmit(onSubmit)}
+      >
+        <div className="bg-white">
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center flex-col justify-center">
               {user?.imageUrl ? (
                 <img
-                  className="w-24 h-24 rounded-full"
+                  className="w-16 h-16 rounded-full"
                   src={user?.imageUrl}
                   alt="avatar"
                 />
               ) : (
-                <UserIcon className="p-2 w-24 h-24 text-white rounded-full bg-gray-400" />
+                <UserIcon className="p-2 w-16 h-16 text-white rounded-full bg-gray-400" />
               )}
-              <p className="leading-4 text-xs font-mono cursor-pointer">
-                Cập nhật ảnh
-              </p>
+              <p className="text-xs font-mono cursor-pointer">Cập nhật</p>
             </div>
-
             <div className="ml-4">
               Xin chào,
-              <div className="line-clamp-1 text-2xl font-semibold italic">
+              <div className="line-clamp-1 text-xl font-semibold italic">
                 <p>{user?.name}</p>
               </div>
               {user?.verify ? (
-                <div className="text-green-500">
-                  Đã xác thực <AiOutlineCheck />
-                </div>
+                <Button
+                  text="Đã xác thực"
+                  size="small"
+                  className="bg-green-500 hover:bg-green-600"
+                />
               ) : (
                 <>
-                  <p className="text-red-600 font-sans text-sm">
-                    Tài khoản chưa được xác thực
-                  </p>
-                  <Link
-                    to="/verify"
-                    className="font-sans text-sm text-indigo-500 hover:text-indigo-400 cursor-pointer"
-                  >
-                    Xác thực ngay
+                  <Button
+                    text="Chưa xác thực"
+                    size="small"
+                    className="bg-red-400 hover:bg-red-500 md:my-1"
+                  />
+
+                  <Link to="/verify">
+                    <Button
+                      text="Xác thực ngay"
+                      size="small"
+                      className="mx-2 md:mx-0 md:my-1"
+                    />
                   </Link>
                 </>
               )}
             </div>
           </div>
-          <div className="my-2">
-            <p className="text-lg">Email</p>
-            <p>{user?.email}</p>
-          </div>
-          <div className="text-indigo-500 hover:text-indigo-400 cursor-pointer">
-            Thay đổi mật khẩu
-          </div>
         </div>
-        <div className="col-span-7 bg-white shadow-lg p-4 rounded-lg">
-          <div className="border-2 border-dashed px-4 py-2 rounded-lg my-4">
-            Cài đặt thông báo từ hệ thống
-          </div>
-          <EmailCheckList />
+        <div className="bg-white p-2">
+          <BaseSwitch label={'Trạng thái tìm việc'} name="isFindJob" />
+
+          <BaseSwitch
+            label={'Cho phép nhà tuyển dụng tìm bạn'}
+            name="isEmployerFind"
+          />
         </div>
-      </div>
-    </div>
+      </form>
+    </FormProvider>
   );
 };
 
