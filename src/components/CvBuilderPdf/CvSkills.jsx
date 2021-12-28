@@ -17,7 +17,7 @@ const CvSkills = ({ data }) => {
       <CvTitle>{data?.name}</CvTitle>
       {data?.items?.map((item, index) => (
         <View key={index}>
-          <CvText type="h3" bold color="primary">
+          <CvText type="h3" bold color="primary" isEnabled={item?.showTitle}>
             {item?.title}
           </CvText>
           <View style={styles.tagContainer}>

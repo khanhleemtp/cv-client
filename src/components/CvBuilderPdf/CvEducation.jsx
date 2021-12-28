@@ -62,7 +62,11 @@ const CvEducation = ({ data }) => {
             </CvText>
             <View style={styles.locationCpa}>
               <View style={styles.calendarContainer}>
-                <CvText type="h4" icon="calendar">
+                <CvText
+                  type="h4"
+                  icon="calendar"
+                  isEnabled={item?.showDateRange}
+                >
                   {item?.dateRange?.from &&
                     moment(item?.dateRange?.from).format('MM/YYYY')}
                   {' - '}
@@ -71,23 +75,31 @@ const CvEducation = ({ data }) => {
                   {item?.dateRange?.isOngoing && 'Hiện tại'}
                 </CvText>
 
-                <CvText type="h4" icon="location">
+                <CvText
+                  type="h4"
+                  icon="location"
+                  isEnabled={item?.showLocation}
+                >
                   {item?.location}
                 </CvText>
               </View>
-              <View style={styles.cpaContainer}>
-                <CvText type="h4">{item?.gpaText}</CvText>
-                <CvText type="h4">
-                  {item?.gpa} / {item?.maxGpa}
-                </CvText>
-              </View>
+              {item?.showGpa && (
+                <View style={styles.cpaContainer}>
+                  <CvText type="h4">{item?.gpaText}</CvText>
+                  <CvText type="h4">
+                    {item?.gpa} / {item?.maxGpa}
+                  </CvText>
+                </View>
+              )}
             </View>
-            {item?.bullets?.map((bullet, index) => (
-              <View style={styles.bulletContainer} key={index}>
-                <View style={styles.bullet}></View>
-                <CvText type="h4">{bullet?.text}</CvText>
-              </View>
-            ))}
+            {item.showBullets
+              ? item?.bullets?.map((bullet, index) => (
+                  <View style={styles.bulletContainer} key={index}>
+                    <View style={styles.bullet}></View>
+                    <CvText type="h4">{bullet?.text}</CvText>
+                  </View>
+                ))
+              : null}
           </View>
         ))}
       </View>

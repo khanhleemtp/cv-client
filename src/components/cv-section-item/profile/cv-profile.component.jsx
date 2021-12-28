@@ -4,8 +4,8 @@ import CvWrapper from './../common/wrapper/cv-wrapper.component';
 import CvSettingSectionItem from './../setting/cv-setting-section-item.component';
 import { openModal } from './../../../redux/viewState/viewState.action';
 import { connect } from 'react-redux';
-import CvConfigProfile from '../section-config/cv-profile-config.component';
 import CvProfileImage from './cv-profile-image.component';
+import CvConfigProfile from './../popover/cv-profile-config.component';
 
 const CvProfile = ({ handleUploadImage }) => {
   const { control } = useFormContext();

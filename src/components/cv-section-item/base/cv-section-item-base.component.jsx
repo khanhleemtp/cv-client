@@ -11,7 +11,7 @@ import { setFields } from '../../../redux/viewState/viewState.action';
 import { updateCvStart } from './../../../redux/cv/cv.action';
 import { connect } from 'react-redux';
 import CvDatePicker from '../../CvSection/CvDatePicker';
-import CvListSwitch from '../section-config/cv-list-switch.component';
+import CvListSwitch from '../popover/cv-list-switch.component';
 
 const CvSectionItemBase = ({
   section,

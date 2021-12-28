@@ -44,7 +44,7 @@ const CvExperience = ({ data }) => {
             {item?.workplace}
           </CvText>
           <View style={styles.calendarContainer}>
-            <CvText type="h4" icon="calendar">
+            <CvText type="h4" icon="calendar" isEnabled={item.showDateRange}>
               {item?.dateRange?.from &&
                 moment(item?.dateRange?.from).format('MM/YYYY')}
               {' - '}
@@ -52,21 +52,24 @@ const CvExperience = ({ data }) => {
                 moment(item?.dateRange?.to).format('MM/YYYY')}
               {item?.dateRange?.isOngoing && 'Hiện tại'}
             </CvText>
-            <CvText type="h4" icon="location">
+            <CvText type="h4" icon="location" isEnabled={item.showLocation}>
               {item?.location}
             </CvText>
           </View>
-          <CvText type="h4" medium>
+          <CvText type="h4" medium icon={item.showDescription}>
             {item?.description}
           </CvText>
-          {item?.bullets?.map((bullet, index) => (
-            <View key={index}>
-              <View style={styles.bulletContainer}>
-                <View style={styles.bullet}></View>
-                <CvText type="h4">{bullet?.text}</CvText>
-              </View>
-            </View>
-          ))}
+
+          {item?.showBullets
+            ? item?.bullets?.map((bullet, index) => (
+                <View key={index}>
+                  <View style={styles.bulletContainer}>
+                    <View style={styles.bullet}></View>
+                    <CvText type="h4">{bullet?.text}</CvText>
+                  </View>
+                </View>
+              ))
+            : null}
         </View>
       ))}
     </View>
