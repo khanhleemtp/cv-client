@@ -30,6 +30,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
 import Loading from './../../components/loading/loading.component';
 import UserProfile from './../../components/user-profile/user-profile.component';
+import { selectCurrentUser } from './../../redux/user/user.selectors';
 
 const CvListPage = ({
   listCv,
@@ -37,6 +38,7 @@ const CvListPage = ({
   loadListCv,
   deleteCv,
   createCv,
+  verifyUser,
   ...props
 }) => {
   useEffect(() => {
@@ -175,6 +177,7 @@ const CvListPage = ({
 const mapStateToProps = createStructuredSelector({
   listCv: selectListCvData,
   isLoading: selectLoadingApi,
+  user: selectCurrentUser,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

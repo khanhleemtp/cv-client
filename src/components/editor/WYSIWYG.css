@@ -1,0 +1,7 @@
+.editor {
+  @apply mx-2 ring-2;
+}
+
+.editor .rdw-editor-main {
+  @apply p-2 bg-white;
+}

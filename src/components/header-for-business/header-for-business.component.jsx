@@ -1,11 +1,22 @@
 import Sidebar from './../../components/sidebar/sidebar.component';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import {
+  MenuIcon,
+  XIcon,
+  SearchIcon,
+  PencilAltIcon,
+} from '@heroicons/react/outline';
 import { useState } from 'react';
 import clsx from 'clsx';
 import LogoApp from './../logo/logo.component';
+import Button from './../button/button.component';
 
-const HeaderForBusiness = ({ children }) => {
-  const [active, setActive] = useState(false);
+const HeaderForBusiness = ({
+  children,
+  title,
+  navigationData,
+  admin = false,
+}) => {
+  const [active, setActive] = useState(true);
   const handleToggle = () => {
     setActive(!active);
   };
@@ -26,22 +37,41 @@ const HeaderForBusiness = ({ children }) => {
               )}
             </button>
           </div>
-          <div className="ml-16 inline-flex items-center text-white">
-            <LogoApp />
-            <span className="ml-2">for Business</span>
+          <div className="ml-16 flex flex-1 justify-between items-center text-white">
+            <div className="inline-flex">
+              <LogoApp />
+              <span className="ml-2">
+                {admin ? 'for Admin' : 'for Business'}
+              </span>
+            </div>
+            <div className="flex items-center">
+              <Button
+                text="Đăng tin"
+                size="small"
+                className="rounded-full text-base px-4"
+                leftIcon={PencilAltIcon}
+              />
+              <Button
+                text="Tìm cv"
+                size="small"
+                leftIcon={SearchIcon}
+                className="rounded-full mx-2 text-base px-4"
+              />
+            </div>
+            <div className="w-1/2"></div>
           </div>
         </div>
-        <Sidebar
-          active={active}
-          navigationData={['Home', 'Gallery', 'Store', 'Favorites', 'Saved']}
-        />
+        <Sidebar active={active} navigationData={navigationData} />
       </div>
       <div
-        className={clsx('m-20 transition-all', {
-          'ml-52': active,
+        className={clsx('mt-16 ml-16 transition-all', {
+          'ml-48': active,
         })}
       >
-        {children}
+        <div className="flex-1 w-full h-14 p-4 bg-white shadow-lg flex font-medium text-lg">
+          {title}
+        </div>
+        <div className="mt-4 ml-4">{children}</div>
       </div>
     </div>
   );

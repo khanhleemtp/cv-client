@@ -7,8 +7,9 @@ import { Link } from 'react-router-dom';
 import Button from './../button/button.component';
 import { useForm, FormProvider } from 'react-hook-form';
 import BaseSwitch from './../switch/BaseSwitch.component';
+import { requestVerifyStart } from '../../redux/user/user.action';
 
-const UserProfile = ({ user }) => {
+const UserProfile = ({ user, requestVerifyUser }) => {
   const methods = useForm({
     defaultValues: {
       isFindJob: true,
@@ -47,6 +48,7 @@ const UserProfile = ({ user }) => {
               {user?.verify ? (
                 <Button
                   text="Đã xác thực"
+                  disabled={true}
                   size="small"
                   className="bg-green-500 hover:bg-green-600"
                 />
@@ -55,16 +57,16 @@ const UserProfile = ({ user }) => {
                   <Button
                     text="Chưa xác thực"
                     size="small"
+                    disabled={true}
                     className="bg-red-400 hover:bg-red-500 md:my-1"
                   />
 
-                  <Link to="/verify">
-                    <Button
-                      text="Xác thực ngay"
-                      size="small"
-                      className="mx-2 md:mx-0 md:my-1"
-                    />
-                  </Link>
+                  <Button
+                    onClick={() => requestVerifyUser(user)}
+                    text="Xác thực ngay"
+                    size="small"
+                    className="mx-2 md:mx-0 md:my-1"
+                  />
                 </>
               )}
             </div>
@@ -87,4 +89,8 @@ const mapStateToProps = createStructuredSelector({
   user: selectCurrentUser,
 });
 
-export default connect(mapStateToProps)(UserProfile);
+const mapDispatchToProps = (dispatch) => ({
+  requestVerifyUser: (user) => dispatch(requestVerifyStart(user?.email)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

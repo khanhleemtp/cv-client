@@ -12,7 +12,9 @@ import { isEmpty } from 'lodash';
 
 import {
   selectSelectedField,
+  selectSelectedItem,
   selectSelectedPopover,
+  selectSelectedSection,
 } from './../../redux/viewState/viewState.selectors';
 import {
   selectCvData,
@@ -29,11 +31,13 @@ import CvSectionBase from './../cv-section-item/base/cv-section-base.component';
 import ToolboxContainer from './../tool-box/ToolboxContainer';
 
 const CvSectionOverview = ({
-  isSelected,
+  selectedField,
   cvData,
   isUpdating,
   clear,
   popover,
+  selectedSection,
+  selectedItem,
 }) => {
   const methods = useForm({ defaultValues: cvData });
 
@@ -60,7 +64,8 @@ const CvSectionOverview = ({
   };
 
   const handleClear = (e) => {
-    if (isSelected === null && popover === null) return;
+    if (selectedItem === null && selectedSection === null && popover === null)
+      return;
     e.stopPropagation();
     clear();
   };
@@ -81,7 +86,7 @@ const CvSectionOverview = ({
               className={clsx(
                 'bg-transparent container mx-auto transition-colors ease-in-out max-w-3xl md:p-12 md:border-2 md:shadow-2xl md:py-4',
                 {
-                  'bg-gray-300 bg-opacity-20': isSelected,
+                  'bg-gray-300 bg-opacity-20': selectedSection,
                 }
               )}
             >
@@ -151,18 +156,17 @@ const CvSectionOverview = ({
 };
 
 const mapStateToProps = createStructuredSelector({
-  isSelected: selectSelectedField,
+  selectedField: selectSelectedField,
   popover: selectSelectedPopover,
   cvData: selectCvData,
   cvNormalize: selectSectionNormalize,
   isUpdating: selectUpdatingCv,
+  selectedSection: selectSelectedSection,
+  selectedItem: selectSelectedItem,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  clear: () => {
-    // if (!ownProps.isSelected) return;
-    return dispatch(clearBackground());
-  },
+  clear: () => dispatch(clearBackground()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CvSectionOverview);

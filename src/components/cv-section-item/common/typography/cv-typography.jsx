@@ -13,10 +13,7 @@ import { connect } from 'react-redux';
 import { useFormState, useFormContext, useWatch } from 'react-hook-form';
 import { isEmpty } from 'lodash-es';
 import { updateCvStart } from './../../../../redux/cv/cv.action';
-import {
-  clearBackground,
-  setFields,
-} from '../../../../redux/viewState/viewState.action';
+import { setFields } from '../../../../redux/viewState/viewState.action';
 import { selectCurrentField } from '../../../../redux/viewState/viewState.selectors';
 import useOnClickOutside from '../../../../hook/useOutsideClick';
 
@@ -161,7 +158,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       })
     ),
 
-  clear: () => dispatch(clearBackground()),
   updateCv: (data) => dispatch(updateCvStart(data)),
 });
 

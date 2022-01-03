@@ -9,21 +9,24 @@ import {
 import { IconContext } from 'react-icons';
 import styles from './sidebar.module.css';
 import clsx from 'clsx';
+import { useHistory, useParams } from 'react-router-dom';
 
-const Sidebar = ({ navigationData, active }) => {
-  const [currentRoute, setCurrentRoute] = useState('Home');
+const Sidebar = ({ navigationData = [], active = true }) => {
+  const { id } = useParams();
+  const [currentRoute, setCurrentRoute] = useState(id);
+  const history = useHistory();
 
   const renderIcon = useCallback((element) => {
     switch (element) {
-      case 'Home':
+      case 'home':
         return <BsHouseFill />;
-      case 'Gallery':
+      case 'campaign':
         return <BsFillFileBarGraphFill />;
-      case 'Store':
+      case 'news':
         return <BsFileEarmarkTextFill />;
-      case 'Favorites':
+      case 'cv':
         return <BsPersonFill />;
-      case 'Saved':
+      case 'report':
         return <BsBarChartFill />;
       default:
         return null;
@@ -31,15 +34,15 @@ const Sidebar = ({ navigationData, active }) => {
   }, []);
   const renderText = useCallback((element) => {
     switch (element) {
-      case 'Home':
+      case 'home':
         return 'Bảng tin';
-      case 'Gallery':
+      case 'campaign':
         return 'Chiến dịch ';
-      case 'Store':
+      case 'news':
         return 'Tin tuyển dụng';
-      case 'Favorites':
+      case 'cv':
         return 'Quản lý CV';
-      case 'Saved':
+      case 'report':
         return 'Báo cáo tuyển dụng';
       default:
         return null;
@@ -72,7 +75,10 @@ const Sidebar = ({ navigationData, active }) => {
               },
               'group-hover:justify-start group-hover:px-4',
             ])}
-            onClick={() => setCurrentRoute(element)}
+            onClick={() => {
+              setCurrentRoute(element);
+              history.push(`/company/${String(element).toLowerCase()}`);
+            }}
           >
             <IconContext.Provider value={{ className: 'w-full h-full' }}>
               <div>{renderIcon(element)}</div>
@@ -81,9 +87,9 @@ const Sidebar = ({ navigationData, active }) => {
             <div
               className={clsx(
                 'text-xs w-0 overflow-hidden ml-2 inline-flex items-center',
-                'group-hover:w-auto',
+                'group-hover:w-auto truncate',
                 {
-                  'w-auto': active,
+                  'w-auto truncate': active,
                 }
               )}
             >

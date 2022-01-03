@@ -16,6 +16,7 @@ import { CV_SECTION_ITEM_DATA } from './cv.data';
 import { openModal } from '../../../redux/viewState/viewState.action';
 import { updateCvStart } from '../../../redux/cv/cv.action';
 import { setFields } from './../../../redux/viewState/viewState.action';
+import { selectCurrentSection } from '../../../redux/viewState/viewState.selectors';
 
 // update, record, move
 
@@ -25,6 +26,7 @@ const CvSectionBase = ({
   updateCv,
   record,
   setInput,
+  isSelectedContainer,
 }) => {
   const field = useMemo(() => {
     switch (record) {
@@ -120,7 +122,7 @@ const CvSectionBase = ({
   return (
     <CvWrapper
       isEnabled={isEnabled}
-      container
+      container={true}
       section={section}
       setting={
         <CvSettingTitle
@@ -132,7 +134,10 @@ const CvSectionBase = ({
     >
       <div
         className={clsx(
-          'flex items-center w-full border-b-2 border-gray-300 mb-2'
+          'flex items-center w-full border-b-2 border-gray-300 mb-2',
+          {
+            'hover:ring-1': !isSelectedContainer,
+          }
         )}
       >
         <PencilIcon className="w-8 h-8 text-blue-500 md:hidden" />
@@ -165,6 +170,10 @@ const CvSectionBase = ({
   );
 };
 
+const mapStateToProps = (state, ownProps) => ({
+  isSelectedContainer: selectCurrentSection(ownProps?.section)(state),
+});
+
 const mapDispatchToProps = (dispatch, ownProps) => ({
   dragCvModal: () =>
     dispatch(
@@ -180,4 +189,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   updateCv: (data) => dispatch(updateCvStart(data)),
 });
 
-export default connect(null, mapDispatchToProps)(CvSectionBase);
+export default connect(mapStateToProps, mapDispatchToProps)(CvSectionBase);

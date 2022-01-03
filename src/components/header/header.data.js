@@ -46,12 +46,12 @@ export const navigation = [
     child: [
       {
         name: 'Danh sách công ty',
-        to: '/builder/123',
+        to: '/company/home',
         icon: AiOutlineReconciliation,
       },
       {
         name: 'Top công ty',
-        to: '/',
+        to: '/company/home',
         icon: AiOutlineRise,
       },
     ],

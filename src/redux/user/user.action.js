@@ -8,6 +8,10 @@ export const loadingUser = () => ({
   type: UserActionTypes.LOADING_USER,
 });
 
+export const loadingVerify = () => ({
+  type: UserActionTypes.LOADING_VERIFY,
+});
+
 export const emailSignInStart = (emailAndPassword) => ({
   type: UserActionTypes.EMAIL_SIGN_IN_START,
   payload: emailAndPassword,
@@ -53,4 +57,23 @@ export const signUpSuccess = ({ user, additionalData }) => ({
 export const signUpFailure = (error) => ({
   type: UserActionTypes.SIGN_UP_FAILURE,
   payload: error,
+});
+
+export const verifyStart = (data) => ({
+  type: UserActionTypes.VERIFY_START,
+  payload: data,
+});
+
+export const verifySuccess = () => ({
+  type: UserActionTypes.VERIFY_SUCCESS,
+});
+
+export const verifyFailure = (error) => ({
+  type: UserActionTypes.VERIFY_FAILURE,
+  payload: error,
+});
+
+export const requestVerifyStart = (data) => ({
+  type: UserActionTypes.REQUEST_VERIFY_START,
+  payload: data,
 });

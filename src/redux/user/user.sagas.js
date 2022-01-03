@@ -8,6 +8,9 @@ import {
   signOutFailure,
   loadingApi,
   checkUserSession,
+  loadingVerify,
+  verifyFailure,
+  verifySuccess,
   // signUpFailure,
   // signUpSuccess,
 } from './user.action';
@@ -78,8 +81,38 @@ export function* isAuthenticated() {
       })
     );
   } catch (error) {
-    yield put(signInFailure(error));
+    yield put(signInFailure(error.message));
     // yield put(push('/login'));
+  }
+}
+
+export function* verifyUser({ payload: { token, role } }) {
+  try {
+    yield put(loadingVerify());
+    yield axiosInstance.get(`/users/verify/${token}`);
+    yield toast.success('Xác thực thành công');
+    yield push(verifySuccess());
+    role === 'user'
+      ? yield put(push('/list-cv'))
+      : yield put(push('/company/home'));
+  } catch (error) {
+    yield toast.error(error?.message);
+    yield put(verifyFailure(error?.message));
+  }
+}
+
+export function* requestVerifyUser({ payload }) {
+  console.log('payload', payload);
+  try {
+    yield put(loadingVerify());
+    yield axiosInstance.post(`/users/verify`, { email: payload });
+    yield toast.success(
+      'Đã gửi yêu cầu xác thực, hãy kiểm tra hòm thư của bạn'
+    );
+    yield push(verifySuccess());
+  } catch (error) {
+    yield toast.error(error?.message);
+    yield put(verifyFailure(error?.message));
   }
 }
 
@@ -101,11 +134,21 @@ export function* onCheckUserSessionStart() {
   yield takeLatest(UserActionTypes.CHECK_USER_SESSION, isAuthenticated);
 }
 
+export function* onVerifyStart() {
+  yield takeLatest(UserActionTypes.VERIFY_START, verifyUser);
+}
+
+export function* onRequestVerifyStart() {
+  yield takeLatest(UserActionTypes.REQUEST_VERIFY_START, requestVerifyUser);
+}
+
 export function* userSagas() {
   yield all([
     call(onEmailSignInStart),
     call(onSignOutStart),
     call(onCheckUserSessionStart),
     call(onSignUpStart),
+    call(onVerifyStart),
+    call(onRequestVerifyStart),
   ]);
 }

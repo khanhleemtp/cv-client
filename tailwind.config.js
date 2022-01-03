@@ -18,6 +18,7 @@ module.exports = {
       },
       backgroundImage: {
         'error-boundary': "url('https://i.imgur.com/oEUksmz.png')",
+        'resume-img': "url('/src/assets/images/resume.svg')",
       },
     },
   },
@@ -37,9 +38,9 @@ module.exports = {
     },
   },
   plugins: [
+    require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     // require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/typography'),
     // require('tailwindcss-children'),
     require('@tailwindcss/line-clamp'),
 

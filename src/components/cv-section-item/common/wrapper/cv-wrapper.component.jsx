@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import clsx from 'clsx';
 import { Transition } from '@headlessui/react';
-import { clearBackground } from '../../../../redux/viewState/viewState.action';
+import { setFields } from '../../../../redux/viewState/viewState.action';
 import { connect } from 'react-redux';
 import {
   selectCurrentSection,
@@ -10,14 +10,21 @@ import {
 
 const CvWrapper = ({
   isSelected,
+  setWrapper,
   children,
   setting,
+  isSelectedContainer,
   container = false,
   isEnabled = true,
+  section,
 }) => {
   return (
     isEnabled && (
       <div
+        onClick={(e) => {
+          e.stopPropagation();
+          setWrapper();
+        }}
         className={clsx(
           'p-2 bg-transparent relative transition-colors',
           {
@@ -25,6 +32,11 @@ const CvWrapper = ({
           },
           {
             'ring-1 rounded-lg': !container && isSelected,
+          },
+          {
+            'hover:ring-1':
+              (!container && !isSelectedContainer) ||
+              (section === 'profile' && !isSelectedContainer),
           }
         )}
       >
@@ -52,10 +64,12 @@ const mapStateToProps = (state, ownProps) => ({
   isSelected: ownProps?.container
     ? selectCurrentSection(ownProps?.section)(state)
     : selectCurrentSectionItem(ownProps?.section, ownProps?.item)(state),
+  isSelectedContainer: selectCurrentSection(ownProps?.section)(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  clear: () => dispatch(clearBackground()),
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  setWrapper: () =>
+    dispatch(setFields({ section: ownProps?.section, item: ownProps.item })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CvWrapper);
