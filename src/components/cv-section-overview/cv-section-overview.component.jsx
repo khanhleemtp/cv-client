@@ -29,6 +29,7 @@ import CvTypography from './../cv-section-item/common/typography/cv-typography';
 import CvProfile from './../cv-section-item/profile/cv-profile.component';
 import CvSectionBase from './../cv-section-item/base/cv-section-base.component';
 import ToolboxContainer from './../tool-box/ToolboxContainer';
+import CvModal from '../Modal/CvModal';
 
 const CvSectionOverview = ({
   selectedField,
@@ -82,6 +83,8 @@ const CvSectionOverview = ({
               cv={cvData}
               onClick={handleClear}
             />
+            <CvModal />
+
             <div
               className={clsx(
                 'bg-transparent container mx-auto transition-colors ease-in-out max-w-3xl md:p-12 md:border-2 md:shadow-2xl md:py-4',

@@ -1,20 +1,22 @@
-import UserUploadImage from './Modal/UserUploadImage';
 import { useRef, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import UploadModal from './UploadModal';
+import SectionCvModal from './SectionCvModal';
 import {
+  selectIsFullModal,
   selectIsOpenModal,
-  selectTypeModal,
-} from '../redux/viewState/viewState.selectors';
-import { closeModal } from '../redux/viewState/viewState.action';
-import { selectIsFullModal } from './../redux/viewState/viewState.selectors';
+} from '../../redux/viewState/viewState.selectors';
+import { selectTypeModal } from './../../redux/viewState/viewState.selectors';
+import { closeModal } from '../../redux/viewState/viewState.action';
 
 const MODAL_COMPONENTS = (modalRef) => ({
-  USER_UPLOAD_IMAGE: <UserUploadImage modalRef={modalRef} />,
+  UPLOAD_IMAGE: <UploadModal modalRef={modalRef} />,
+  SECTION_CV: <SectionCvModal modalRef={modalRef} />,
 });
 
-const RootModal = ({ typeModal, close, isOpen, isFull }) => {
+const CvModal = ({ typeModal, close, isOpen, isFull }) => {
   let closeButtonRef = useRef(null);
   return (
     <div>
@@ -76,4 +78,4 @@ const mapDispatchToProps = (dispatch) => ({
   close: () => dispatch(closeModal()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RootModal);
+export default connect(mapStateToProps, mapDispatchToProps)(CvModal);

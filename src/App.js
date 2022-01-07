@@ -54,7 +54,6 @@ function App() {
 
   return (
     <Suspense fallback={<Loading />}>
-      <RootModal />
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -68,6 +67,7 @@ function App() {
       />
       <Switch>
         <ErrorBoundary>
+          <RootModal />
           <Route path="/builder/:id" component={CvBuilderPage} />
           <Route path="/preview/:id" component={CvPreview} />
           <Route exact path="/verify" component={VerifyPage} />
