@@ -98,7 +98,6 @@ const CvTypography = ({
     if (isCurrentField) {
       if (!isEmpty(dirtyFields)) {
         const cvData = getValues();
-        console.log('data', cvData);
         updateCv({ updateData: cvData, id: cvData.id });
       }
       // clear();
@@ -125,7 +124,7 @@ const CvTypography = ({
           maxRows={9999}
           type="text"
           className={clsx(
-            'w-full py-0 bg-transparent border-0 focus:ring-0 outline-none resize-none px-0',
+            'w-full form-textarea py-0 bg-transparent border-0 focus:ring-0 outline-none resize-none px-0',
             renderColor(),
             renderStyle(),
             {

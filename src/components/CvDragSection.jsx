@@ -170,7 +170,6 @@ const CvDragSection = ({ cvNormalize, move, updateCvData, layout, update }) => {
     if (indexPrevious === -1 && indexDestination === -1) {
       move(indexDrag, indexDestination);
     } else if (indexPrevious === -1) {
-      console.log('run here');
       let cvSections = Array.from(cvData?.sections);
       cvSections.splice(indexDrag, 1);
       cvSections.splice(indexDestination, 0, {

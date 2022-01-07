@@ -22,7 +22,6 @@ const CvSectionOverview = lazy(() =>
 
 const CvBuilderPage = ({ isLoading, ...props }) => {
   const dispatch = useDispatch();
-  console.log(props.match.params.id);
   const { id } = useParams();
 
   useEffect(() => {

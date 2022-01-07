@@ -12,7 +12,7 @@ import {
   // PhotographIcon,
   // DocumentTextIcon,
 } from '@heroicons/react/solid';
-import RootModal from '../RootModal';
+// import RootModal from '../RootModal';
 import { connect } from 'react-redux';
 import { openModal } from '../../redux/viewState/viewState.action';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -35,7 +35,6 @@ const ToolboxContainer = ({
       className="bg-white -auto px-2 h-16 md:py-2 md:h-auto md:px-6 flex  items-center z-40 md:z-20 sticky top-0 md:top-16 shadow-inner"
       onClick={onClick}
     >
-      <RootModal />
       <RoundIcon
         icon={ChevronRightIcon}
         bgColorClass="bg-indigo-100"

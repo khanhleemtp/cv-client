@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   error: null,
   isLoading: false,
   isLoadingVerify: false,
+  isUpdating: false,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -17,6 +18,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: true,
+      };
+    case UserActionTypes.UPDATE_USER:
+      return {
+        ...state,
+        isUpdating: true,
       };
     case UserActionTypes.LOADING_USER:
       return {
@@ -45,26 +51,34 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         error: action.payload,
-        isLoadingVerify: true,
+        isLoadingVerify: false,
+      };
+    case UserActionTypes.UPDATE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        isUpdating: false,
+      };
+    case UserActionTypes.UPDATE_INFO_SUCCESS:
+      return {
+        ...state,
+        isUpdating: false,
+        currentUser: action.payload,
       };
     case UserActionTypes.SIGN_IN_FAILURE:
     case UserActionTypes.SIGN_OUT_FAILURE:
     case UserActionTypes.SIGN_UP_FAILURE:
-      localStorage.clear();
+    case UserActionTypes.UPDATE_PASSWORD_FAILURE:
+    case UserActionTypes.UPDATE_INFO_FAILURE:
+      // localStorage.clear();
       return {
         ...state,
         error: action.payload,
         isLoading: false,
         isLoadingVerify: false,
+        isUpdating: false,
       };
     case UserActionTypes.SIGN_OUT_SUCCESS:
-      return {
-        ...state,
-        currentUser: null,
-        error: null,
-        isLoading: false,
-        isLoadingVerify: false,
-      };
+      return INITIAL_STATE;
 
     default:
       return state;

@@ -45,7 +45,6 @@ const CvListPage = ({
     loadListCv();
   }, [loadListCv]);
 
-  console.log('props', props);
   return isLoading ? (
     <Loading />
   ) : (

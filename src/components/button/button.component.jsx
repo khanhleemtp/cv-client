@@ -2,6 +2,7 @@ import styles from './button.module.css';
 import clsx from 'clsx';
 
 const Button = ({
+  btnType = 'button',
   size = 'normal',
   type = 'primary',
   text = '',
@@ -18,6 +19,7 @@ const Button = ({
   return (
     <button
       onClick={onClick}
+      type={btnType}
       disabled={disabled}
       {...otherProps}
       className={clsx(

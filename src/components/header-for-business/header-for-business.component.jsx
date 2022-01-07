@@ -1,29 +1,43 @@
 import Sidebar from './../../components/sidebar/sidebar.component';
-import {
-  MenuIcon,
-  XIcon,
-  SearchIcon,
-  PencilAltIcon,
-} from '@heroicons/react/outline';
-import { useState } from 'react';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { useState, useMemo } from 'react';
 import clsx from 'clsx';
 import LogoApp from './../logo/logo.component';
-import Button from './../button/button.component';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from './../../redux/user/user.selectors';
+import NavCompany from './nav-company.component';
+import { navAdminData, navCompanyData } from './headerBusiness.data';
+import { signOutStart } from './../../redux/user/user.action';
 
-const HeaderForBusiness = ({
-  children,
-  title,
-  navigationData,
-  admin = false,
-}) => {
+const HeaderForBusiness = ({ children, title, user }) => {
   const [active, setActive] = useState(true);
   const handleToggle = () => {
     setActive(!active);
   };
+
+  const navigationData = useMemo(() => {
+    switch (user?.role) {
+      case 'admin':
+        return navAdminData;
+      default:
+        return navCompanyData;
+    }
+  }, [user]);
+
+  const baseRoute = useMemo(() => {
+    switch (user?.role) {
+      case 'admin':
+        return 'admin';
+      default:
+        return 'company';
+    }
+  }, [user]);
+
   return (
     <div>
-      <div className="bg-white shadow-xl fixed top-0 left-0 h-16 right-0 z-30 text-gray-600">
-        <div className="relative flex items-center justify-between h-16 bg-gray-800">
+      <div className="bg-white shadow-xl fixed top-0 left-0 h-16 right-0 z-30 text-white-400">
+        <div className="relative flex items-center justify-between h-16 bg-gradient-to-r from-gray-800 to-indigo-300">
           <div className="absolute inset-y-0 left-0 flex items-center">
             {/* TODO Mobile Menu Button*/}
             <button
@@ -37,44 +51,43 @@ const HeaderForBusiness = ({
               )}
             </button>
           </div>
-          <div className="ml-16 flex flex-1 justify-between items-center text-white">
+          <div className="ml-16 flex flex-1 justify-between items-center text-white overflow-x-auto overflow-y-hidden">
             <div className="inline-flex">
               <LogoApp />
               <span className="ml-2">
-                {admin ? 'for Admin' : 'for Business'}
+                {user?.role === 'admin' ? 'for Admin' : 'for Business'}
               </span>
             </div>
-            <div className="flex items-center">
-              <Button
-                text="Đăng tin"
-                size="small"
-                className="rounded-full text-base px-4"
-                leftIcon={PencilAltIcon}
-              />
-              <Button
-                text="Tìm cv"
-                size="small"
-                leftIcon={SearchIcon}
-                className="rounded-full mx-2 text-base px-4"
-              />
-            </div>
+            {user?.verify && user?.role === 'employer' && <NavCompany />}
             <div className="w-1/2"></div>
           </div>
         </div>
-        <Sidebar active={active} navigationData={navigationData} />
+        <Sidebar
+          active={active}
+          navigationData={navigationData}
+          baseRoute={baseRoute}
+        />
       </div>
       <div
         className={clsx('mt-16 ml-16 transition-all', {
-          'ml-48': active,
+          'md:ml-48': active,
         })}
       >
         <div className="flex-1 w-full h-14 p-4 bg-white shadow-lg flex font-medium text-lg">
           {title}
         </div>
-        <div className="mt-4 ml-4">{children}</div>
+        <div className="mx-auto container p-2">{children}</div>
       </div>
     </div>
   );
 };
 
-export default HeaderForBusiness;
+const mapStateToProps = createStructuredSelector({
+  user: selectCurrentUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(signOutStart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderForBusiness);

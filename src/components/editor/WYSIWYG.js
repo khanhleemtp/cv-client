@@ -1,43 +1,29 @@
 import React, { useState } from 'react';
-
-// Components
 import { EditorState } from 'draft-js';
-// import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
-
-import { convertToHTML } from 'draft-convert';
-import DOMPurify from 'dompurify';
+import { convertToHTML, convertFromHTML } from 'draft-convert';
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './WYSIWYG.css';
 
 const WYSIWYGEditor = (props) => {
   const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
+    EditorState.createWithContent(convertFromHTML(props?.value))
   );
-  const [convertedContent, setConvertedContent] = useState('<div>abc</div>');
 
-  const handleEditorChange = (state) => {
+  const handleEditorChange = async (state) => {
     setEditorState(state);
-    return props.onChange(convertContentToHTML());
+    convertContentToHTML();
   };
 
   const convertContentToHTML = () => {
     let currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
-    setConvertedContent(currentContentAsHTML);
+    return props.onChange(currentContentAsHTML);
   };
-
-  const createMarkup = (html) => {
-    return {
-      __html: DOMPurify.sanitize(html),
-    };
-  };
-
-  console.log(convertedContent);
 
   return (
     <div>
-      <div className="editor">
+      <div className="editor w-full">
         <Editor
           editorState={editorState}
           wrapperClassName="wrapper-class"
@@ -56,10 +42,6 @@ const WYSIWYGEditor = (props) => {
           }}
         />
       </div>
-      <div
-        className="prose preview"
-        dangerouslySetInnerHTML={createMarkup(convertedContent)}
-      />
     </div>
   );
 };

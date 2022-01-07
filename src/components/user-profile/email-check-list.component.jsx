@@ -25,7 +25,7 @@ const EmailCheckList = ({
           <p className="text-lg">{item?.title}</p>
           {item?.checkedLists.map((i) => (
             <label className="flex my-2 items-center" key={i}>
-              <input type="checkbox" className="mr-1 checkbox" />
+              <input type="checkbox" className="mr-1 form-checkbox" />
               {i}
             </label>
           ))}

@@ -19,6 +19,7 @@ module.exports = {
       backgroundImage: {
         'error-boundary': "url('https://i.imgur.com/oEUksmz.png')",
         'resume-img': "url('/src/assets/images/resume.svg')",
+        'line-chart': "url('/src/assets/images/line-chart.svg')",
       },
     },
   },
@@ -39,7 +40,9 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/typography'),
-    require('@tailwindcss/forms'),
+    require('@tailwindcss/forms')({
+      strategy: 'class',
+    }),
     // require('@tailwindcss/aspect-ratio'),
     // require('tailwindcss-children'),
     require('@tailwindcss/line-clamp'),

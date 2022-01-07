@@ -7,9 +7,9 @@
 }
 
 .navItem {
-  @apply text-gray-400 hover:text-gray-800 h-12 text-lg py-4 cursor-pointer inline-flex items-center hover:bg-gray-200;
+  @apply text-gray-400 hover:text-gray-800 h-12 py-4 cursor-pointer inline-flex items-center hover:bg-gray-200;
 }
 
 .navItemActive {
-  @apply text-blue-600 hover:text-blue-700;
+  @apply text-blue-600 hover:text-blue-600;
 }

@@ -11,17 +11,21 @@ import {
   loadingVerify,
   verifyFailure,
   verifySuccess,
+  updatePasswordFailure,
+  loadingUpdate,
+  updatePasswordSuccess,
+  updateUserInfoSuccess,
+  updateUserInfoFailure,
   // signUpFailure,
   // signUpSuccess,
 } from './user.action';
 import { push } from 'connected-react-router';
 import { toast } from 'react-toastify';
 
-export function* getSnapshotUser(message, data) {
+export function* getSnapshotUser(message, data, nextRoute = false) {
   yield localStorage.setItem('ldtoken', data?.token);
   yield toast.success(message);
-  yield put(push('/'));
-  yield put(checkUserSession());
+  yield put(checkUserSession(nextRoute));
 }
 
 export function* signInWithEmail({ payload: { email, password } }) {
@@ -31,7 +35,7 @@ export function* signInWithEmail({ payload: { email, password } }) {
       email,
       password,
     });
-    yield getSnapshotUser('Đăng nhập thành công', data);
+    yield getSnapshotUser('Đăng nhập thành công', data, true);
   } catch (error) {
     yield put(signInFailure(error.message));
     yield toast.error(error.message);
@@ -46,7 +50,7 @@ export function* signUp({ payload: { email, password, name } }) {
       password,
       name,
     });
-    yield getSnapshotUser('Đăng ký thành công', data);
+    yield getSnapshotUser('Đăng ký thành công', data, true);
   } catch (error) {
     yield put(signInFailure(error.message));
     yield toast.error(error.message);
@@ -63,26 +67,36 @@ export function* signOut() {
   }
 }
 
-export function* isAuthenticated() {
+export function nextPage(role) {
+  switch (role) {
+    case 'admin':
+      return '/admin/admin-home';
+    case 'employer':
+      return '/company/home';
+    default:
+      return '/list-cv';
+  }
+}
+
+export function* isAuthenticated({ payload }) {
   try {
     if (!localStorage.getItem('ldtoken')) {
-      // yield put(push('/login'));
       return;
     }
     yield put(loadingApi());
     const {
       data: { data },
     } = yield axiosInstance.get('/users/me');
-    // const resumesData = yield axiosInstance.get(`/resumes`);
     yield put(
       signInSuccess({
         ...data,
-        // resumes: resumesData?.data?.data,
       })
     );
+    if (payload) {
+      yield put(push(nextPage(data?.role)));
+    }
   } catch (error) {
     yield put(signInFailure(error.message));
-    // yield put(push('/login'));
   }
 }
 
@@ -91,7 +105,7 @@ export function* verifyUser({ payload: { token, role } }) {
     yield put(loadingVerify());
     yield axiosInstance.get(`/users/verify/${token}`);
     yield toast.success('Xác thực thành công');
-    yield push(verifySuccess());
+    yield put(verifySuccess());
     role === 'user'
       ? yield put(push('/list-cv'))
       : yield put(push('/company/home'));
@@ -102,17 +116,48 @@ export function* verifyUser({ payload: { token, role } }) {
 }
 
 export function* requestVerifyUser({ payload }) {
-  console.log('payload', payload);
   try {
     yield put(loadingVerify());
     yield axiosInstance.post(`/users/verify`, { email: payload });
     yield toast.success(
       'Đã gửi yêu cầu xác thực, hãy kiểm tra hòm thư của bạn'
     );
-    yield push(verifySuccess());
+    yield put(verifySuccess());
   } catch (error) {
     yield toast.error(error?.message);
     yield put(verifyFailure(error?.message));
+  }
+}
+
+export function* updatePassword({ payload }) {
+  const { password, passwordCurrent } = payload;
+  try {
+    yield put(loadingUpdate());
+    const { data } = yield axiosInstance.patch(`/users/updateMyPassword`, {
+      password,
+      passwordCurrent,
+    });
+    yield put(updatePasswordSuccess());
+
+    yield getSnapshotUser('Cập nhật mật khẩu thành công', data);
+  } catch (error) {
+    yield toast.error(error?.message);
+    yield put(updatePasswordFailure(error?.message));
+  }
+}
+
+export function* updateUserInfo({ payload: { updateData, config = {} } }) {
+  try {
+    yield put(loadingUpdate());
+    const {
+      data: { data },
+    } = yield axiosInstance.patch(`/users/updateMe`, updateData, config);
+
+    yield put(updateUserInfoSuccess(data));
+    yield toast.success('Cập nhật thành công');
+  } catch (error) {
+    yield toast.error(error?.message);
+    yield put(updateUserInfoFailure(error?.message));
   }
 }
 
@@ -142,8 +187,18 @@ export function* onRequestVerifyStart() {
   yield takeLatest(UserActionTypes.REQUEST_VERIFY_START, requestVerifyUser);
 }
 
+export function* onUpdatePasswordStart() {
+  yield takeLatest(UserActionTypes.UPDATE_PASSWORD_START, updatePassword);
+}
+
+export function* onUpdateUserStart() {
+  yield takeLatest(UserActionTypes.UPDATE_INFO_START, updateUserInfo);
+}
+
 export function* userSagas() {
   yield all([
+    call(onUpdateUserStart),
+    call(onUpdatePasswordStart),
     call(onEmailSignInStart),
     call(onSignOutStart),
     call(onCheckUserSessionStart),

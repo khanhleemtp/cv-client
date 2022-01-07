@@ -3,6 +3,9 @@ import { persistReducer } from 'redux-persist';
 import { connectRouter } from 'connected-react-router';
 import cvReducer from './cv/cv.reducer';
 import userReducer from './user/user.reducer';
+import employerReducer from './employer/employer.reducer';
+import companyReducer from './company/company.reducer';
+
 import storage from 'redux-persist/lib/storage';
 import viewStateReducer from './viewState/viewState.reducer';
 
@@ -18,6 +21,8 @@ const rootReducer = (history) =>
     router: connectRouter(history),
     cv: cvReducer,
     viewState: viewStateReducer,
+    employer: employerReducer,
+    company: companyReducer,
   });
 
 const root = (history) => persistReducer(persistConfig, rootReducer(history));

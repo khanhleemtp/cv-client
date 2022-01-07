@@ -24,7 +24,7 @@ function SelectMonthAndYear({ date, onChange, fromMonth, toMonth }) {
           name="month"
           onChange={handleChange}
           value={date.getMonth()}
-          className="m-1 w-24 rounded-full px-2 py-0"
+          className="m-1 w-24 rounded-full px-2 py-0 form-select"
         >
           {months.map((month, i) => (
             <option key={month} value={i}>
@@ -36,7 +36,7 @@ function SelectMonthAndYear({ date, onChange, fromMonth, toMonth }) {
           name="year"
           onChange={handleChange}
           value={date.getFullYear()}
-          className="m-1 w-20 p-0 rounded-full px-2"
+          className="m-1 w-20 p-0 rounded-full px-2 form-select"
         >
           {years.map((year) => (
             <option key={year} value={year}>

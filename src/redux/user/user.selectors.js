@@ -8,6 +8,11 @@ export const selectCurrentUser = createSelector(
   (user) => user?.currentUser
 );
 
+export const selectUpdateUser = createSelector(
+  selectorUser,
+  (user) => user?.isUpdating
+);
+
 export const selectUserResumes = createSelector(
   selectCurrentUser,
   (user) => user?.resumes

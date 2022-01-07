@@ -4,6 +4,10 @@ export const loadingApi = () => ({
   type: UserActionTypes.LOADING_API,
 });
 
+export const loadingUpdate = () => ({
+  type: UserActionTypes.UPDATE_USER,
+});
+
 export const loadingUser = () => ({
   type: UserActionTypes.LOADING_USER,
 });
@@ -27,8 +31,9 @@ export const signInFailure = (error) => ({
   payload: error,
 });
 
-export const checkUserSession = () => ({
+export const checkUserSession = (nextRoute = false) => ({
   type: UserActionTypes.CHECK_USER_SESSION,
+  payload: nextRoute,
 });
 
 export const signOutStart = () => ({
@@ -76,4 +81,33 @@ export const verifyFailure = (error) => ({
 export const requestVerifyStart = (data) => ({
   type: UserActionTypes.REQUEST_VERIFY_START,
   payload: data,
+});
+
+export const updatePasswordStart = (data) => ({
+  type: UserActionTypes.UPDATE_PASSWORD_START,
+  payload: data,
+});
+
+export const updatePasswordSuccess = () => ({
+  type: UserActionTypes.UPDATE_PASSWORD_SUCCESS,
+});
+
+export const updatePasswordFailure = (error) => ({
+  type: UserActionTypes.UPDATE_PASSWORD_FAILURE,
+  payload: error,
+});
+
+export const updateUserInfoStart = (updatedData) => ({
+  type: UserActionTypes.UPDATE_INFO_START,
+  payload: updatedData,
+});
+
+export const updateUserInfoSuccess = (data) => ({
+  type: UserActionTypes.UPDATE_INFO_SUCCESS,
+  payload: data,
+});
+
+export const updateUserInfoFailure = (error) => ({
+  type: UserActionTypes.UPDATE_INFO_FAILURE,
+  payload: error,
 });

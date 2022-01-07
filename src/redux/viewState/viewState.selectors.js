@@ -72,6 +72,7 @@ export const selectTypeModal = createSelector(
 export const selectIsFullModal = createSelector(selectTypeModal, (type) => {
   switch (type) {
     case 'UPLOAD_IMAGE':
+    case 'USER_UPLOAD_IMAGE':
       return false;
     default:
       return true;

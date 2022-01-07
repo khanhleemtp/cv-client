@@ -19,6 +19,7 @@ import ErrorBoundary from './components/error-boundary/error-boundary.component'
 import NotFound from './components/not-found/not-found.component';
 import CompanyDashboard from './pages/company-dashboard/company-dashboard.page';
 import VerifyPage from './pages/verify/verify.page';
+import RootModal from './components/RootModal';
 
 const CvListPage = lazy(() =>
   pMinDelay(import('./pages/cv-list/cv-list.page'))
@@ -36,6 +37,14 @@ const CvBuilderPage = lazy(() =>
   pMinDelay(import('./pages/cv-builder/cv-builder.component'))
 );
 
+const RegisterEmployer = lazy(() =>
+  pMinDelay(import('./pages/register-employer/register-employer.page'))
+);
+
+const AdminDashboard = lazy(() =>
+  pMinDelay(import('./pages/admin-dashboard/admin-dashboard.component'))
+);
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -45,6 +54,7 @@ function App() {
 
   return (
     <Suspense fallback={<Loading />}>
+      <RootModal />
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -61,12 +71,9 @@ function App() {
           <Route path="/builder/:id" component={CvBuilderPage} />
           <Route path="/preview/:id" component={CvPreview} />
           <Route exact path="/verify" component={VerifyPage} />
-
-          <PrivateRoute
-            exact
-            path="/company/:id"
-            component={CompanyDashboard}
-          />
+          <Route exact path="/register-company" component={RegisterEmployer} />
+          <PrivateRoute path="/company/:id" component={CompanyDashboard} />
+          <PrivateRoute path="/admin/:id" component={AdminDashboard} />
 
           <PrivateRoute exact path="/list-cv" component={CvListPage} />
           <PrivateRoute exact path="/profile" component={UserProfile} />

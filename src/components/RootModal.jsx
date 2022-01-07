@@ -1,4 +1,6 @@
 import UploadModal from './Modal/UploadModal';
+import UserUploadImage from './Modal/UserUploadImage';
+
 import { useRef, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { connect } from 'react-redux';
@@ -14,6 +16,7 @@ import { selectIsFullModal } from './../redux/viewState/viewState.selectors';
 const MODAL_COMPONENTS = (modalRef) => ({
   UPLOAD_IMAGE: <UploadModal modalRef={modalRef} />,
   SECTION_CV: <SectionCvModal modalRef={modalRef} />,
+  USER_UPLOAD_IMAGE: <UserUploadImage modalRef={modalRef} />,
 });
 
 const RootModal = ({ typeModal, close, isOpen, isFull }) => {

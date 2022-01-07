@@ -3,7 +3,6 @@ import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './../../redux/user/user.selectors';
 import { UserIcon } from '@heroicons/react/solid';
 // import EmailCheckList from './email-check-list.component';
-import { Link } from 'react-router-dom';
 import Button from './../button/button.component';
 import { useForm, FormProvider } from 'react-hook-form';
 import BaseSwitch from './../switch/BaseSwitch.component';

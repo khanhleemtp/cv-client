@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 const CustomSwitch = ({ name, label, cb, updateCv }) => {
   const { control, getValues } = useFormContext();
-  console.log(updateCv);
   return (
     <Controller
       control={control}
