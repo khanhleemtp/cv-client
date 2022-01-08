@@ -19,7 +19,6 @@ import ErrorBoundary from './components/error-boundary/error-boundary.component'
 import NotFound from './components/not-found/not-found.component';
 import CompanyDashboard from './pages/company-dashboard/company-dashboard.page';
 import VerifyPage from './pages/verify/verify.page';
-import RootModal from './components/RootModal';
 
 const CvListPage = lazy(() =>
   pMinDelay(import('./pages/cv-list/cv-list.page'))
@@ -67,7 +66,6 @@ function App() {
       />
       <Switch>
         <ErrorBoundary>
-          <RootModal />
           <Route path="/builder/:id" component={CvBuilderPage} />
           <Route path="/preview/:id" component={CvPreview} />
           <Route exact path="/verify" component={VerifyPage} />

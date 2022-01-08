@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { selectCurrentUser } from './../../redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
 import { requestVerifyStart } from './../../redux/user/user.action';
+import RootModal from './../../components/RootModal';
 
 const CvManager = lazy(() =>
   pMinDelay(
@@ -89,6 +90,7 @@ const CompanyDashboard = ({ user, requestVerifyUser }) => {
         </HeaderForBusiness>
       ) : (
         <HeaderForBusiness title={renderTitle(id)}>
+          <RootModal />
           {renderComponent(id)}
         </HeaderForBusiness>
       )}

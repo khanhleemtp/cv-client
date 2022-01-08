@@ -42,6 +42,7 @@ const viewStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         modal: {
+          ...state.modal,
           type: modalName,
           isOpen: true,
           otherProps,
@@ -50,7 +51,12 @@ const viewStateReducer = (state = INITIAL_STATE, action) => {
     case viewStateActionTypes.CLOSE_MODAL:
       return {
         ...state,
-        modal: initModal,
+        modal: {
+          ...state.modal,
+          type: '',
+          isOpen: false,
+          otherProps: {},
+        },
       };
     case viewStateActionTypes.OPEN_POPOVER:
       return {
