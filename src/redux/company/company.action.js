@@ -8,6 +8,10 @@ export const loadingCompany = () => ({
   type: CompanyActionTypes.LOADING_COMPANY,
 });
 
+export const loadingSingleCompany = () => ({
+  type: CompanyActionTypes.LOADING_SINGLE_COMPANY,
+});
+
 export const updatingCompany = () => ({
   type: CompanyActionTypes.UPDATING_COMPANY,
 });
@@ -69,4 +73,9 @@ export const updateCompanySuccess = (data) => ({
 export const updateCompanyFailure = (error) => ({
   type: CompanyActionTypes.UPDATE_COMPANY_FAILURE,
   payload: error,
+});
+
+export const updateCompanyInList = (id, data) => ({
+  type: CompanyActionTypes.UPDATE_COMPANY_IN_LIST,
+  payload: { id, data },
 });

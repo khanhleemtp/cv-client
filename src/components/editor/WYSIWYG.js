@@ -8,7 +8,9 @@ import './WYSIWYG.css';
 
 const WYSIWYGEditor = (props) => {
   const [editorState, setEditorState] = useState(() =>
-    EditorState.createWithContent(convertFromHTML(props?.value))
+    EditorState.createWithContent(
+      convertFromHTML(props?.value ? props?.value : '')
+    )
   );
 
   const handleEditorChange = async (state) => {
@@ -17,7 +19,7 @@ const WYSIWYGEditor = (props) => {
   };
 
   const convertContentToHTML = () => {
-    let currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
+    let currentContentAsHTML = convertToHTML(editorState?.getCurrentContent());
     return props.onChange(currentContentAsHTML);
   };
 

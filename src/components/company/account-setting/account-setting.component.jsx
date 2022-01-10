@@ -51,7 +51,7 @@ const AccountSetting = () => {
 
   return (
     <div className="flex bg-white p-4 flex-col md:flex-row divide-y-2 md:divide-y-0 md:divide-x-2">
-      <div className="max-w-xs flex-grow space-y-4 p-2">
+      <div className="max-w-xs w-full flex-grow space-y-4 p-2">
         <SettingIcon
           icon="lock"
           text="Đổi mật khẩu"
@@ -72,7 +72,7 @@ const AccountSetting = () => {
         />
       </div>
 
-      <div className="flex-grow px-4">
+      <div className="flex-grow md:px-4">
         <div className="my-2 font-medium">{title}</div>
         <Suspense fallback={<LoadingSmall />}>
           {SettingComponent && <SettingComponent />}

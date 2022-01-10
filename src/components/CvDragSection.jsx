@@ -15,7 +15,7 @@ import {
 import { updateCvStart } from './../redux/cv/cv.action';
 import { selectCvSection } from './../redux/cv/cv.selectors';
 
-const Task = ({ task, index, sections }) => {
+const Task = ({ task, index }) => {
   const taskText = useMemo(() => {
     switch (task?.record) {
       case 'SummarySection':
@@ -86,7 +86,7 @@ const Column = ({ id, column, sections }) => {
 
 const CvDragSection = ({ cvNormalize, move, updateCvData, layout, update }) => {
   const { setValue, control, getValues } = useFormContext();
-
+  console.log('cvNormalize', cvNormalize);
   const [data, setData] = useState(cvNormalize);
 
   const cvData = useWatch({ control });

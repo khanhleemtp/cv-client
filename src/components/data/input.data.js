@@ -21,6 +21,25 @@ export const FIELDS_COMPANY = [
   { value: 'giao-duc', label: 'Giáo dục' },
 ];
 
+export const STATUS_COMPANY = [
+  { value: 'pending', label: 'Đang chờ' },
+  { value: 'reject', label: 'Từ chối' },
+  { value: 'accept', label: 'Đã chấp nhận' },
+];
+
+export const STATUS_COMPANY_SEARCH = [
+  { label: 'Tất cả', value: '' },
+  { label: 'Chấp nhận', value: 'accept' },
+  {
+    label: 'Chờ phê duyệt',
+    value: 'pending',
+  },
+  {
+    label: 'Từ chối',
+    value: 'reject',
+  },
+];
+
 export const AREA = [
   {
     value: 'ha-noi',
@@ -44,7 +63,7 @@ export const TYPE_COMPANY = [
   { label: 'Product', value: 'product' },
   {
     label: 'Outsource',
-    value: 'outsource',
+    value: 'out-source',
   },
   {
     label: 'Khác',

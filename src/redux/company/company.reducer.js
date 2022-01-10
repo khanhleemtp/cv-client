@@ -1,8 +1,10 @@
 import { CompanyActionTypes } from './company.types';
+import keyBy from 'lodash-es/keyBy';
 
 const INITIAL_STATE = {
   error: null,
   isLoading: false,
+  isSingleLoading: false,
   isUpdating: false,
   isRegistering: false,
   company: null,
@@ -24,6 +26,11 @@ const employerReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isLoading: true,
       };
+    case CompanyActionTypes.LOADING_SINGLE_COMPANY:
+      return {
+        ...state,
+        isSingleLoading: true,
+      };
     case CompanyActionTypes.UPDATING_COMPANY:
       return {
         ...state,
@@ -42,6 +49,7 @@ const employerReducer = (state = INITIAL_STATE, action) => {
         ...state,
         company: action.payload,
         isLoading: false,
+        isSingleLoading: false,
         isUpdating: false,
         error: null,
       };
@@ -60,10 +68,24 @@ const employerReducer = (state = INITIAL_STATE, action) => {
         ...state,
         error: action.payload,
         isLoading: false,
+        isSingleLoading: false,
         isUpdating: false,
         isRegistering: false,
       };
-
+    case CompanyActionTypes.UPDATE_COMPANY_IN_LIST:
+      const { id, data } = action.payload;
+      const listCompany = state.listCompany?.data;
+      const objectListCompany = keyBy(listCompany, 'id');
+      objectListCompany[id] = data;
+      const newCompany = Object.values(objectListCompany);
+      const newList = {
+        ...state.listCompany,
+        data: newCompany,
+      };
+      return {
+        ...state,
+        listCompany: newList,
+      };
     default:
       return state;
   }

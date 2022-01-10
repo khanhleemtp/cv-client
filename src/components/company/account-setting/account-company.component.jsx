@@ -19,6 +19,9 @@ import {
   TYPE_COMPANY,
   AREA,
 } from '../../data/input.data';
+import { selectCompanyEmployer } from '../../../redux/employer/employer.selectors';
+import { createStructuredSelector } from 'reselect';
+import CompanyEditForm from './company-edit-form.component';
 
 const companySchema = yup.object().shape({
   name: yup
@@ -37,7 +40,7 @@ const companySchema = yup.object().shape({
   descriptions: yup.string().required('Bạn cần nhập mô tả công ty'),
 });
 
-const AccountCompany = ({ uploadImage, registerCompany }) => {
+const AccountCompany = ({ uploadImage, registerCompany, company }) => {
   const [isCreate, setIsCreate] = useState(true);
 
   const {
@@ -65,9 +68,10 @@ const AccountCompany = ({ uploadImage, registerCompany }) => {
 
   const handleSubmitOnClick = (data) => {
     registerCompany(data);
-    console.log('dataCOm', data);
   };
-  return (
+  return company ? (
+    <CompanyEditForm company={company} />
+  ) : (
     <div>
       <div className="flex flex-col md:flex-row space-y-2 space-x-0 md:space-x-4 md:space-y-0">
         <Button
@@ -194,4 +198,8 @@ const mapDispatchToProps = (dispatch) => ({
   registerCompany: (data) => dispatch(registerCompanyStart(data)),
 });
 
-export default connect(null, mapDispatchToProps)(AccountCompany);
+const mapStateToProps = createStructuredSelector({
+  company: selectCompanyEmployer,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountCompany);

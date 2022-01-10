@@ -1,4 +1,4 @@
-import { takeLatest, put, call, all } from 'redux-saga/effects';
+import { takeLatest, put, call, all, select } from 'redux-saga/effects';
 import { CompanyActionTypes } from './company.types';
 import axiosInstance from './../../api/axiosConfig';
 import { toast } from 'react-toastify';
@@ -14,6 +14,8 @@ import {
   updatingCompany,
   updateCompanySuccess,
   updateCompanyFailure,
+  loadingSingleCompany,
+  updateCompanyInList,
 } from './company.action';
 
 export function* registerCompany({ payload }) {
@@ -44,7 +46,7 @@ export function* loadListCompany({ payload }) {
 
 export function* loadCompany({ payload }) {
   try {
-    yield put(loadingCompany());
+    yield put(loadingSingleCompany());
     const {
       data: { data },
     } = yield axiosInstance.get(`/companies/${payload}`);
@@ -56,13 +58,19 @@ export function* loadCompany({ payload }) {
 }
 
 export function* updateCompany({ payload }) {
-  const { id, updateData } = payload;
+  const { id, updateData, config = {} } = payload;
   try {
     yield put(updatingCompany());
     const {
       data: { data },
-    } = yield axiosInstance.patch(`/companies${id}`, updateData);
+    } = yield axiosInstance.patch(`/companies/${id}`, updateData, config);
     yield put(updateCompanySuccess(data));
+    const listCompany = yield select((state) => state.company.listCompany);
+    if (listCompany) {
+      yield put(updateCompanyInList(data.id, data));
+    }
+
+    yield toast.success('Cập nhật thành công');
   } catch (error) {
     yield toast.error(error?.message);
     yield put(updateCompanyFailure(error?.message));
@@ -79,13 +87,18 @@ export function* onLoadListCompanyStart() {
 }
 
 export function* onUpdateCompanyStart() {
-  yield takeLatest(CompanyActionTypes.LOAD_LIST_COMPANY_START, updateCompany);
+  yield takeLatest(CompanyActionTypes.UPDATE_COMPANY_START, updateCompany);
 }
 
-export function* loadCompanyStart() {
-  yield takeLatest(CompanyActionTypes.LOAD_LIST_COMPANY_START, loadCompany);
+export function* onLoadCompanyStart() {
+  yield takeLatest(CompanyActionTypes.LOAD_COMPANY_START, loadCompany);
 }
 
 export function* companySagas() {
-  yield all([call(onRegisterCompanyStart), call(onLoadListCompanyStart)]);
+  yield all([
+    call(onRegisterCompanyStart),
+    call(onLoadListCompanyStart),
+    call(onLoadCompanyStart),
+    call(onUpdateCompanyStart),
+  ]);
 }

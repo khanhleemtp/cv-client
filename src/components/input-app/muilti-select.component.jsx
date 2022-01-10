@@ -7,6 +7,7 @@ const MultiSelect = ({
   label = '',
   placeholder = '',
   options,
+  defaultValue,
 }) => {
   return (
     <div className="w-full max-w-xs">
@@ -17,6 +18,7 @@ const MultiSelect = ({
         render={({ field: { onChange, value, ref } }) => (
           <Select
             inputRef={ref}
+            defaultValue={defaultValue}
             options={options}
             placeholder={placeholder}
             value={options.find((c) => c.value === value)}

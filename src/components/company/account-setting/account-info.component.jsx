@@ -6,10 +6,7 @@ import { openModal } from './../../../redux/viewState/viewState.action';
 import { selectCurrentUser } from './../../../redux/user/user.selectors';
 import Button from './../../button/button.component';
 import InputApp from '../../input-app/input-app.component';
-import {
-  loadingEmployerStart,
-  updateEmployerStart,
-} from './../../../redux/employer/employer.action';
+import { updateEmployerStart } from './../../../redux/employer/employer.action';
 import {
   selectEmployer,
   selectLoadingEmployer,
@@ -23,15 +20,10 @@ import { POSITION_EMPLOYYER } from './../../data/input.data';
 const AccountInfo = ({
   uploadImage,
   user,
-  loadEmployer,
   employer,
   loading,
   updateEmployer,
 }) => {
-  useEffect(() => {
-    loadEmployer(user?.id);
-  }, [loadEmployer, user]);
-
   const { handleSubmit, register, reset } = useForm({
     mode: 'onChange',
   });
@@ -136,7 +128,6 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   uploadImage: () => dispatch(openModal('USER_UPLOAD_IMAGE', {})),
-  loadEmployer: (id) => dispatch(loadingEmployerStart(id)),
   updateEmployer: (data) => dispatch(updateEmployerStart(data)),
 });
 

@@ -17,3 +17,8 @@ export const selectUpdatingEmployer = createSelector(
   selectorEmployer,
   (employer) => employer.isUpdating
 );
+
+export const selectCompanyEmployer = createSelector(
+  selectEmployer,
+  (employer) => employer?.company
+);

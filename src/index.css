@@ -21,4 +21,18 @@
       focus:ring-indigo-200
       focus:ring-opacity-50;
   }
+  .gradient-purple-pink-red {
+    @apply bg-gradient-to-r;
+    @apply from-purple-400 via-pink-500 to-red-500;
+  }
+  @keyframes pulse {
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  /* Class for element with animation */
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
 }

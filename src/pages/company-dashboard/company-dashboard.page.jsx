@@ -1,5 +1,4 @@
-import { useCallback } from 'react';
-import { Suspense } from 'react';
+import { useCallback, useEffect, Suspense } from 'react';
 import Loading from './../../components/loading/loading.component';
 import { useParams } from 'react-router-dom';
 import { lazy } from '@loadable/component';
@@ -13,7 +12,8 @@ import { connect } from 'react-redux';
 import { selectCurrentUser } from './../../redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
 import { requestVerifyStart } from './../../redux/user/user.action';
-import RootModal from './../../components/RootModal';
+import BaseModal from '../../components/Modal/BaseModal';
+import { loadingEmployerStart } from '../../redux/employer/employer.action';
 
 const CvManager = lazy(() =>
   pMinDelay(
@@ -35,7 +35,7 @@ const AccountSetting = lazy(() =>
   )
 );
 
-const CompanyDashboard = ({ user, requestVerifyUser }) => {
+const CompanyDashboard = ({ user, requestVerifyUser, loadEmployer }) => {
   const { id } = useParams();
   // let id = props?.match?.params?.id;
 
@@ -77,6 +77,11 @@ const CompanyDashboard = ({ user, requestVerifyUser }) => {
     }
   }, []);
 
+  useEffect(() => {
+    loadEmployer(user?.id);
+    return () => {};
+  }, [loadEmployer, user]);
+
   if (user?.role === 'user') return <NotFound />;
 
   return (
@@ -90,7 +95,7 @@ const CompanyDashboard = ({ user, requestVerifyUser }) => {
         </HeaderForBusiness>
       ) : (
         <HeaderForBusiness title={renderTitle(id)}>
-          <RootModal />
+          <BaseModal />
           {renderComponent(id)}
         </HeaderForBusiness>
       )}
@@ -104,6 +109,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   requestVerifyUser: (user) => dispatch(requestVerifyStart(user?.email)),
+  loadEmployer: (id) => dispatch(loadingEmployerStart(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyDashboard);

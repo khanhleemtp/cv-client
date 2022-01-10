@@ -36,6 +36,7 @@ module.exports = {
       textColor: ['active'],
       justifyContent: ['group-hover'],
       padding: ['group-hover'],
+      space: ['group-hover'],
     },
   },
   plugins: [

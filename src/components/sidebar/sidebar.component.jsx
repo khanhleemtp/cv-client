@@ -46,7 +46,7 @@ const Sidebar = ({ navigationData = [], active = true, baseRoute, logout }) => {
       case 'admin-home':
         return 'Bảng tin';
       case 'admin-user':
-        return 'Quản lý người dùng';
+        return 'Quản lý công ty';
       case 'campaign':
         return 'Chiến dịch ';
       case 'news':
@@ -68,9 +68,9 @@ const Sidebar = ({ navigationData = [], active = true, baseRoute, logout }) => {
         styles.wrapper,
         'group',
         {
-          'md:w-48': active,
+          'w-48': active,
         },
-        'md:hover:w-48'
+        'hover:w-48'
       )}
     >
       <ul className={styles.navListItems}>
@@ -84,25 +84,27 @@ const Sidebar = ({ navigationData = [], active = true, baseRoute, logout }) => {
                 'justify-center': !active,
               },
               {
-                'justify-start px-4': active,
+                'space-x-2 justify-start': active,
               },
-              'group-hover:justify-start group-hover:px-4',
+              'group-hover:space-x-2 group-hover:justify-start px-4',
             ])}
             onClick={() => {
               setCurrentRoute(element);
               history.push(`/${baseRoute}/${String(element).toLowerCase()}`);
             }}
           >
-            <IconContext.Provider value={{ className: 'w-full h-full' }}>
+            <IconContext.Provider
+              value={{ className: 'w-full h-full flex-grow' }}
+            >
               <div>{renderIcon(element)}</div>
             </IconContext.Provider>
 
             <div
               className={clsx(
-                'w-0 text-sm overflow-hidden ml-2 inline-flex items-center',
-                'md:group-hover:w-auto truncate',
+                'w-0 text-sm overflow-hidden inline-flex items-center',
+                'group-hover:w-auto truncate',
                 {
-                  'md:w-auto truncate': active,
+                  'w-auto truncate': active,
                 }
               )}
             >
@@ -116,7 +118,7 @@ const Sidebar = ({ navigationData = [], active = true, baseRoute, logout }) => {
           title="Đăng xuất"
         >
           <IconContext.Provider
-            value={{ className: 'w-5 h-5 m-2 ml-0 text-red-400' }}
+            value={{ className: 'w-5 h-5 my-2 text-red-400' }}
           >
             <AiOutlineLogout />
           </IconContext.Provider>

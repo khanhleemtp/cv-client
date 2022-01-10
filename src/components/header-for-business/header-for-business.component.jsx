@@ -1,5 +1,5 @@
 import Sidebar from './../../components/sidebar/sidebar.component';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon } from '@heroicons/react/outline';
 import { useState, useMemo } from 'react';
 import clsx from 'clsx';
 import LogoApp from './../logo/logo.component';
@@ -44,11 +44,7 @@ const HeaderForBusiness = ({ children, title, user }) => {
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
               onClick={handleToggle}
             >
-              {active ? (
-                <XIcon className="block h-6 w-6" aria-hidden="true" />
-              ) : (
-                <MenuIcon className="block h-6 w-6" aria-hidden="true" />
-              )}
+              <MenuIcon className="block h-6 w-6" aria-hidden="true" />
             </button>
           </div>
           <div className="ml-16 flex flex-1 justify-between items-center text-white overflow-x-auto overflow-y-hidden">
@@ -70,7 +66,7 @@ const HeaderForBusiness = ({ children, title, user }) => {
       </div>
       <div
         className={clsx('mt-16 ml-16 transition-all', {
-          'md:ml-48': active,
+          'ml-48': active,
         })}
       >
         <div className="flex-1 w-full h-14 p-4 bg-white shadow-lg flex font-medium text-lg">

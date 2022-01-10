@@ -27,7 +27,7 @@ const CvListSectionPreview = ({ updateCv }) => {
             <div
               key={field._id}
               onClick={setSection(`sections.${index}.enabled`)}
-              className="relative w-full md:w-40 m-2 shadow-lg cursor-pointer rounded-sm ring-1 ring-gray-200 group bg-gray-100"
+              className="relative w-full max-w-xs md:w-40 m-2 shadow-lg cursor-pointer rounded-sm ring-1 ring-gray-200 group bg-gray-100"
             >
               <div className="absolute bg-gray-200 bg-opacity-60 inset-0 hidden group-hover:block" />
 

@@ -11,6 +11,7 @@ import NotFound from '../../components/not-found/not-found.component';
 import { connect } from 'react-redux';
 import { selectCurrentUser } from './../../redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
+import BaseModal from '../../components/Modal/BaseModal';
 
 const AdminHome = lazy(() =>
   pMinDelay(import('./../../components/admin/admin-home.component'), 1200)
@@ -60,6 +61,7 @@ const AdminDashboard = ({ user }) => {
   return (
     <Suspense fallback={<Loading />}>
       <HeaderForBusiness title={renderTitle(id)}>
+        <BaseModal />
         {renderComponent(id)}
       </HeaderForBusiness>
     </Suspense>

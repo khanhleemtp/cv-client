@@ -20,6 +20,10 @@ import NotFound from './components/not-found/not-found.component';
 import CompanyDashboard from './pages/company-dashboard/company-dashboard.page';
 import VerifyPage from './pages/verify/verify.page';
 
+const CompanyPage = lazy(() =>
+  pMinDelay(import('./pages/company-page/company-page.page'))
+);
+
 const CvListPage = lazy(() =>
   pMinDelay(import('./pages/cv-list/cv-list.page'))
 );
@@ -70,9 +74,10 @@ function App() {
           <Route path="/preview/:id" component={CvPreview} />
           <Route exact path="/verify" component={VerifyPage} />
           <Route exact path="/register-company" component={RegisterEmployer} />
+          <Route path="/company-page" component={CompanyPage} />
+
           <PrivateRoute path="/company/:id" component={CompanyDashboard} />
           <PrivateRoute path="/admin/:id" component={AdminDashboard} />
-
           <PrivateRoute exact path="/list-cv" component={CvListPage} />
           <PrivateRoute exact path="/profile" component={UserProfile} />
 

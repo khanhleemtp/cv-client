@@ -11,15 +11,24 @@ import { createStructuredSelector } from 'reselect';
 import LoadingSmall from './../loading-small/loading-small.component';
 // import PopoverSetting from './../PopoverSetting';
 
-import { PencilIcon } from '@heroicons/react/solid';
+import { PencilIcon, LinkIcon } from '@heroicons/react/solid';
 import InputApp from './../input-app/input-app.component';
 import {
   selectTotalCompany,
   selectResultCompany,
 } from './../../redux/company/company.selectors';
 import PaginatedItems from '../paginate/paginate.component';
+import { openModal } from './../../redux/viewState/viewState.action';
+import { STATUS_COMPANY_SEARCH } from '../data/input.data';
+import { Link } from 'react-router-dom';
 
-const AdminUser = ({ loadListCompany, listCompany, isLoading, total }) => {
+const AdminUser = ({
+  loadListCompany,
+  listCompany,
+  isLoading,
+  total,
+  editCompany,
+}) => {
   const { register, watch, setValue, control } = useForm({
     defaultValues: {
       status: '',
@@ -78,18 +87,7 @@ const AdminUser = ({ loadListCompany, listCompany, isLoading, total }) => {
         <InputSelect
           register={register}
           name="status"
-          options={[
-            { label: 'Tất cả', value: '' },
-            { label: 'Đã chấp nhận', value: 'accept' },
-            {
-              label: 'Chưa phê duyệt',
-              value: 'pending',
-            },
-            {
-              label: 'Từ chối',
-              value: 'reject',
-            },
-          ]}
+          options={STATUS_COMPANY_SEARCH}
           label=""
         />
       </div>
@@ -116,17 +114,24 @@ const AdminUser = ({ loadListCompany, listCompany, isLoading, total }) => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Status
+                    Quy mô công ty
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    ID
+                    Status
                   </th>
-                  <th scope="col" className="relative px-6 py-3">
+
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Action
+                  </th>
+                  {/* <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               {isLoading ? (
@@ -150,11 +155,15 @@ const AdminUser = ({ loadListCompany, listCompany, isLoading, total }) => {
                       <td className="px-6 py-4 whitespace-wrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-10 w-10">
-                            <img
-                              className="h-10 w-10 rounded-full"
-                              src={company?.photo}
-                              alt=""
-                            />
+                            {company?.logo ? (
+                              <img
+                                className="h-10 w-10 rounded-full"
+                                src={company?.logo}
+                                alt=""
+                              />
+                            ) : (
+                              <img className="h-10 w-10 rounded-full" alt="" />
+                            )}
                           </div>
                           <div className="ml-4">
                             <div className="text-sm font-medium text-gray-900">
@@ -171,21 +180,32 @@ const AdminUser = ({ loadListCompany, listCompany, isLoading, total }) => {
                           {company?.phone}
                         </div>
                         <div className="text-sm text-gray-500">
-                          {company.website}
+                          {company?.website}
                         </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                          {company?.size}
+                        </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                           {company?.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {company?.host?.phone}
-                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium cursor-pointer">
                         <div className="text-indigo-600 hover:text-indigo-900">
-                          <PencilIcon className="w-6 h-6" />
+                          <PencilIcon
+                            className="w-6 h-6"
+                            onClick={() => editCompany(company)}
+                          />
                         </div>
+                        <Link
+                          className="text-indigo-600 hover:text-indigo-900"
+                          to={`/company-page/${company?.id}`}
+                        >
+                          <LinkIcon className="w-6 h-6" />
+                        </Link>
                       </td>
                     </tr>
                   ))}
@@ -211,6 +231,12 @@ const AdminUser = ({ loadListCompany, listCompany, isLoading, total }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   loadListCompany: (query) => dispatch(loadListCompanyStart(query)),
+  editCompany: (company) =>
+    dispatch(
+      openModal('UPDATE_COMPANY', {
+        company,
+      })
+    ),
 });
 
 const mapStateToProps = createStructuredSelector({

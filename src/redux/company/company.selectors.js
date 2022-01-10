@@ -32,3 +32,13 @@ export const selectLoadingCompany = createSelector(
   selectorCompany,
   (state) => state.isLoading
 );
+
+export const selectUpdatingCompany = createSelector(
+  selectorCompany,
+  (state) => state.isUpdating
+);
+
+export const selectSingleLoadingCompany = createSelector(
+  selectorCompany,
+  (state) => state.isSingleLoading
+);

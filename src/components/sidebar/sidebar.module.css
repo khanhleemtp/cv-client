@@ -1,5 +1,5 @@
 .wrapper {
-  @apply transition-all left-0 top-16 bottom-0 z-50 w-16 bg-white flex flex-col h-screen items-start py-6 overflow-auto;
+  @apply transition-all top-16 bottom-0 z-50 w-16 bg-white flex flex-col h-screen items-start py-6 overflow-auto;
 }
 
 .navListItems {
