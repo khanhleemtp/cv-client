@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 const InputApp = ({
   placeholder = '',
   label = '',
@@ -6,12 +8,13 @@ const InputApp = ({
   name,
   disabled = false,
   type = 'text',
+  className,
 }) => (
   <div className="flex flex-col w-full">
     <label className="mb-2 truncate">{label}</label>
     <input
       type={type}
-      className="md:flex-grow form-input"
+      className={clsx('md:flex-grow form-input', className)}
       placeholder={placeholder}
       {...register(name)}
       disabled={disabled}

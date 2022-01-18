@@ -1,4 +1,4 @@
-import { takeLatest, put, call, all } from 'redux-saga/effects';
+import { takeLatest, put, call, all, select } from 'redux-saga/effects';
 import { UserActionTypes } from './user.types';
 import axiosInstance from './../../api/axiosConfig';
 import {
@@ -16,6 +16,7 @@ import {
   updatePasswordSuccess,
   updateUserInfoSuccess,
   updateUserInfoFailure,
+  updateUserInfoStart,
   // signUpFailure,
   // signUpSuccess,
 } from './user.action';
@@ -161,6 +162,26 @@ export function* updateUserInfo({ payload: { updateData, config = {} } }) {
   }
 }
 
+export function* saveJob({ payload }) {
+  const currentUser = yield select((state) => state.user.currentUser);
+  if (!currentUser) yield put(push('/login'));
+
+  const savedJobs = yield select((state) => state.user.currentUser.savedJobs);
+  let newSavedJobs = yield [...savedJobs];
+  if (Array.from(savedJobs)?.findIndex((i) => i.id === payload) === -1) {
+    newSavedJobs = [...savedJobs, payload];
+  } else {
+    newSavedJobs = savedJobs?.filter((item) => item.id !== payload);
+  }
+  yield put(
+    updateUserInfoStart({
+      updateData: {
+        savedJobs: newSavedJobs,
+      },
+    })
+  );
+}
+
 // START
 
 export function* onSignUpStart() {
@@ -195,6 +216,10 @@ export function* onUpdateUserStart() {
   yield takeLatest(UserActionTypes.UPDATE_INFO_START, updateUserInfo);
 }
 
+export function* onSaveJobStart() {
+  yield takeLatest(UserActionTypes.SAVE_JOB_START, saveJob);
+}
+
 export function* userSagas() {
   yield all([
     call(onUpdateUserStart),
@@ -205,5 +230,6 @@ export function* userSagas() {
     call(onSignUpStart),
     call(onVerifyStart),
     call(onRequestVerifyStart),
+    call(onSaveJobStart),
   ]);
 }

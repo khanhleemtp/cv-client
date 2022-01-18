@@ -9,7 +9,7 @@ import RoundIcon from './../RoundedIcon';
 
 const EditCompanyModal = ({ company, close, modalRef }) => {
   return (
-    <div className="bg-white p-8 rounded-lg my-4" ref={modalRef}>
+    <div className="bg-white p-8 rounded-lg my-4 max-w-xl" ref={modalRef}>
       <div className="col-span-1">
         <RoundIcon
           icon={ChevronLeftIcon}

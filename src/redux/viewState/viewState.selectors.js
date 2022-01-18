@@ -54,6 +54,11 @@ export const selectCompanyInOtherPropsModal = createSelector(
   (otherProps) => otherProps?.company
 );
 
+export const selectJobInOtherPropsModal = createSelector(
+  selectOtherPropsModal,
+  (otherProps) => otherProps?.job
+);
+
 export const selectTitleInOtherPropsModal = createSelector(
   selectOtherPropsModal,
   (otherProps) => otherProps?.title
@@ -80,6 +85,7 @@ export const selectIsFullModal = createSelector(selectTypeModal, (type) => {
     case 'USER_UPLOAD_IMAGE':
     case 'UPDATE_COMPANY':
     case 'UPDATE_COMPANY_IMAGE':
+    case 'CHOICE_CV':
       return false;
     default:
       return true;

@@ -1,7 +1,11 @@
 import { CvActionTypes } from './cv.types';
 
 export const loadingApi = () => ({
-  type: CvActionTypes.LOADING_API,
+  type: CvActionTypes.LOADING_LIST_CV,
+});
+
+export const loadingCreateCv = () => ({
+  type: CvActionTypes.LOADING_CREATE_CV,
 });
 
 export const loadingUpdate = () => ({
@@ -23,8 +27,9 @@ export const loadCvFailure = (errorMsg) => ({
   payload: errorMsg,
 });
 
-export const loadListCvStart = () => ({
+export const loadListCvStart = (query) => ({
   type: CvActionTypes.LOAD_LIST_CV_START,
+  payload: query,
 });
 
 export const loadListCvFinish = (cvData) => ({

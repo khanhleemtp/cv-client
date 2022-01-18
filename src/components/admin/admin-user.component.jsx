@@ -19,7 +19,7 @@ import {
 } from './../../redux/company/company.selectors';
 import PaginatedItems from '../paginate/paginate.component';
 import { openModal } from './../../redux/viewState/viewState.action';
-import { STATUS_COMPANY_SEARCH } from '../data/input.data';
+import { STATUS_COMPANY_SEARCH } from '../../data/input.data';
 import { Link } from 'react-router-dom';
 
 const AdminUser = ({
@@ -57,9 +57,9 @@ const AdminUser = ({
           return `?status=${status}&page=${page + 1}&limit=4`;
         }
         if (status === '' && search) {
-          return `?name=${search}&page=${page + 1}&limit=4`;
+          return `?slug=${search}&page=${page + 1}&limit=4`;
         }
-        return `?status=${status}&name=${search}&page=${page + 1}&limit=4`;
+        return `?status=${status}&slug=${search}&page=${page + 1}&limit=4`;
       };
       loadListCompany(renderSearch(status, search));
     });
@@ -176,8 +176,11 @@ const AdminUser = ({
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-red-500 font-medium">
+                          Chủ công ty: {company?.hostInfo?.userInfo?.name}
+                        </div>
                         <div className="text-sm text-gray-900">
-                          {company?.phone}
+                          {company?.hostInfo?.phone}
                         </div>
                         <div className="text-sm text-gray-500">
                           {company?.website}
@@ -217,6 +220,7 @@ const AdminUser = ({
                 itemsPerPage={4}
                 pageCount={Math.ceil(total / 4)}
                 cb={handleChangePage}
+                page={page}
               />
               <div className="mx-2 w-12 h-full">
                 {renderCurrent()}/{total}

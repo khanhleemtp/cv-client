@@ -7,10 +7,11 @@ const SingleSelect = ({
   label = '',
   placeholder = '',
   options,
+  className,
 }) => {
   return (
-    <div className="w-full max-w-xs">
-      <div className="mb-2">{label}</div>
+    <div className={className}>
+      {label && <div className="mb-2">{label}</div>}
       <Controller
         control={control}
         name={name}
@@ -18,14 +19,14 @@ const SingleSelect = ({
           <Select
             inputRef={ref}
             components={{
-              DropdownIndicator: () => null,
+              // DropdownIndicator: () => null,
               IndicatorSeparator: () => null,
-              IndicatorsContainer: () => null,
+              // IndicatorsContainer: () => null,
             }}
             isClearable={true}
             options={options}
             placeholder={placeholder}
-            value={options.filter((option) => value?.includes(option.value))}
+            value={options.find((c) => c.value === value)}
             onChange={(val) => onChange(val?.value)}
             defaultInputValue=""
             noOptionsMessage={() => 'Không còn lựa chọn'}

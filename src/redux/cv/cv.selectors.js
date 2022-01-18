@@ -9,6 +9,11 @@ export const selectLoadingApi = createSelector(
   (state) => state.isLoading
 );
 
+export const selectCreatingCv = createSelector(
+  selectorCv,
+  (state) => state.isCreating
+);
+
 export const selectUpdatingCv = createSelector(
   selectorCv,
   (state) => state.isUpdating
@@ -32,6 +37,8 @@ export const selectListCvData = createSelector(
   selectorCv,
   (state) => state.listCv
 );
+
+export const selectTotalCv = createSelector(selectorCv, (state) => state.total);
 
 export const selectCvSections = createSelector(
   selectCvData,

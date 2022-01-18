@@ -73,8 +73,8 @@ const CvSectionBase = ({
   const createItem = () => {
     append(CV_SECTION_ITEM_DATA[record]);
     const length = fields?.length;
-    updateData();
     setInput(section, length, `sections.${section}.items.${length}.${field}`);
+    updateData();
   };
 
   const removeItem = (index) => () => {
@@ -82,19 +82,19 @@ const CvSectionBase = ({
     remove(index);
     const focusName = `sections.${section}.items.${index - 1}.${field}`;
     setFocus(focusName);
-    updateData();
     setInput(section, index - 1, focusName);
+    updateData();
   };
 
   const upItem = (index) => {
     if (index === 0) return null;
-    return async () => {
+    return () => {
       move(index, index - 1);
       // dispatch(selectSectionStart(nextPosition));
       const focusName = `sections.${section}.items.${index - 1}.${field}`;
       setFocus(focusName);
       updateData();
-      await setInput(section, index - 1, focusName);
+      setInput(section, index - 1, focusName);
     };
   };
 
@@ -112,11 +112,11 @@ const CvSectionBase = ({
 
   const addItem = (index) => () => {
     const focusName = `sections.${section}.items.${index + 1}.${field}`;
-    insert(index, CV_SECTION_ITEM_DATA[record], {
+    insert(index + 1, CV_SECTION_ITEM_DATA[record], {
       focusIndex: index + 1,
     });
-    updateData();
     setInput(section, index + 1, focusName);
+    updateData();
   };
 
   return (
@@ -184,8 +184,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         update: ownProps?.update,
       })
     ),
-  setInput: (section, item, field) =>
-    dispatch(setFields({ section, item, field })),
+  setInput: (section, item, field) => {
+    console.log(section, item, field);
+    dispatch(setFields({ section, item, field, popver: null }));
+  },
   updateCv: (data) => dispatch(updateCvStart(data)),
 });
 

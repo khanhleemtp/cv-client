@@ -14,8 +14,7 @@ import {
 import LoadingSmall from './../../loading-small/loading-small.component';
 import InputFile from './input-file.component';
 import InputSelect from './../../input-app/input-select.component';
-import { AREA } from '../../data/input.data';
-import { POSITION_EMPLOYYER } from './../../data/input.data';
+import { POSITION_EMPLOYER, AREA } from '../../../data/input.data';
 
 const AccountInfo = ({
   uploadImage,
@@ -82,7 +81,7 @@ const AccountInfo = ({
         />
         <InputSelect
           label="Vị trí"
-          options={POSITION_EMPLOYYER}
+          options={POSITION_EMPLOYER}
           register={register}
           name="position"
         />

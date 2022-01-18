@@ -57,13 +57,35 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isUpdating: false,
+        error: null,
       };
     case UserActionTypes.UPDATE_INFO_SUCCESS:
       return {
         ...state,
         isUpdating: false,
         currentUser: action.payload,
+        error: null,
       };
+    case UserActionTypes.UPDATE_LIST_CV_IN_USER: {
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          listCv: [action.payload, ...state.currentUser?.listCv],
+        },
+      };
+    }
+    case UserActionTypes.DELETE_CV_IN_USER: {
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          listCv: state.currentUser?.listCv?.filter(
+            (cv) => cv?.id !== action.payload
+          ),
+        },
+      };
+    }
     case UserActionTypes.SIGN_IN_FAILURE:
     case UserActionTypes.SIGN_OUT_FAILURE:
     case UserActionTypes.SIGN_UP_FAILURE:

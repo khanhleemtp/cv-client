@@ -11,7 +11,6 @@ import clsx from 'clsx';
 import { isEmpty } from 'lodash';
 
 import {
-  selectSelectedField,
   selectSelectedItem,
   selectSelectedPopover,
   selectSelectedSection,
@@ -32,7 +31,6 @@ import ToolboxContainer from './../tool-box/ToolboxContainer';
 import BaseModal from '../Modal/BaseModal';
 
 const CvSectionOverview = ({
-  selectedField,
   cvData,
   isUpdating,
   clear,
@@ -87,11 +85,14 @@ const CvSectionOverview = ({
 
             <div
               className={clsx(
-                'bg-transparent container mx-auto transition-colors ease-in-out max-w-3xl md:p-12 md:border-2 md:shadow-2xl md:py-4',
+                'bg-transparent my-4 container mx-auto transition-colors ease-in-out max-w-3xl md:p-12 md:border-2 md:shadow-2xl md:py-4',
                 {
                   'bg-gray-300 bg-opacity-20': selectedSection,
                 }
               )}
+              style={{
+                minHeight: '842px',
+              }}
             >
               <div className="flex items-center">
                 <div className="whitespace-nowrap mx-2 pb-1 text-lg text-indigo-500">
@@ -159,7 +160,6 @@ const CvSectionOverview = ({
 };
 
 const mapStateToProps = createStructuredSelector({
-  selectedField: selectSelectedField,
   popover: selectSelectedPopover,
   cvData: selectCvData,
   cvNormalize: selectSectionNormalize,

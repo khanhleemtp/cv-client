@@ -9,6 +9,8 @@ const INITIAL_STATE = {
   isRegistering: false,
   company: null,
   listCompany: null,
+  total: 0,
+  result: 0,
 };
 
 const employerReducer = (state = INITIAL_STATE, action) => {
@@ -55,9 +57,12 @@ const employerReducer = (state = INITIAL_STATE, action) => {
       };
     }
     case CompanyActionTypes.LOAD_LIST_COMPANY_SUCCESS: {
+      const { data, total, result } = action.payload;
       return {
         ...state,
-        listCompany: action.payload,
+        listCompany: data,
+        total,
+        result,
         isLoading: false,
         error: null,
       };
@@ -74,17 +79,13 @@ const employerReducer = (state = INITIAL_STATE, action) => {
       };
     case CompanyActionTypes.UPDATE_COMPANY_IN_LIST:
       const { id, data } = action.payload;
-      const listCompany = state.listCompany?.data;
+      const listCompany = state.listCompany;
       const objectListCompany = keyBy(listCompany, 'id');
       objectListCompany[id] = data;
       const newCompany = Object.values(objectListCompany);
-      const newList = {
-        ...state.listCompany,
-        data: newCompany,
-      };
       return {
         ...state,
-        listCompany: newList,
+        listCompany: newCompany,
       };
     default:
       return state;

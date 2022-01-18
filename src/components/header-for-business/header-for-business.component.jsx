@@ -66,7 +66,7 @@ const HeaderForBusiness = ({ children, title, user }) => {
       </div>
       <div
         className={clsx('mt-16 ml-16 transition-all', {
-          'ml-48': active,
+          'md:ml-48': active,
         })}
       >
         <div className="flex-1 w-full h-14 p-4 bg-white shadow-lg flex font-medium text-lg">

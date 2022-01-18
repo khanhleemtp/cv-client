@@ -51,7 +51,7 @@ const CvSectionItemBase = ({
     { icon: 'down', onClick: downItem },
   ];
 
-  const { control, getValues, setFocus } = useFormContext();
+  const { control, getValues } = useFormContext();
 
   const { append, remove, fields, insert } = useFieldArray({
     control,
@@ -77,12 +77,12 @@ const CvSectionItemBase = ({
       item,
       `sections.${section}.items.${item}.tags.${fields.length - 2}.text`
     );
-    setFocus(
-      `sections.${section}.items.${item}.tags.${fields.length - 2}.text`
-    );
+    // setFocus(
+    //   `sections.${section}.items.${item}.tags.${fields.length - 2}.text`
+    // );
     const cvData = getValues();
     updateCv({ id: cvData?.id, updateData: cvData });
-  }, [remove, fields, setInput, item, section, updateCv, getValues, setFocus]);
+  }, [remove, fields, setInput, item, section, updateCv, getValues]);
 
   const otherSetting = useMemo(() => {
     switch (record) {
@@ -212,8 +212,10 @@ const CvSectionItemBase = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setInput: (section, item, field) =>
-    dispatch(setFields({ section, item, field })),
+  setInput: (section, item, field) => {
+    console.log('run here cv-section-item base');
+    dispatch(setFields({ section, item, field }));
+  },
   updateCv: (data) => dispatch(updateCvStart(data)),
 });
 

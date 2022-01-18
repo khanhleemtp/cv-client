@@ -1,0 +1,13 @@
+.DayPicker-Caption {
+  @apply capitalize;
+}
+
+.DayPicker {
+  @apply shadow-lg ring-2 rounded-lg ring-gray-200;
+}
+
+.DayPicker-NavButton {
+  /* display: flex; */
+  top: 20px;
+  right: 8px;
+}

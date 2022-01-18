@@ -53,7 +53,12 @@ const PopoverSetting = ({ children, setting, open, close, isOpen }) => {
         </div>
       </Popover.Button>
 
-      <div ref={popperElRef} style={styles.popper} {...attributes.popper}>
+      <div
+        ref={popperElRef}
+        style={styles.popper}
+        {...attributes.popper}
+        className="relative z-10"
+      >
         <Transition
           as={Fragment}
           show={isOpen}

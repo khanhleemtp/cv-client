@@ -6,8 +6,6 @@ import pMinDelay from 'p-min-delay';
 import HeaderForBusiness from '../../components/header-for-business/header-for-business.component';
 import Button from './../../components/button/button.component';
 import NotFound from '../../components/not-found/not-found.component';
-// import CvManager from '../../components/company/cv-manager/cv-manager.component';
-// import News from './../../components/company/news/news.component';
 import { connect } from 'react-redux';
 import { selectCurrentUser } from './../../redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
@@ -16,22 +14,28 @@ import BaseModal from '../../components/Modal/BaseModal';
 import { loadingEmployerStart } from '../../redux/employer/employer.action';
 
 const CvManager = lazy(() =>
+  pMinDelay(import('../../components/company/cv-manager/cv-manager.component'))
+);
+
+const CompanyPreviewJob = lazy(() =>
   pMinDelay(
-    import('../../components/company/cv-manager/cv-manager.component'),
-    1200
+    import('./../../components/company/list-job/company-preview-job.component')
+  )
+);
+
+const StaffManager = lazy(() =>
+  pMinDelay(
+    import('../../components/company/staff-manager/staff-manager.component')
   )
 );
 
 const News = lazy(() =>
-  pMinDelay(import('./../../components/company/news/news.component'), 1200)
+  pMinDelay(import('./../../components/company/news/news.component'))
 );
 
 const AccountSetting = lazy(() =>
   pMinDelay(
-    import(
-      '../../components/company/account-setting/account-setting.component'
-    ),
-    1200
+    import('../../components/company/account-setting/account-setting.component')
   )
 );
 
@@ -45,10 +49,10 @@ const CompanyDashboard = ({ user, requestVerifyUser, loadEmployer }) => {
         return 'Bảng tin';
       case 'campaign':
         return 'Chiến dịch ';
-      case 'news':
-        return 'Tin tuyển dụng';
       case 'cv':
-        return 'Quản lý CV';
+        return 'Tin tuyển dụng';
+      case 'staff':
+        return 'Quản lý nhân viên';
       case 'report':
         return 'Báo cáo tuyển dụng';
       case 'setting':
@@ -63,11 +67,11 @@ const CompanyDashboard = ({ user, requestVerifyUser, loadEmployer }) => {
       case 'home':
         return <News />;
       case 'campaign':
-        return null;
-      case 'news':
-        return null;
+        return <CompanyPreviewJob />;
       case 'cv':
         return <CvManager />;
+      case 'staff':
+        return <StaffManager />;
       case 'report':
         return null;
       case 'setting':

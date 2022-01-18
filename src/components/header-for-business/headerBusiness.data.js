@@ -1,9 +1,9 @@
 export const navCompanyData = [
   'home',
   'campaign',
-  'news',
-  'cv',
-  'report',
+  // 'cv',
+  'staff',
+  // 'report',
   'setting',
 ];
 

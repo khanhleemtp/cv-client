@@ -20,6 +20,16 @@ import NotFound from './components/not-found/not-found.component';
 import CompanyDashboard from './pages/company-dashboard/company-dashboard.page';
 import VerifyPage from './pages/verify/verify.page';
 
+const JobPage = lazy(() => pMinDelay(import('./pages/job-page/job-page.page')));
+
+const AppliedJobPage = lazy(() =>
+  pMinDelay(import('./pages/applied-job/applied-job.page'))
+);
+
+const SavedJobPage = lazy(() =>
+  pMinDelay(import('./pages/saved-job/saved-job.page'))
+);
+
 const CompanyPage = lazy(() =>
   pMinDelay(import('./pages/company-page/company-page.page'))
 );
@@ -75,11 +85,14 @@ function App() {
           <Route exact path="/verify" component={VerifyPage} />
           <Route exact path="/register-company" component={RegisterEmployer} />
           <Route path="/company-page" component={CompanyPage} />
+          <Route path="/job-page" component={JobPage} />
 
           <PrivateRoute path="/company/:id" component={CompanyDashboard} />
           <PrivateRoute path="/admin/:id" component={AdminDashboard} />
           <PrivateRoute exact path="/list-cv" component={CvListPage} />
           <PrivateRoute exact path="/profile" component={UserProfile} />
+          <PrivateRoute exact path="/saved-job" component={SavedJobPage} />
+          <PrivateRoute exact path="/apply" component={AppliedJobPage} />
 
           <PublicRoute exact path="/login">
             <SignInAndSignUpPage />

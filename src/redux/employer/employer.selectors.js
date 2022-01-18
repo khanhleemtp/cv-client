@@ -13,6 +13,11 @@ export const selectLoadingEmployer = createSelector(
   (employer) => employer.isLoading
 );
 
+export const selectLoadingListEmployer = createSelector(
+  selectorEmployer,
+  (employer) => employer.isLoadingList
+);
+
 export const selectUpdatingEmployer = createSelector(
   selectorEmployer,
   (employer) => employer.isUpdating
@@ -21,4 +26,19 @@ export const selectUpdatingEmployer = createSelector(
 export const selectCompanyEmployer = createSelector(
   selectEmployer,
   (employer) => employer?.company
+);
+
+export const selectEmployerHost = createSelector(
+  selectEmployer,
+  (employer) => employer?.id === employer?.company?.host
+);
+
+export const selectlistEmployer = createSelector(
+  selectorEmployer,
+  (employer) => employer?.listEmployer
+);
+
+export const selectTotalEmployer = createSelector(
+  selectorEmployer,
+  (employer) => employer?.total
 );

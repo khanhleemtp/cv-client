@@ -18,7 +18,10 @@ import {
   deleteCvFailure,
   deleteCvFinish,
   createCvFinish,
+  loadingCreateCv,
 } from './cv.action';
+import { updateListCvInUser } from '../user/user.action';
+import { deleteCvInUser } from './../user/user.action';
 
 export function* onLoadCvAsync({ payload: id }) {
   try {
@@ -36,6 +39,7 @@ export function* onDeleteCvAsync({ payload: id }) {
     yield put(loadingApi());
     yield axiosInstance.delete(`/resumes/${id}`);
     yield toast.success('Xóa CV thành công');
+    yield put(deleteCvInUser(id));
     yield put(deleteCvFinish(id));
   } catch (error) {
     yield toast.error(error.message);
@@ -43,11 +47,11 @@ export function* onDeleteCvAsync({ payload: id }) {
   }
 }
 
-export function* onLoadListCvAsync() {
+export function* onLoadListCvAsync({ payload }) {
   try {
     yield put(loadingApi());
-    const { data } = yield axiosInstance.get(`/resumes`);
-    yield put(loadListCvFinish(data?.data));
+    const { data } = yield axiosInstance.get(`/resumes${payload}`);
+    yield put(loadListCvFinish(data));
   } catch (error) {
     yield toast.error(error.message);
     yield put(loadListCvFailure(error));
@@ -56,9 +60,12 @@ export function* onLoadListCvAsync() {
 
 export function* onCreateCvAsync() {
   try {
-    yield put(loadingApi());
-    const { data } = yield axiosInstance.post(`/resumes`, CV_DATAS);
-    yield put(createCvFinish(data?.data));
+    yield put(loadingCreateCv());
+    const {
+      data: { data },
+    } = yield axiosInstance.post(`/resumes`, CV_DATAS);
+    yield put(updateListCvInUser(data));
+    yield put(createCvFinish(data));
   } catch (error) {
     yield toast.error(error.message);
     yield put(createCvFinish(error));

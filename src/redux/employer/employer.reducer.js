@@ -6,6 +6,10 @@ const INITIAL_STATE = {
   isUpdating: false,
   isLoadingApi: false,
   employer: null,
+  isLoadingList: false,
+  listEmployer: [],
+  result: 0,
+  total: 0,
 };
 
 const employerReducer = (state = INITIAL_STATE, action) => {
@@ -22,6 +26,11 @@ const employerReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: true,
+      };
+    case EmployerActionTypes.LOADING_LIST_EMPLOYER:
+      return {
+        ...state,
+        isLoadingList: true,
       };
     case EmployerActionTypes.UPDATING_EMPLOYER:
       return {
@@ -44,6 +53,19 @@ const employerReducer = (state = INITIAL_STATE, action) => {
         isUpdating: false,
         error: null,
       };
+    case EmployerActionTypes.LOAD_LIST_EMPLOYER_SUCCESS: {
+      const { data, total, result } = action.payload;
+      return {
+        ...state,
+        listEmployer: data,
+        total,
+        result,
+        isLoadingList: false,
+        error: null,
+      };
+    }
+
+    case EmployerActionTypes.LOAD_LIST_EMPLOYER_FAILURE:
     case EmployerActionTypes.UPDATE_EMPLOYER_FAILURE:
     case EmployerActionTypes.LOAD_EMPLOYER_FAILURE:
     case EmployerActionTypes.REGISTER_EMPLOYER_FAILURE:
@@ -53,6 +75,7 @@ const employerReducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
         isUpdating: false,
         isLoadingApi: false,
+        isLoadingList: false,
       };
 
     default:

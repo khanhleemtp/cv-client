@@ -4,8 +4,11 @@ import CvCard from '../cv-card/cv-card.component.component';
 // import { useForm, useWatch } from 'react-hook-form';
 // import AppEditor from './../../editor/editor.component';
 // import EditorPreview from '../../editor-preview/editor-preview.component';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from './../../../redux/user/user.selectors';
+import { connect } from 'react-redux';
 
-const News = () => {
+const News = ({ user }) => {
   // const { handleSubmit, control } = useForm({
   //   mode: 'onChange',
   //   defaultValues: {
@@ -41,14 +44,18 @@ const News = () => {
         <LineChart />
       </div>
       <div className="bg-white shadow-sm flex-grow h-40 my-2 md:mx-2 md:my-0 p-4 bg-none md:bg-resume-img bg-right bg-cover bg-no-repeat">
-        <div className="font-medium">Xin chào, LD Khánh 😁</div>
+        <div className="font-medium">Xin chào, {user?.name} 😁</div>
         <div>
-          <div>Mã NTD: 0845645487898</div>
-          <div>Email: khanhleemtp@gmail.com</div>
+          <div>Mã NTD: {user?.id} </div>
+          <div>Email: {user?.email}</div>
         </div>
       </div>
     </div>
   );
 };
 
-export default News;
+const mapStateToProps = createStructuredSelector({
+  user: selectCurrentUser,
+});
+
+export default connect(mapStateToProps)(News);

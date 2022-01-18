@@ -7,7 +7,7 @@ const TitlImage = ({ children }) => {
   return (
     <Tilt
       ref={ref}
-      className="Tilt cursor-pointer"
+      className="Tilt cursor-move"
       options={{ max: 25 }}
       style={{ height: 297 * 0.7, width: 210 * 0.7 }}
     >

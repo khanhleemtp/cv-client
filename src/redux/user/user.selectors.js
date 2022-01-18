@@ -8,6 +8,27 @@ export const selectCurrentUser = createSelector(
   (user) => user?.currentUser
 );
 
+export const selectSavedJobInCurrentUser = createSelector(
+  selectCurrentUser,
+  (user) => user?.savedJobs
+);
+
+export const selectListCvCurrentUser = createSelector(
+  selectCurrentUser,
+  (user) => user?.listCv
+);
+
+export const selectIdsCvCurrentUser = createSelector(
+  selectListCvCurrentUser,
+  (list) => list?.map((cv) => cv.id)
+);
+
+export const selectIsJobSaved = (jobId) =>
+  createSelector(selectSavedJobInCurrentUser, (savedJob) => {
+    if (!savedJob) return false;
+    return Array.from(savedJob)?.find((job) => jobId === job?.id);
+  });
+
 export const selectUpdateUser = createSelector(
   selectorUser,
   (user) => user?.isUpdating

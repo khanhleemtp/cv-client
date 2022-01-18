@@ -8,8 +8,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import InputSelect from '../../components/input-app/input-select.component';
 import { registerEmployerStart } from '../../redux/employer/employer.action';
-import { AREA } from '../../components/data/input.data';
-import { POSITION_EMPLOYYER } from './../../components/data/input.data';
+import { POSITION_EMPLOYER, AREA } from '../../data/input.data';
 
 const employerSchema = yup.object().shape({
   name: yup
@@ -83,7 +82,7 @@ const RegisterEmployer = ({ registerEmployer }) => {
 
             <InputSelect
               label="Vị trí"
-              options={POSITION_EMPLOYYER}
+              options={POSITION_EMPLOYER}
               register={register}
               name="position"
             />

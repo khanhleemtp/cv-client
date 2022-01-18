@@ -7,6 +7,7 @@ import {
   selectCvStyle,
   selectLoadingApi,
   selectCvTitle,
+  selectCreatingCv,
 } from '../../redux/cv/cv.selectors';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -17,11 +18,14 @@ const CvPreviewFromBuilder = ({
   isLoadingCv,
   style,
   title,
+  isCreating,
 }) => {
   return (
     <>
       {isLoadingCv ? (
         <div>Đang tải...</div>
+      ) : isCreating ? (
+        <div>Đang tạo cv</div>
       ) : (
         <PDFViewer>
           <CvPdfTemplate
@@ -43,6 +47,7 @@ const mapStateToProps = createStructuredSelector({
   style: selectCvStyle,
   title: selectCvTitle,
   isLoadingCv: selectLoadingApi,
+  isCreating: selectCreatingCv,
 });
 
 export default connect(mapStateToProps, null)(CvPreviewFromBuilder);

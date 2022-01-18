@@ -13,6 +13,9 @@ import UploadModal from './UploadModal';
 import SectionCvModal from './SectionCvModal';
 import EditCompanyModal from './EditCompanyModal';
 import CompanyUploadImage from './CompanyUploadImage';
+import CreateJobModal from './CreateJobModal';
+import EditJobModal from './EditJobModal';
+import ChoiceCvModal from './ChoiceCvModal';
 
 const Base = ({ modalRef, typeModal }) => {
   const WrapperComponent = useMemo(() => {
@@ -27,6 +30,12 @@ const Base = ({ modalRef, typeModal }) => {
         return EditCompanyModal;
       case 'UPDATE_COMPANY_IMAGE':
         return CompanyUploadImage;
+      case 'CREATE_JOB':
+        return CreateJobModal;
+      case 'EDIT_JOB':
+        return EditJobModal;
+      case 'CHOICE_CV':
+        return ChoiceCvModal;
       default:
         return null;
     }
@@ -59,11 +68,11 @@ const BaseModal = ({ typeModal, close, isOpen, isFull }) => {
             )}
             <Transition.Child
               as={Fragment}
-              enter="transition ease-in-out duration-150"
+              enter="transform transition ease-in-out"
               enterFrom="opacity-0 transform -translate-x-20"
               enterTo="opacity-100"
               leave="ease-in duration-150"
-              leaveFrom="opacity-100"
+              leaveFrom="opacity-100 translate-x-0"
               leaveTo="opacity-0 transform -translate-x-20"
             >
               {isFull ? (
@@ -71,7 +80,7 @@ const BaseModal = ({ typeModal, close, isOpen, isFull }) => {
                   <Base modalRef={closeButtonRef} typeModal={typeModal} />
                 </aside>
               ) : (
-                <aside className="relative flex items-center justify-center w-full max-w-lg">
+                <aside className="relative flex items-center justify-center min-w-max max-w-lg w-full">
                   <Base modalRef={closeButtonRef} typeModal={typeModal} />
                 </aside>
               )}

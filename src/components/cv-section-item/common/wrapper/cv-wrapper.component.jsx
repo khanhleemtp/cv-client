@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import clsx from 'clsx';
 import { Transition } from '@headlessui/react';
-import { setFields } from '../../../../redux/viewState/viewState.action';
 import { connect } from 'react-redux';
 import {
   selectCurrentSection,
@@ -10,7 +9,6 @@ import {
 
 const CvWrapper = ({
   isSelected,
-  setWrapper,
   children,
   setting,
   isSelectedContainer,
@@ -23,7 +21,6 @@ const CvWrapper = ({
       <div
         onClick={(e) => {
           e.stopPropagation();
-          setWrapper();
         }}
         className={clsx(
           'p-2 bg-transparent relative transition-colors',
@@ -67,9 +64,4 @@ const mapStateToProps = (state, ownProps) => ({
   isSelectedContainer: selectCurrentSection(ownProps?.section)(state),
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  setWrapper: () =>
-    dispatch(setFields({ section: ownProps?.section, item: ownProps.item })),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CvWrapper);
+export default connect(mapStateToProps)(CvWrapper);

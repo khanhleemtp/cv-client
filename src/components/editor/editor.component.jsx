@@ -6,7 +6,7 @@ const AppEditor = ({ control, name, label }) => {
   // Handle Data Submit to APi for SignUp
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col relative z-0">
       <label className="m-2">{label}</label>
       <Controller
         name={name}

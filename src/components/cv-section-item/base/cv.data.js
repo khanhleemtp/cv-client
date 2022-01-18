@@ -47,6 +47,9 @@ export const CV_SECTION_ITEM_DATA = {
     showLocation: true,
     showDateRange: true,
     showBullets: true,
+    showDescription: true,
+    showPosition: true,
+    showTitle: true,
     bullets: [
       {
         text: '',

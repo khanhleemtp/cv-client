@@ -1,20 +1,43 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
-const CompanyCard = () => {
+import clsx from 'clsx';
+import EditorPreview from './../editor-preview/editor-preview.component';
+
+const CompanyCard = ({ company }) => {
   return (
-    <div className="animate-pulse">
-      <div className="my-6 space-y-2 w-full md:max-w-xs h-28 shadow-2xl ring-2 ring-gray-200 rounded-sm p-4">
-        <div className="flex items-start space-x-4">
-          <div className="h-10 w-10 gradient-purple-pink-red rounded-full"></div>
-          <div className="flex-grow space-y-2">
-            <div class="h-4 gradient-purple-pink-red rounded-full w-5/6"></div>
-            <div class="h-4 gradient-purple-pink-red rounded-full w-4/6"></div>
+    <div className="space-y-2 w-full h-36 shadow-2xl ring-1 ring-gray-300 rounded-md p-4 hover:bg-gray-200">
+      <div className="flex items-start space-x-4">
+        <div className="w-8 h-8 md:h-12 md:w-12 rounded-lg">
+          <img
+            src={company?.logo}
+            alt=""
+            className="w-full h-full rounded-lg"
+          />
+        </div>
+        <div className="flex-grow">
+          <Link to={`/company-page/${company?._id}`}>
+            <div
+              className={clsx(
+                'truncate text-gray-600 capitalize font-medium w-44 md:w-full max-w-xs'
+              )}
+              title={company?.name}
+            >
+              {company?.name}
+            </div>
+          </Link>
+          <div>Hiện tại đang có {company?.listJob?.length} việc làm</div>
+          <div className="rounded-lg text-sm line-clamp-2 container w-52 md:w-full max-w-sm">
+            <EditorPreview element={company?.descriptions} />
           </div>
         </div>
-        <div className="flex space-x-4">
-          <div className="h-4 gradient-purple-pink-red rounded-full w-5/12"></div>
-          <div className="h-4 gradient-purple-pink-red rounded-full w-2/6"></div>
-        </div>
+      </div>
+      <div
+        className={clsx(
+          'truncate text-gray-600 capitalize font-medium w-44 md:w-full max-w-xs'
+        )}
+        title={company?.area}
+      >
+        {company?.area}
       </div>
     </div>
   );

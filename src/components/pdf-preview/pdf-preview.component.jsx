@@ -21,7 +21,9 @@ const PDFViewer = ({ children, isOnePage = false }) => {
   const { width, ref } = useResizeDetector();
 
   const [numPages, setNumPages] = useState(null);
-  return (
+  return !pdfUrl ? (
+    <div>Đang tải</div>
+  ) : (
     <div ref={ref} className="max-w-3xl mx-auto container my-8 relative">
       <Document
         file={pdfUrl}

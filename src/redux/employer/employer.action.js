@@ -8,6 +8,10 @@ export const loadingEmployer = () => ({
   type: EmployerActionTypes.LOADING_EMPLOYER,
 });
 
+export const loadingListEmployer = () => ({
+  type: EmployerActionTypes.LOADING_LIST_EMPLOYER,
+});
+
 export const updatingEmployer = () => ({
   type: EmployerActionTypes.UPDATING_EMPLOYER,
 });
@@ -27,9 +31,9 @@ export const loadingEmployerFailure = (error) => ({
   payload: error,
 });
 
-export const updateEmployerStart = (data) => ({
+export const updateEmployerStart = (data, isUpdate = true) => ({
   type: EmployerActionTypes.UPDATE_EMPLOYER_START,
-  payload: data,
+  payload: { data, isUpdate },
 });
 
 export const updateEmployerSuccess = (data) => ({
@@ -53,5 +57,20 @@ export const registerEmployerSuccess = () => ({
 
 export const registerEmployerFailure = (error) => ({
   type: EmployerActionTypes.REGISTER_EMPLOYER_FAILURE,
+  payload: error,
+});
+
+export const loadListEmployerStart = (query) => ({
+  type: EmployerActionTypes.LOAD_LIST_EMPLOYER_START,
+  payload: query,
+});
+
+export const loadListEmployerSuccess = (data) => ({
+  type: EmployerActionTypes.LOAD_LIST_EMPLOYER_SUCCESS,
+  payload: data,
+});
+
+export const loadListEmployerFailure = (error) => ({
+  type: EmployerActionTypes.LOAD_LIST_EMPLOYER_FAILURE,
   payload: error,
 });

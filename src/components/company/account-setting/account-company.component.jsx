@@ -18,7 +18,7 @@ import {
   FIELDS_COMPANY,
   TYPE_COMPANY,
   AREA,
-} from '../../data/input.data';
+} from '../../../data/input.data';
 import { selectCompanyEmployer } from '../../../redux/employer/employer.selectors';
 import { createStructuredSelector } from 'reselect';
 import CompanyEditForm from './company-edit-form.component';
@@ -38,10 +38,11 @@ const companySchema = yup.object().shape({
   phone: yup.string().required('Bạn số điện thoại'),
   website: yup.string().required('Bạn cần nhập địa chỉ website'),
   descriptions: yup.string().required('Bạn cần nhập mô tả công ty'),
+  address: yup.string().required('Bạn cần nhập đỊa chỉ công ty'),
 });
 
 const AccountCompany = ({ uploadImage, registerCompany, company }) => {
-  const [isCreate, setIsCreate] = useState(true);
+  const [isCreate, setIsCreate] = useState(false);
 
   const {
     handleSubmit,
@@ -62,6 +63,7 @@ const AccountCompany = ({ uploadImage, registerCompany, company }) => {
       phone: '',
       website: '',
       descriptions: '',
+      address: '',
     },
     resolver: yupResolver(companySchema),
   });
@@ -97,6 +99,7 @@ const AccountCompany = ({ uploadImage, registerCompany, company }) => {
               name="name"
               error={errors?.name?.message}
             />
+
             <InputApp
               label="Email công ty"
               placeholder="Email công ty"
@@ -104,12 +107,20 @@ const AccountCompany = ({ uploadImage, registerCompany, company }) => {
               name="email"
               error={errors?.email?.message}
             />
+
             <InputApp
               label="Số điện thoại"
               placeholder="Số điện thoại"
               register={register}
               name="phone"
               error={errors?.phone?.message}
+            />
+            <InputApp
+              label="Địa chỉ"
+              placeholder="Trụ sở chính công ty"
+              register={register}
+              name="address"
+              error={errors?.email?.message}
             />
             <InputSelect
               register={register}
@@ -163,7 +174,7 @@ const AccountCompany = ({ uploadImage, registerCompany, company }) => {
               name="website"
               error={errors?.website?.message}
             />
-            <div className="col-span-1">
+            <div className="col-span-2">
               <AppEditor
                 control={control}
                 name="descriptions"

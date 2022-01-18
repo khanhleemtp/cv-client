@@ -3,8 +3,8 @@ import {
   AiOutlinePushpin,
   AiOutlineSearch,
   AiOutlineHeart,
-  AiOutlineReconciliation,
-  AiOutlineRise,
+  // AiOutlineReconciliation,
+  // AiOutlineRise,
   // AiOutlineMedicineBox,
   // AiOutlineFileMarkdown,
 } from 'react-icons/ai';
@@ -16,17 +16,17 @@ export const navigation = [
     child: [
       {
         name: 'Tìm việc làm',
-        to: '/job',
+        to: '/job-page',
         icon: AiOutlineSearch,
       },
       {
         name: 'Việc làm đã ứng tuyển',
-        to: '/',
+        to: '/apply',
         icon: AiOutlineHeart,
       },
       {
         name: 'Việc làm đã lưu',
-        to: '/',
+        to: '/saved-job',
         icon: AiOutlinePushpin,
       },
       {
@@ -41,20 +41,8 @@ export const navigation = [
     to: '/list-cv',
   },
   {
-    name: 'Công ty',
-    to: '/company',
-    child: [
-      {
-        name: 'Danh sách công ty',
-        to: '/company/home',
-        icon: AiOutlineReconciliation,
-      },
-      {
-        name: 'Top công ty',
-        to: '/company/home',
-        icon: AiOutlineRise,
-      },
-    ],
+    name: 'Danh sách công ty',
+    to: '/company-page',
   },
 ];
 

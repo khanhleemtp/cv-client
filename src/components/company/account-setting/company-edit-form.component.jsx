@@ -16,7 +16,7 @@ import {
   FIELDS_COMPANY,
   TYPE_COMPANY,
   AREA,
-} from '../../data/input.data';
+} from '../../../data/input.data';
 import { openModal } from '../../../redux/viewState/viewState.action';
 import { selectCurrentUser } from './../../../redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
@@ -31,6 +31,7 @@ const companySchema = yup.object().shape({
     .required('Bạn cần nhập email')
     .email('Bạn cần nhập đúng định dạng email'),
   tax: yup.string().required('Bạn cần nhập mã thuế'),
+  address: yup.string().required('Bạn cần nhập đỊa chỉ công ty'),
   type: yup.string().required('Bạn cần nhập loại công ty'),
   size: yup.string().required('Bạn cần nhập quy mô công ty'),
   phone: yup.string().required('Bạn số điện thoại'),
@@ -68,6 +69,7 @@ const CompanyEditForm = ({ company, updateCompany, uploadImage, user }) => {
       name: company?.name,
       email: company?.email,
       tax: company?.tax,
+      address: company?.address,
       fields: company?.fields,
       area: company?.area,
       type: company?.type,
@@ -139,6 +141,14 @@ const CompanyEditForm = ({ company, updateCompany, uploadImage, user }) => {
             name="phone"
             error={errors?.phone?.message}
           />
+          <InputApp
+            label="Trụ sở chính"
+            placeholder="Chọn địa điểm"
+            register={register}
+            name="address"
+            error={errors?.address?.message}
+          />
+
           <InputSelect
             register={register}
             label="Quy mô công ty"

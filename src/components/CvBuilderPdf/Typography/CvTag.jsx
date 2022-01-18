@@ -7,7 +7,7 @@ const CvTag = ({ children }) => {
       display: 'flex',
       border: 2,
       borderRadius: 6,
-      maxWidth: 100,
+      maxWidth: 85,
       width: '100%',
       margin: 2,
       height: 24,

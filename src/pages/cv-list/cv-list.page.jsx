@@ -18,6 +18,7 @@ import TitlImage from '../../components/tilt-image/tilt-image.component';
 import { Link } from 'react-router-dom';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import {
+  selectCreatingCv,
   selectListCvData,
   selectLoadingApi,
 } from './../../redux/cv/cv.selectors';
@@ -38,15 +39,17 @@ const CvListPage = ({
   loadListCv,
   deleteCv,
   createCv,
-  verifyUser,
-  ...props
+  isCreating,
+  user,
 }) => {
   useEffect(() => {
-    loadListCv();
-  }, [loadListCv]);
+    loadListCv(`?user=${user.id}`);
+  }, [loadListCv, user]);
 
   return isLoading ? (
     <Loading />
+  ) : isCreating ? (
+    <div>Loading..</div>
   ) : (
     <NavContainer>
       <div>
@@ -72,13 +75,9 @@ const CvListPage = ({
                   key={cv._id}
                   className="bg-white p-2 md:px-6 md:py-8 flex justify-between items-center  shadow-inner mb-2 md:mb-4"
                 >
-                  <Link
-                    to={`/builder/${cv?._id}`}
-                    className="md:mr-6"
-                    title="Sửa CV"
-                  >
+                  <div className="md:mr-6 select-none" title="Sửa CV">
                     <TitlImage>
-                      <div className="w-28 md:w-40 h-full flex items-center justify-center cursor-pointer">
+                      <div className="w-28 md:w-40 h-full flex items-center justify-center">
                         {cv && (
                           <PDFViewer isOnePage>
                             <CvPdfTemplate
@@ -91,7 +90,7 @@ const CvListPage = ({
                         )}
                       </div>
                     </TitlImage>
-                  </Link>
+                  </div>
                   <div className="flex flex-col">
                     <div className="flex justify-between items-center my-4 md:my-8 mx-4">
                       <div className="text-indigo-500 font-semibold text-lg">
@@ -176,11 +175,12 @@ const CvListPage = ({
 const mapStateToProps = createStructuredSelector({
   listCv: selectListCvData,
   isLoading: selectLoadingApi,
+  isCreating: selectCreatingCv,
   user: selectCurrentUser,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  loadListCv: () => dispatch(loadListCvStart()),
+  loadListCv: (qr) => dispatch(loadListCvStart(qr)),
   deleteCv: (id) => dispatch(deleteCvStart(id)),
   createCv: () => dispatch(createCvStart()),
 });

@@ -28,9 +28,9 @@ const Sidebar = ({ navigationData = [], active = true, baseRoute, logout }) => {
       case 'admin-user':
       case 'campaign':
         return <BsFillFileBarGraphFill />;
-      case 'news':
-        return <BsFileEarmarkTextFill />;
       case 'cv':
+        return <BsFileEarmarkTextFill />;
+      case 'staff':
         return <BsPersonFill />;
       case 'report':
         return <BsBarChartFill />;
@@ -48,11 +48,11 @@ const Sidebar = ({ navigationData = [], active = true, baseRoute, logout }) => {
       case 'admin-user':
         return 'Quản lý công ty';
       case 'campaign':
-        return 'Chiến dịch ';
-      case 'news':
-        return 'Tin tuyển dụng';
+        return 'Quản lý việc làm';
       case 'cv':
         return 'Quản lý CV';
+      case 'staff':
+        return 'Quản lý nhân viên';
       case 'report':
         return 'Báo cáo tuyển dụng';
       case 'setting':

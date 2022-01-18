@@ -17,6 +17,7 @@ import {
   loadingSingleCompany,
   updateCompanyInList,
 } from './company.action';
+import { merge } from 'lodash-es';
 
 export function* registerCompany({ payload }) {
   try {
@@ -35,9 +36,31 @@ export function* registerCompany({ payload }) {
 export function* loadListCompany({ payload }) {
   try {
     yield put(loadingCompany());
-    const { data } = yield axiosInstance.get(`/companies${payload}`);
-    console.log('companyList', data);
-    yield put(loadListCompanySuccess(data));
+    const {
+      data: { data, result, total },
+    } = yield axiosInstance.get(`/companies${payload}`);
+    const dataFromServer = data;
+    let ids = yield dataFromServer?.map((item) => item?.id);
+
+    let listJob = yield all(ids.map((id) => call(fetchListJobInCompany, id)));
+    let hostIds = yield dataFromServer?.map((item) => item?.host);
+    let hostInfo = yield all(hostIds.map((id) => call(fetchHostCompany, id)));
+    console.log('hostInfo', hostInfo);
+    // yield put(
+    //   loadingListJobSuccess({
+    //     result,
+    //     total,
+
+    //     data: merge(dataCompany, data),
+    //   })
+    // );
+    yield put(
+      loadListCompanySuccess({
+        data: merge(dataFromServer, listJob, hostInfo),
+        result,
+        total,
+      })
+    );
   } catch (error) {
     yield toast.error(error?.message);
     yield put(loadListCompanyFailure(error?.message));
@@ -55,6 +78,22 @@ export function* loadCompany({ payload }) {
     yield toast.error(error?.message);
     yield put(loadCompanyFailure(error?.message));
   }
+}
+
+export function* fetchListJobInCompany(id) {
+  const {
+    data: { data },
+  } = yield axiosInstance.get(
+    `/jobs?company=${id}&isPublic=true&to[gte]=${new Date().toISOString()}`
+  );
+  return { listJob: data };
+}
+
+export function* fetchHostCompany(id) {
+  const {
+    data: { data },
+  } = yield axiosInstance.get(`/employers/${id}`);
+  return { hostInfo: data };
 }
 
 export function* updateCompany({ payload }) {

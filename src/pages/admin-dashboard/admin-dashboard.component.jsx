@@ -32,8 +32,6 @@ const AdminDashboard = ({ user }) => {
       case 'admin-user':
         return 'Quản lý công ty';
       case 'news':
-        return 'Tin tuyển dụng';
-      case 'cv':
         return 'Quản lý CV';
       case 'report':
         return 'Báo cáo tuyển dụng';

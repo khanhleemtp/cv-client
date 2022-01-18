@@ -111,3 +111,18 @@ export const updateUserInfoFailure = (error) => ({
   type: UserActionTypes.UPDATE_INFO_FAILURE,
   payload: error,
 });
+
+export const userSaveJobStart = (jobId) => ({
+  type: UserActionTypes.SAVE_JOB_START,
+  payload: jobId,
+});
+
+export const updateListCvInUser = (payload) => ({
+  type: UserActionTypes.UPDATE_LIST_CV_IN_USER,
+  payload,
+});
+
+export const deleteCvInUser = (payload) => ({
+  type: UserActionTypes.DELETE_CV_IN_USER,
+  payload,
+});

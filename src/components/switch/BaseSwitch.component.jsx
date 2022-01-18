@@ -1,7 +1,7 @@
 import { Switch } from '@headlessui/react';
 import { Controller, useFormContext } from 'react-hook-form';
 
-const BaseSwitch = ({ name, label, func = () => {} }) => {
+const BaseSwitch = ({ name, label, func = () => {}, disabled = false }) => {
   const { control } = useFormContext();
 
   return (
@@ -10,9 +10,10 @@ const BaseSwitch = ({ name, label, func = () => {} }) => {
       name={name}
       render={({ field: { onChange, value } }) => (
         <Switch.Group>
-          <div className="flex items-center justify-between my-2">
+          <div className="flex items-center justify-between space-x-2">
             <Switch.Label className="w-3/4 font-semibold">{label}</Switch.Label>
             <Switch
+              disabled={disabled}
               checked={value}
               onChange={(e) => {
                 onChange(e);

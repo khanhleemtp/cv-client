@@ -4,8 +4,11 @@ const INITIAL_STATE = {
   error: null,
   isLoading: false,
   isUpdating: false,
+  isCreating: false,
   cv: null,
   listCv: null,
+  total: 0,
+  result: 0,
 };
 
 const cvReducer = (state = INITIAL_STATE, action) => {
@@ -13,7 +16,12 @@ const cvReducer = (state = INITIAL_STATE, action) => {
     // case UserActionTypes.GOOGLE_SIGN_IN_SUCCESS:
     // case UserActionTypes.EMAIL_SIGN_IN_SUCCESS:
     // case UserActionTypes.SET_CURRENT_USER:
-    case CvActionTypes.LOADING_API:
+    case CvActionTypes.LOADING_CREATE_CV:
+      return {
+        ...state,
+        isCreating: true,
+      };
+    case CvActionTypes.LOADING_LIST_CV:
       return {
         ...state,
         isLoading: true,
@@ -38,10 +46,13 @@ const cvReducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
       };
     case CvActionTypes.LOAD_LIST_CV_FINISH:
+      const { data, total, result } = action.payload;
       return {
         ...state,
         error: null,
-        listCv: action.payload,
+        listCv: data,
+        total: total,
+        result: result,
         isLoading: false,
       };
     case CvActionTypes.CREATE_CV_FINISH:
@@ -50,6 +61,7 @@ const cvReducer = (state = INITIAL_STATE, action) => {
         error: null,
         listCv: [action.payload, ...state?.listCv],
         isLoading: false,
+        isCreating: false,
       };
     case CvActionTypes.UPDATE_CV_FINISH:
       return {
@@ -68,6 +80,7 @@ const cvReducer = (state = INITIAL_STATE, action) => {
         error: action.payload,
         isLoading: false,
         isUpdating: false,
+        isCreating: false,
       };
     default:
       return state;

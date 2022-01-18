@@ -8,24 +8,19 @@ export const selectCompany = createSelector(
   (state) => state?.company
 );
 
-export const selectorListCompany = createSelector(
+export const selectListCompany = createSelector(
   selectorCompany,
   (state) => state?.listCompany
 );
 
 export const selectTotalCompany = createSelector(
-  selectorListCompany,
+  selectorCompany,
   (state) => state?.total
 );
 
 export const selectResultCompany = createSelector(
-  selectorListCompany,
+  selectorCompany,
   (state) => state?.result
-);
-
-export const selectListCompany = createSelector(
-  selectorListCompany,
-  (state) => state?.data
 );
 
 export const selectLoadingCompany = createSelector(
