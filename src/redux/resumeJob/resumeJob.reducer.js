@@ -35,7 +35,7 @@ const resumeJobReducer = (state = INITIAL_STATE, action) => {
       const job = action.payload;
       return {
         ...state,
-        listJob: [job, ...state.listJob],
+        listResumeJob: [job, ...state.listResumeJob],
         result: state.result + 1,
         total: state.total + 1,
         isCreating: false,
@@ -55,15 +55,21 @@ const resumeJobReducer = (state = INITIAL_STATE, action) => {
       };
     }
     case ResumeJobActionTypes.LOAD_RESUME_JOB_SUCCESS:
-    case ResumeJobActionTypes.UPDATE_RESUME_JOB_SUCCESS:
+    case ResumeJobActionTypes.UPDATE_RESUME_JOB_SUCCESS: {
+      const newResumeJob = action.payload;
+      const listObj = keyBy(state.listResumeJob, 'id');
+      listObj[newResumeJob.id] = newResumeJob;
+      const newList = Object.values(listObj);
       return {
         ...state,
-        resumeJob: action.payload,
+        resumeJob: newResumeJob,
+        listResumeJob: newList,
         isLoading: false,
         isUpdating: false,
         isCreating: false,
         error: null,
       };
+    }
     case ResumeJobActionTypes.UPDATE_RESUME_JOB_IN_LIST: {
       const { id, data } = action.payload;
       const listJob = state.listJob;

@@ -98,3 +98,8 @@ export const applyJobFailure = (error) => ({
   type: JobActionTypes.APPLY_JOB_FAILURE,
   payload: error,
 });
+
+export const saveCvInJob = (payload) => ({
+  type: JobActionTypes.SAVE_CV_JOB_START,
+  payload,
+});

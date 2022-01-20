@@ -33,7 +33,6 @@ const Homepage = ({
 
   return (
     <NavContainer>
-      <h2>Homepage</h2>
       <div className="container mx-auto max-w-5xl p-4">
         <div className="font-medium text-xl my-4 divide-indigo-400 divide-x-4">
           <div></div>

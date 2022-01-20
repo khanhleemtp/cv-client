@@ -1,21 +1,14 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { Link } from 'react-router-dom';
-import { BellIcon } from '@heroicons/react/solid';
 import { UserIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
+import Notification from './../notification/notification.component';
 
 const ProfileDropdown = ({ user, userNavigation }) => {
   return (
     <>
-      <button
-        type="button"
-        className="bg-gray-100 p-1 rounded-full text-indigo-500 hover:text-white hover:bg-indigo-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-indigo-500 focus:ring-white"
-      >
-        {/* TODO Nav after LOGIN */}
-        <span className="sr-only">View notifications</span>
-        <BellIcon className="h-6 w-6 " aria-hidden="true" />
-      </button>
+      <Notification />
 
       {/* TODO Profile dropdown */}
       <Menu as="div" className="ml-3 relative">

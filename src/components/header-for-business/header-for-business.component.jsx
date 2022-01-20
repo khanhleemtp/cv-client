@@ -9,6 +9,7 @@ import { selectCurrentUser } from './../../redux/user/user.selectors';
 import NavCompany from './nav-company.component';
 import { navAdminData, navCompanyData } from './headerBusiness.data';
 import { signOutStart } from './../../redux/user/user.action';
+import Notification from './../notification/notification.component';
 
 const HeaderForBusiness = ({ children, title, user }) => {
   const [active, setActive] = useState(true);
@@ -37,7 +38,7 @@ const HeaderForBusiness = ({ children, title, user }) => {
   return (
     <div>
       <div className="bg-white shadow-xl fixed top-0 left-0 h-16 right-0 z-30 text-white-400">
-        <div className="relative flex items-center justify-between h-16 bg-gradient-to-r from-gray-800 to-indigo-300">
+        <div className="relative flex items-center justify-around h-16 bg-gradient-to-r from-gray-800 to-indigo-300">
           <div className="absolute inset-y-0 left-0 flex items-center">
             {/* TODO Mobile Menu Button*/}
             <button
@@ -47,7 +48,7 @@ const HeaderForBusiness = ({ children, title, user }) => {
               <MenuIcon className="block h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <div className="ml-16 flex flex-1 justify-between items-center text-white overflow-x-auto overflow-y-hidden">
+          <div className="ml-16 flex md:flex-1 justify-between items-center text-white overflow-x-auto overflow-y-hidden">
             <div className="inline-flex">
               <LogoApp />
               <span className="ml-2">
@@ -56,6 +57,9 @@ const HeaderForBusiness = ({ children, title, user }) => {
             </div>
             {user?.verify && user?.role === 'employer' && <NavCompany />}
             <div className="w-1/2"></div>
+          </div>
+          <div className="flex-1">
+            <Notification color="text-white" />
           </div>
         </div>
         <Sidebar

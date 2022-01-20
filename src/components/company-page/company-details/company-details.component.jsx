@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/outline';
 
 import { Link } from 'react-router-dom';
-import Button from './../../button/button.component';
+// import Button from './../../button/button.component';
 import EditorPreview from './../../editor-preview/editor-preview.component';
 import { loadCompanyStart } from '../../../redux/company/company.action';
 import { createStructuredSelector } from 'reselect';
@@ -65,9 +65,9 @@ const CompanyDetails = ({ loadCompany, company, loading, ...props }) => {
               <div></div>
             </div>
           </div>
-          <div className="">
+          {/* <div className="">
             <Button text="Theo dõi công ty" />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="grid grid-cols-6 my-2 gap-2">

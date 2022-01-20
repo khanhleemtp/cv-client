@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import keyBy from 'lodash-es/keyBy';
 
 const selectorJob = (state) => state.job;
 // const selectorCart = (state) => state.cart;
@@ -44,3 +45,13 @@ export const selectCompanyInJob = createSelector(
   selectJob,
   (state) => state?.companyInfo
 );
+
+export const selectObjectListJob = createSelector(selectListJob, (listJob) =>
+  keyBy(listJob, 'id')
+);
+
+export const selectDetailJob = (jobId) =>
+  createSelector(
+    selectObjectListJob,
+    (objectListJob) => objectListJob?.[jobId]
+  );

@@ -6,7 +6,15 @@ import { createStructuredSelector } from 'reselect';
 
 // import PopoverSetting from './../PopoverSetting';
 
-import { PencilIcon, SearchIcon, LinkIcon } from '@heroicons/react/solid';
+import {
+  PencilIcon,
+  SearchIcon,
+  LinkIcon,
+  UserGroupIcon,
+  TrendingUpIcon,
+  ChartBarIcon,
+  BookmarkIcon,
+} from '@heroicons/react/solid';
 
 import InputApp from './../../input-app/input-app.component';
 
@@ -218,6 +226,30 @@ const CompanyListJob = ({
                               onClick={editJob(job)}
                             />
                           </div>
+                          <Link
+                            title="Tìm kiếm ứng viên"
+                            to={`/company/campaign/${job._id}/search`}
+                          >
+                            <SearchIcon className="w-6 h-6" />
+                          </Link>
+                          <Link
+                            title="Gợi ý"
+                            to={`/company/campaign/${job._id}/suggest`}
+                          >
+                            <TrendingUpIcon className="w-6 h-6" />
+                          </Link>
+                          <Link
+                            title="Thống kê"
+                            to={`/company/campaign/${job._id}/chart`}
+                          >
+                            <ChartBarIcon className="w-6 h-6" />
+                          </Link>
+                          <Link
+                            title="Đã lưu"
+                            to={`/company/campaign/${job._id}/saved`}
+                          >
+                            <BookmarkIcon className="w-6 h-6" />
+                          </Link>
                           <Link title="Xem thử" to={`/job-page/${job._id}`}>
                             <LinkIcon className="w-6 h-6" />
                           </Link>
@@ -225,8 +257,8 @@ const CompanyListJob = ({
                             title="Xem thử"
                             to={`/company/campaign/${job._id}`}
                           >
-                            <div title="Tìm Cv">
-                              <SearchIcon className="w-6 h-6" />
+                            <div title="Danh sách ứng viên">
+                              <UserGroupIcon className="w-6 h-6" />
                             </div>
                           </Link>
 

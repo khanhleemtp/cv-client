@@ -1,4 +1,4 @@
-import { takeLatest, put, call, all } from 'redux-saga/effects';
+import { takeLatest, put, call, all, select } from 'redux-saga/effects';
 import { JobActionTypes } from './job.types';
 import axiosInstance from './../../api/axiosConfig';
 import { toast } from 'react-toastify';
@@ -19,9 +19,12 @@ import {
   loadingApplyJob,
   applyJobSuccess,
   applyJobFailure,
+  updateJobStart,
 } from './job.action';
 
 // import { merge } from 'lodash-es';
+import keyBy from 'lodash-es/keyBy';
+import { updateResumeJobSuccess } from '../resumeJob/resumeJob.action';
 
 export function* createJob({ payload }) {
   try {
@@ -109,13 +112,16 @@ export function* updateJob({ payload }) {
   }
 }
 
-export function* applyJob({ payload: { jobId, resumeId } }) {
+export function* applyJob({ payload: { job, resumeId, name } }) {
   try {
     yield put(loadingApplyJob());
     yield axiosInstance.post(`/resume-jobs`, {
       resume: resumeId,
-      job: jobId,
+      job: job?.id,
       received: 'tiep-nhan',
+      title: job?.title,
+      company: job?.companyInfo?.id,
+      name,
     });
     yield put(applyJobSuccess());
     yield toast.success('Ứng tuyển thành công');
@@ -123,6 +129,55 @@ export function* applyJob({ payload: { jobId, resumeId } }) {
     yield toast.error(error?.message);
     yield put(applyJobFailure(error?.message));
   }
+}
+
+export function* saveCv({ payload }) {
+  const { jobId, cvId } = payload;
+  const listResumeJob = yield select((state) => state.resumeJob.listResumeJob);
+
+  yield console.log('jobId', jobId, 'cvId', cvId, listResumeJob);
+
+  const resumeJob = yield keyBy(listResumeJob, 'job')[jobId];
+  const cvInfo = yield keyBy(listResumeJob, 'resume')[cvId];
+
+  const jobInfo = yield resumeJob?.jobInfo;
+
+  const listSavedCv = yield jobInfo?.listSavedCv;
+
+  let newListSavedCvData = yield [...listSavedCv];
+  if (Array.from(newListSavedCvData)?.findIndex((i) => i.id === cvId) === -1) {
+    newListSavedCvData = [...listSavedCv, cvInfo];
+  } else {
+    newListSavedCvData = listSavedCv?.filter((item) => item.id !== cvId);
+  }
+
+  const savedCv = yield jobInfo?.savedCv;
+
+  let newListSavedCv = yield [...savedCv];
+  if (Array.from(savedCv)?.findIndex((i) => i === cvId) === -1) {
+    newListSavedCv = [...savedCv, cvId];
+  } else {
+    newListSavedCv = savedCv?.filter((item) => item !== cvId);
+  }
+  const newResumeJobInfo = {
+    ...resumeJob,
+    jobInfo: {
+      ...jobInfo,
+      savedCv: newListSavedCv,
+      listSavedCv: newListSavedCvData,
+    },
+  };
+
+  yield put(
+    updateJobStart({
+      id: jobId,
+      updateData: {
+        savedCv: newListSavedCv,
+      },
+    })
+  );
+
+  yield put(updateResumeJobSuccess(newResumeJobInfo));
 }
 
 // START
@@ -146,6 +201,10 @@ export function* onApplyJobStart() {
   yield takeLatest(JobActionTypes.APPLY_JOB_START, applyJob);
 }
 
+export function* onSaveCvStart() {
+  yield takeLatest(JobActionTypes.SAVE_CV_JOB_START, saveCv);
+}
+
 export function* jobSagas() {
   yield all([
     call(onApplyJobStart),
@@ -153,5 +212,6 @@ export function* jobSagas() {
     call(onLoadListJobStart),
     call(onLoadJobStart),
     call(onUpdateJobStart),
+    call(onSaveCvStart),
   ]);
 }

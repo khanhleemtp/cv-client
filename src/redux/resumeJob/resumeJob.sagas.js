@@ -53,7 +53,7 @@ export function* updateResumeJob({ payload }) {
       data: { data },
     } = yield axiosInstance.patch(`/resume-jobs/${id}`, updateData, config);
     yield put(updateResumeJobSuccess(data));
-    yield toast.success('Cập nhật thành công');
+    yield toast.success('Phản hồi thành công');
   } catch (error) {
     yield toast.error(error?.message);
     yield put(updateResumeJobFailure(error?.message));

@@ -18,6 +18,11 @@ export const selectListCvCurrentUser = createSelector(
   (user) => user?.listCv
 );
 
+export const selectNotifications = createSelector(
+  selectCurrentUser,
+  (user) => user?.notifications
+);
+
 export const selectIdsCvCurrentUser = createSelector(
   selectListCvCurrentUser,
   (list) => list?.map((cv) => cv.id)

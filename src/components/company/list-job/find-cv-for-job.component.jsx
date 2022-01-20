@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
-import { selectListJob } from '../../../redux/job/job.selectors';
 import {
   selectIdsInResumeJob,
   selectJobInResumeJob,
@@ -21,6 +20,7 @@ import {
 } from './../../../redux/cv/cv.selectors';
 import PaginatedItems from '../../paginate/paginate.component';
 import { updateResumeJobStart } from './../../../redux/resumeJob/resumeJob.action';
+import { saveCvInJob } from '../../../redux/job/job.action';
 
 const FindCvForJob = ({
   jobInfo,
@@ -29,8 +29,7 @@ const FindCvForJob = ({
   listCv,
   total,
   idsCv,
-  editResumeJob,
-  jobId,
+  saveCv,
 }) => {
   const { control, register, handleSubmit, setValue, getValues } = useForm({
     defaultValues: {
@@ -78,10 +77,39 @@ const FindCvForJob = ({
     loadListCv(renderSearch(data));
   };
 
+  const renderResponse = useCallback((res) => {
+    switch (res) {
+      case 'tu-choi':
+        return {
+          text: 'Từ chối',
+          color: 'bg-red-400',
+          status: 'từ chối',
+        };
+      case 'phu-hop':
+        return {
+          text: 'Phù hợp',
+          color: 'bg-green-400',
+          status: 'phù hợp',
+        };
+      case 'hen-phong-van':
+        return {
+          text: 'Hẹn phỏng vấn',
+          color: 'bg-blue-400',
+          status: 'hẹn phỏng vấn',
+        };
+      default:
+        return {
+          text: 'Chưa phản hồi',
+          color: 'bg-gray-400',
+          status: 'chưa phản hồi',
+        };
+    }
+  }, []);
+
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="capitalize font-medium">Tiêu đề: {jobInfo?.title}</div>
-      <div className="grid md:grid-cols-12 gap-4">
+      <div className="grid md:grid-cols-12 md:gap-4">
         <div className="md:col-span-3 bg-white shadow-lg rounded-sm p-4 max-h-72">
           <div className="space-y-2">
             <div className="uppercase text-indigo-500 font-medium text-lg mt-2">
@@ -236,15 +264,38 @@ const FindCvForJob = ({
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {idsCv[cv.id] ? (
-                            <div>Đã ứng tuyển</div>
-                          ) : (
-                            <div className="flex flex-col space-y-2">
-                              <Button text="Lưu Cv" size="small" />
-                              <Button text="Mời ứng tuyển" size="small" />
+                        <td className="px-6 py-4 whitespace-nowrap space-y-1">
+                          {idsCv[cv.id]?.response && (
+                            <div className="flex flex-wrap item-center space-x-1">
+                              <div
+                                className={`w-4 h-4 mt-0.5 rounded-full ${
+                                  renderResponse(idsCv[cv.id]?.response).color
+                                }`}
+                              ></div>
+                              <div>
+                                {renderResponse(idsCv[cv.id]?.response).text}
+                              </div>
                             </div>
                           )}
+                          <div className="flex flex-col space-y-2">
+                            <Button
+                              className={
+                                jobInfo?.savedCv?.find((job) => job === cv?.id)
+                                  ? 'bg-gray-400 hover:bg-gray-500'
+                                  : ''
+                              }
+                              text={
+                                jobInfo?.savedCv?.find((job) => job === cv?.id)
+                                  ? 'Bỏ lưu'
+                                  : 'Lưu ngay'
+                              }
+                              size="small"
+                              onClick={saveCv({
+                                jobId: jobInfo?.id,
+                                cvId: cv?.id,
+                              })}
+                            />
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -261,7 +312,6 @@ const FindCvForJob = ({
 
 const mapStateToProps = (state, ownProps) => ({
   jobInfo: selectJobInResumeJob(ownProps.jobId)(state),
-  listJob: selectListJob(state),
   listCv: selectListCvData(state),
   loading: selectLoadingApi(state),
   total: selectTotalCv(state),
@@ -271,6 +321,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadListCv: (qr) => dispatch(loadListCvStart(qr)),
   editResumeJob: (data) => dispatch(updateResumeJobStart(data)),
+  saveCv: (data) => () => dispatch(saveCvInJob(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FindCvForJob);

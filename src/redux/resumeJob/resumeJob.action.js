@@ -41,3 +41,8 @@ export const updateResumeJobFailure = (error) => ({
   type: ResumeJobActionTypes.UPDATE_RESUME_JOB_FAILURE,
   payload: error,
 });
+
+export const updateResumeJobInList = (payload) => ({
+  type: ResumeJobActionTypes.UPDATE_RESUME_JOB_IN_LIST,
+  payload,
+});

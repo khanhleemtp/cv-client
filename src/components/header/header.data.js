@@ -31,7 +31,7 @@ export const navigation = [
       },
       {
         name: 'Việc làm phù hợp',
-        to: '/',
+        to: '/suggest-job',
         icon: AiOutlineRobot,
       },
     ],

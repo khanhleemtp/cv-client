@@ -20,6 +20,10 @@ import NotFound from './components/not-found/not-found.component';
 import CompanyDashboard from './pages/company-dashboard/company-dashboard.page';
 import VerifyPage from './pages/verify/verify.page';
 
+const SuggestJob = lazy(() =>
+  pMinDelay(import('./pages/suggest-job/suggest-job.page'))
+);
+
 const JobPage = lazy(() => pMinDelay(import('./pages/job-page/job-page.page')));
 
 const AppliedJobPage = lazy(() =>
@@ -93,6 +97,7 @@ function App() {
           <PrivateRoute exact path="/profile" component={UserProfile} />
           <PrivateRoute exact path="/saved-job" component={SavedJobPage} />
           <PrivateRoute exact path="/apply" component={AppliedJobPage} />
+          <PrivateRoute exact path="/suggest-job" component={SuggestJob} />
 
           <PublicRoute exact path="/login">
             <SignInAndSignUpPage />

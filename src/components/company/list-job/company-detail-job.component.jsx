@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import moment from 'moment';
 import { useForm, useWatch } from 'react-hook-form';
 import {
-  RESUME_JOB_RECEIVED,
+  // RESUME_JOB_RECEIVED,
   RESUME_JOB_RESPONSE,
 } from '../../../data/input.data';
 import LoadingSmall from '../../loading-small/loading-small.component';
@@ -24,6 +24,8 @@ import { PencilIcon, SearchIcon } from '@heroicons/react/solid';
 import { Popover, Transition } from '@headlessui/react';
 import Button from './../../button/button.component';
 import FindCvForJob from './find-cv-for-job.component';
+import { selectObjectListJob } from '../../../redux/job/job.selectors';
+import ListSavedCv from './list-saved-cv.component';
 
 const CompanyDetailsJob = ({
   loadListResume,
@@ -31,6 +33,7 @@ const CompanyDetailsJob = ({
   loading,
   total,
   editResumeJob,
+  objectListJob,
 }) => {
   const {
     params: { jobId },
@@ -88,75 +91,75 @@ const CompanyDetailsJob = ({
         return {
           text: 'Từ chối',
           color: 'bg-red-400',
+          status: 'từ chối',
         };
       case 'phu-hop':
         return {
           text: 'Phù hợp',
           color: 'bg-green-400',
+          status: 'phù hợp',
         };
       case 'hen-phong-van':
         return {
           text: 'Hẹn phỏng vấn',
           color: 'bg-blue-400',
+          status: 'hẹn phỏng vấn',
         };
       default:
         return {
           text: 'Chưa phản hồi',
           color: 'bg-gray-400',
+          status: 'chưa phản hồi',
         };
     }
   }, []);
 
-  const renderReceived = useCallback((res) => {
-    switch (res) {
-      case 'tiep-nhan':
-        return {
-          text: 'Ứng tuyển',
-          color: 'bg-purple-400',
-        };
-      case 'de-nghi':
-        return {
-          text: 'Đề nghị',
-          color: 'bg-indigo-400',
-        };
-      case 'theo-doi':
-        return {
-          text: 'Theo dõi',
-          color: 'bg-pink-400',
-        };
-      default:
-        return {
-          text: '',
-          color: 'bg-gray-400',
-        };
-    }
-  }, []);
+  // const renderReceived = useCallback((res) => {
+  //   switch (res) {
+  //     case 'tiep-nhan':
+  //       return {
+  //         text: 'Ứng tuyển',
+  //         color: 'bg-purple-400',
+  //       };
+  //     case 'de-nghi':
+  //       return {
+  //         text: 'Đề nghị',
+  //         color: 'bg-indigo-400',
+  //       };
+  //     case 'theo-doi':
+  //       return {
+  //         text: 'Theo dõi',
+  //         color: 'bg-pink-400',
+  //       };
+  //     default:
+  //       return {
+  //         text: '',
+  //         color: 'bg-gray-400',
+  //       };
+  //   }
+  // }, []);
 
   if (pathname.split('/')?.find((item) => item === 'search'))
     return <FindCvForJob jobId={jobId} />;
+  if (pathname.split('/')?.find((item) => item === 'saved'))
+    return <ListSavedCv jobId={jobId} />;
   return (
     <div className="flex flex-col mx-auto container">
       <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl container mx-auto my-2">
         <div className="flex items-center space-x-2">
           <div className="font-medium capitalize">
-            Tiêu đề: {listResumeJob?.[0]?.jobInfo?.title}
-          </div>
-          <div className="flex items-center space-x-2">
-            <div>Tìm kiếm CV</div>
-            <Link to={`/company/campaign/${jobId}/search`}>
-              <div className="w-6 h-6 text-indigo-400">
-                <SearchIcon />
-              </div>
-            </Link>
+            Tiêu đề: {objectListJob?.[jobId]?.title}
           </div>
         </div>
         <div className="md:self-end space-y-2 md:space-y-0 flex md:space-x-2 flex-col md:flex-row">
-          <SingleSelect
-            name="received"
-            control={control}
-            placeholder="Tiếp nhận"
-            options={RESUME_JOB_RECEIVED}
-          />
+          <div className="flex items-center">
+            <div className="text-sm font-medium text-gray-500">Tìm kiếm CV</div>
+            <Link to={`/company/campaign/${jobId}/search`}>
+              <div className="text-indigo-400 rounded-full p-1">
+                <SearchIcon className="w-6 h-6" />
+              </div>
+            </Link>
+          </div>
           <SingleSelect
             name="response"
             control={control}
@@ -165,7 +168,7 @@ const CompanyDetailsJob = ({
           />
         </div>
       </div>
-
+      <div className="pl-10 pb-2">Danh sách ứng viên</div>
       <div className="-my-2 overflow-x-auto">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -330,14 +333,6 @@ const CompanyDetailsJob = ({
                           ></div>
                           <div>{renderResponse(job?.response).text}</div>
                         </div>
-                        <div className="flex flex-wrap item-center space-x-1">
-                          <div
-                            className={`w-4 h-4 mt-0.5 rounded-full ${
-                              renderReceived(job?.received).color
-                            }`}
-                          ></div>
-                          <div>{renderReceived(job?.received).text}</div>
-                        </div>
                       </td>
 
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -370,29 +365,49 @@ const CompanyDetailsJob = ({
                             >
                               <Popover.Panel className="absolute z-20 transform -translate-x-full -translate-y-1/2 bg-gray-100 shadow-lg">
                                 <div className="flex flex-col text-center">
-                                  {['tu-choi', 'phu-hop', 'hen-phong-van'].map(
-                                    (item) => (
+                                  {[
+                                    {
+                                      label: 'từ chối',
+                                      value: 'tu-choi',
+                                    },
+                                    {
+                                      label: 'đồng ý',
+                                      value: 'phu-hop',
+                                    },
+                                    {
+                                      label: 'mời phỏng vấn',
+                                      value: 'hen-phong-van',
+                                    },
+                                  ].map((item) => (
+                                    <div
+                                      key={item.value}
+                                      className="flex items-center space-x-2 px-4 py-3 hover:bg-gray-200 cursor-pointer"
+                                      onClick={() =>
+                                        editResumeJob({
+                                          id: job.id,
+                                          updateData: {
+                                            response: item.value,
+                                            status: item.label,
+                                            companyName:
+                                              job?.jobInfo?.companyInfo?.name,
+                                            user: job?.resumeInfo?.user,
+                                            job: job?.jobInfo?.id,
+                                            title: job?.jobInfo?.title,
+                                          },
+                                        })
+                                      }
+                                    >
                                       <div
-                                        className="flex items-center space-x-2 px-4 py-3 hover:bg-gray-200 cursor-pointer"
-                                        onClick={() =>
-                                          editResumeJob({
-                                            id: job.id,
-                                            updateData: { response: item },
-                                          })
-                                        }
-                                      >
-                                        <div
-                                          className={`w-4 h-4 flex items-center justify-center rounded-full mt-0.5 ${
-                                            renderResponse(item).color
-                                          }`}
-                                        ></div>
-                                        <div>{renderResponse(item).text}</div>
+                                        className={`w-4 h-4 flex items-center justify-center rounded-full mt-0.5 ${
+                                          renderResponse(item.value).color
+                                        }`}
+                                      ></div>
+                                      <div>
+                                        {renderResponse(item.value).text}
                                       </div>
-                                    )
-                                  )}
+                                    </div>
+                                  ))}
                                 </div>
-
-                                <img src="/solutions.jpg" alt="" />
                               </Popover.Panel>
                             </Transition>
                           </Popover>
@@ -430,6 +445,7 @@ const mapStateToProps = createStructuredSelector({
   listResumeJob: selectListResumeJob,
   loading: selectLoadingListResumeJob,
   total: selectTotalResumeJob,
+  objectListJob: selectObjectListJob,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyDetailsJob);
