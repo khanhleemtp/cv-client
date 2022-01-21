@@ -24,15 +24,17 @@ const ListJobSuggest = ({ resume, loadListJob, total, listJob, loading }) => {
 
   const { control, setValue } = methods;
   const page = useWatch({ control, name: 'page' });
-
+  // encodeURIComponent
   useEffect(() => {
     loadListJob(
-      `?sk=${join(
-        (uniqBy,
-        keyBy(resume?.sections, 'record')['TechnologySection'].items.map(
-          (item) => item.tags.map((tag) => tag.text)
-        ))[0],
-        ','
+      `?sk=${encodeURIComponent(
+        join(
+          (uniqBy,
+          keyBy(resume?.sections, 'record')['TechnologySection'].items.map(
+            (item) => item.tags.map((tag) => tag.text)
+          ))[0],
+          ','
+        )
       )}&ti=${
         resume?.header?.title
       }&isPublic=true&to[gte]=${new Date().toISOString()}&page=${page}&limit=8`

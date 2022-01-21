@@ -23,7 +23,7 @@ const Notification = ({ notifications, color = 'text-indigo-500' }) => {
         leaveTo="scale-95 opacity-0"
       >
         <Popover.Panel className="absolute z-50 transform -translate-x-full">
-          <ul className="h-64 w-72 max-w-xs bg-white shadow-lg  overflow-y-auto">
+          <ul className="h-64 w-72 max-w-xs bg-white shadow-lg  overflow-y-auto ring-1 ring-gray-300 rounded-lg">
             {notifications?.map((noti) => (
               <Link key={noti._id} to={noti?.link}>
                 <li className="hover:bg-gray-200 px-4 inline-flex space-x-1 py-2">
