@@ -5,9 +5,6 @@ import {
   selectJobInResumeJob,
 } from './../../../redux/resumeJob/resumeJob.selectors';
 import { useForm, useWatch } from 'react-hook-form';
-import InputApp from './../../input-app/input-app.component';
-import MultiSelect from './../../input-app/muilti-select.component';
-import { TECHNOLOGY_SKILL } from './../../../data/input.data';
 import Button from '../../button/button.component';
 import LoadingSmall from '../../loading-small/loading-small.component';
 import { Link } from 'react-router-dom';
@@ -31,14 +28,12 @@ const ListSuggestCv = ({
   idsCv,
   saveCv,
 }) => {
-  const { control, register, setValue } = useForm({
+  const { control, setValue } = useForm({
     defaultValues: {
       page: 0,
     },
   });
 
-  let skills = useWatch({ control, name: 'skills' });
-  let maxOptions = 5;
   let displayPerPage = 3;
   const page = useWatch({ control, name: 'page' });
 

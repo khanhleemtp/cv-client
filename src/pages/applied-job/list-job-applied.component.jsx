@@ -11,7 +11,6 @@ import {
   selectLoadingListResumeJob,
 } from '../../redux/resumeJob/resumeJob.selectors';
 import LoadingSmall from '../../components/loading-small/loading-small.component';
-import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 const ListAppliedJob = ({ idsCv, appliedList, loadAppiedJob, loading }) => {
   useEffect(() => {
