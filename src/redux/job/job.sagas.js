@@ -118,7 +118,7 @@ export function* applyJob({ payload: { job, resumeId, name } }) {
     yield axiosInstance.post(`/resume-jobs`, {
       resume: resumeId,
       job: job?.id,
-      received: 'tiep-nhan',
+      response: 'chua-phan-hoi',
       title: job?.title,
       company: job?.companyInfo?.id,
       name,

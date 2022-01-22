@@ -8,6 +8,17 @@ export const selectListResumeJob = createSelector(
   selectorResumeJob,
   (state) => state?.listResumeJob
 );
+
+export const selectInfoChart = createSelector(
+  selectorResumeJob,
+  (state) => state?.infoChart
+);
+
+export const selectLoadingChart = createSelector(
+  selectorResumeJob,
+  (state) => state?.isLoadingChart
+);
+
 export const selectLoadingListResumeJob = createSelector(
   selectorResumeJob,
   (state) => state?.isLoading
@@ -33,4 +44,3 @@ export const selectIdsInResumeJob = createSelector(
   selectListResumeJob,
   (listResumeJob) => keyBy(listResumeJob, 'resume')
 );
-// console.log(keyBy(listResumeJob, 'job'));

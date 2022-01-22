@@ -77,7 +77,7 @@ const ListSuggestCv = ({
         return {
           text: 'Chưa phản hồi',
           color: 'bg-gray-400',
-          status: 'chưa phản hồi',
+          status: 'chua-phan-hoi',
         };
     }
   }, []);

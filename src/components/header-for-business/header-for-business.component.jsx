@@ -12,7 +12,7 @@ import { signOutStart } from './../../redux/user/user.action';
 import Notification from './../notification/notification.component';
 
 const HeaderForBusiness = ({ children, title, user }) => {
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState(false);
   const handleToggle = () => {
     setActive(!active);
   };

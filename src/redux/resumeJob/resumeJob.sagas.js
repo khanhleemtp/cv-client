@@ -12,6 +12,9 @@ import {
   loadingUpdate,
   updateResumeJobFailure,
   updateResumeJobSuccess,
+  loadingInfoChart,
+  loadInfoChartFailure,
+  loadInfoChartSuccess,
 } from './resumeJob.action';
 
 export function* fetchInfoResume(id) {
@@ -60,6 +63,19 @@ export function* updateResumeJob({ payload }) {
   }
 }
 
+export function* loadInfoChart({ payload }) {
+  try {
+    yield put(loadingInfoChart());
+    const {
+      data: { data },
+    } = yield axiosInstance.get(`/resume-jobs/info-job-chart${payload}`);
+    yield put(loadInfoChartSuccess(data));
+  } catch (error) {
+    yield toast.error(error?.message);
+    yield put(loadInfoChartFailure(error?.message));
+  }
+}
+
 export function* onLoadListResumeJobStart() {
   yield takeLatest(
     ResumeJobActionTypes.LOAD_LIST_RESUME_JOB_START,
@@ -73,7 +89,14 @@ export function* onUpdateResumeJobStart() {
     updateResumeJob
   );
 }
+export function* onLoadInfoChart() {
+  yield takeLatest(ResumeJobActionTypes.LOAD_INFO_CHART_START, loadInfoChart);
+}
 
 export function* resumeJobSagas() {
-  yield all([call(onLoadListResumeJobStart), call(onUpdateResumeJobStart)]);
+  yield all([
+    call(onLoadListResumeJobStart),
+    call(onUpdateResumeJobStart),
+    call(onLoadInfoChart),
+  ]);
 }

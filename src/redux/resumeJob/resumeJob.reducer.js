@@ -6,10 +6,12 @@ const INITIAL_STATE = {
   isLoading: false,
   isCreating: false,
   isUpdating: false,
+  isLoadingChart: false,
   listResumeJob: [],
   resumeJob: null,
   total: 0,
   result: 0,
+  infoChart: null,
 };
 
 const resumeJobReducer = (state = INITIAL_STATE, action) => {
@@ -20,7 +22,12 @@ const resumeJobReducer = (state = INITIAL_STATE, action) => {
         isCreating: true,
       };
     }
-
+    case ResumeJobActionTypes.LOADING_INFO_CHART: {
+      return {
+        ...state,
+        isLoadingChart: true,
+      };
+    }
     case ResumeJobActionTypes.LOADING_RESUME_JOB:
       return {
         ...state,
@@ -54,6 +61,7 @@ const resumeJobReducer = (state = INITIAL_STATE, action) => {
         error: null,
       };
     }
+
     case ResumeJobActionTypes.LOAD_RESUME_JOB_SUCCESS:
     case ResumeJobActionTypes.UPDATE_RESUME_JOB_SUCCESS: {
       const newResumeJob = action.payload;
@@ -68,6 +76,20 @@ const resumeJobReducer = (state = INITIAL_STATE, action) => {
         isUpdating: false,
         isCreating: false,
         error: null,
+      };
+    }
+    case ResumeJobActionTypes.LOAD_INFO_CHART_SUCCESS: {
+      return {
+        ...state,
+        isLoadingChart: false,
+        infoChart: action.payload,
+      };
+    }
+    case ResumeJobActionTypes.LOAD_INFO_CHART_FAILURE: {
+      return {
+        ...state,
+        isLoadingChart: false,
+        error: action.payload,
       };
     }
     case ResumeJobActionTypes.UPDATE_RESUME_JOB_IN_LIST: {

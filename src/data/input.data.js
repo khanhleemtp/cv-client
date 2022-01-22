@@ -171,11 +171,11 @@ export const RESUME_JOB_RECEIVED = [
 export const RESUME_JOB_RESPONSE = [
   { label: 'Phù hợp', value: 'phu-hop' },
   {
-    label: 'Hẹn phỏng vấn',
-    value: 'hen-phong-van',
-  },
-  {
     label: 'Từ chối',
     value: 'tu-choi',
+  },
+  {
+    label: 'Chưa phản hồi',
+    value: 'chua-phan-hoi',
   },
 ];

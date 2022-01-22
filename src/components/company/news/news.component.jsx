@@ -1,5 +1,5 @@
 import React from 'react';
-import LineChart from '../../line-chart/line-char.component';
+// import LineChart from '../../line-chart/line-char.component';
 import CvCard from '../cv-card/cv-card.component.component';
 // import { useForm, useWatch } from 'react-hook-form';
 // import AppEditor from './../../editor/editor.component';
@@ -36,12 +36,6 @@ const News = ({ user }) => {
           />
           <CvCard title="CV ứng tuyển mới" icon="text" count={1} bg="0" />
         </div>
-        {/* <form onSubmit={handleSubmit(handleSubmitOnClick)}>
-        <AppEditor control={control} name="content" />
-        <button type="submit">Submit</button>
-      </form> */}
-        {/* <EditorPreview element={abc} /> */}
-        <LineChart />
       </div>
       <div className="bg-white shadow-sm flex-grow h-40 my-2 md:mx-2 md:my-0 p-4 bg-none md:bg-resume-img bg-right bg-cover bg-no-repeat">
         <div className="font-medium">Xin chào, {user?.name} 😁</div>

@@ -40,7 +40,7 @@ const ListSavedCv = ({ jobInfo, idsCv, saveCv }) => {
         return {
           text: 'Chưa phản hồi',
           color: 'bg-gray-400',
-          status: 'chưa phản hồi',
+          status: 'chua-phan-hoi',
         };
     }
   }, []);

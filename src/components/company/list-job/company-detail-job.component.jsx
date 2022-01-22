@@ -27,6 +27,7 @@ import FindCvForJob from './find-cv-for-job.component';
 import { selectObjectListJob } from '../../../redux/job/job.selectors';
 import ListSavedCv from './list-saved-cv.component';
 import ListSuggestCv from './list-suggest-cv.component';
+import JobChart from './job-chart.component';
 
 const CompanyDetailsJob = ({
   loadListResume,
@@ -110,7 +111,7 @@ const CompanyDetailsJob = ({
         return {
           text: 'Chưa phản hồi',
           color: 'bg-gray-400',
-          status: 'chưa phản hồi',
+          status: 'chua-phan-hoi',
         };
     }
   }, []);
@@ -146,6 +147,8 @@ const CompanyDetailsJob = ({
     return <ListSavedCv jobId={jobId} />;
   if (pathname.split('/')?.find((item) => item === 'suggest'))
     return <ListSuggestCv jobId={jobId} />;
+  if (pathname.split('/')?.find((item) => item === 'chart'))
+    return <JobChart jobId={jobId} />;
   return (
     <div className="flex flex-col mx-auto container">
       <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl container mx-auto my-2">
