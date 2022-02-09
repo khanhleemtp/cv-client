@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-
 import clsx from 'clsx';
+import { CATEGORIES } from './../../data/categories.data';
+import keyBy from 'lodash-es/keyBy';
 
 const CompanyCardSearch = ({ company }) => {
   return (
@@ -23,7 +24,9 @@ const CompanyCardSearch = ({ company }) => {
             </div>
           </Link>
           <div className="flex flex-col divide-x-0 md:flex-row md:divide-x-4">
-            <div className="pr-2 truncate  w-1/2">{company?.address}</div>
+            {company?.address && (
+              <div className="pr-2 truncate  w-1/2">{company?.address}</div>
+            )}
             <div className="pl-2 truncate w-1/2">{company?.size} nhân sự</div>
           </div>
           <div className="flex space-y-2 flex-col w-full md:flex-row md:space-x-2 md:space-y-0 text-nowrap">
@@ -32,7 +35,7 @@ const CompanyCardSearch = ({ company }) => {
                 className="truncate p-1 w-44 md:w-auto bg-gray-300 rounded-sm"
                 key={field}
               >
-                {field}
+                {keyBy(CATEGORIES, 'alias')[field]?.name}
               </div>
             ))}
           </div>

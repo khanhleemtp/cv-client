@@ -182,6 +182,9 @@ export function* saveJob({ payload }) {
   );
 }
 
+export function* viewNoti({ payload }) {
+  yield axiosInstance.patch(`/users/viewNoti`);
+}
 // START
 
 export function* onSignUpStart() {
@@ -220,6 +223,10 @@ export function* onSaveJobStart() {
   yield takeLatest(UserActionTypes.SAVE_JOB_START, saveJob);
 }
 
+export function* onViewNotiStart() {
+  yield takeLatest(UserActionTypes.VIEW_NOTI, viewNoti);
+}
+
 export function* userSagas() {
   yield all([
     call(onUpdateUserStart),
@@ -231,5 +238,6 @@ export function* userSagas() {
     call(onVerifyStart),
     call(onRequestVerifyStart),
     call(onSaveJobStart),
+    call(onViewNotiStart),
   ]);
 }

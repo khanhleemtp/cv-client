@@ -13,7 +13,6 @@ import { selectLoadingJob } from './../../redux/job/job.selectors';
 import { createStructuredSelector } from 'reselect';
 import JobCardLoading from './../../components/job-card/job-card-loading.component';
 import CompanyCardLoading from './../../components/company-card/company-card-loading.component';
-import Footer from '../../components/footer/footer.component';
 import CompanyCardSearch from './../../components/company-card/company-card-search.component';
 
 const Homepage = ({
@@ -59,7 +58,6 @@ const Homepage = ({
               ))}
         </div>
       </div>
-      <Footer />
     </NavContainer>
   );
 };

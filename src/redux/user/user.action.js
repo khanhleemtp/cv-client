@@ -126,3 +126,8 @@ export const deleteCvInUser = (payload) => ({
   type: UserActionTypes.DELETE_CV_IN_USER,
   payload,
 });
+
+export const viewNoti = (payload) => ({
+  type: UserActionTypes.VIEW_NOTI,
+  payload,
+});

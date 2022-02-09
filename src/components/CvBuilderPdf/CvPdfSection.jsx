@@ -5,8 +5,18 @@ import CvExperience from './CvExperience';
 import CvSkills from './CvSkills';
 
 import { has } from 'lodash-es';
+import { StyleSheet, View } from '@react-pdf/renderer';
 
-const Base = ({ child: Child, ...otherProps }) => <Child {...otherProps} />;
+const styles = StyleSheet.create({
+  container: {
+    marginVertical: 8,
+  },
+});
+const Base = ({ child: Child, ...otherProps }) => (
+  <View style={styles.container}>
+    <Child {...otherProps} />
+  </View>
+);
 
 const CV_SECTION_COMPONENT = {
   SummarySection: CvSummary,

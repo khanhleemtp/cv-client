@@ -5,14 +5,19 @@ import { createStructuredSelector } from 'reselect';
 import { selectNotifications } from '../../redux/user/user.selectors';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-const Notification = ({ notifications, color = 'text-indigo-500' }) => {
+import { viewNoti } from './../../redux/user/user.action';
+const Notification = ({
+  notifications,
+  color = 'text-indigo-500',
+  viewNotification,
+}) => {
   return (
     <Popover className="relative">
       <Popover.Button className={`${color} relative`}>
         <div className="absolute inset-x-5 -inset-y-1 text-indigo-800 font-medium text-xs w-4 h-4 flex items-center justify-center rounded-full bg-white">
-          {notifications?.length}
+          {notifications?.filter((item) => item.view === false)?.length}
         </div>
-        <BellIcon className="w-6 h-6 z-10" />
+        <BellIcon className="w-6 h-6 z-10" onClick={viewNotification} />
       </Popover.Button>
       <Transition
         enter="transition duration-100 ease-out"
@@ -43,4 +48,8 @@ const mapStateToProps = createStructuredSelector({
   notifications: selectNotifications,
 });
 
-export default connect(mapStateToProps)(Notification);
+const mapDispatchToProps = (dispatch) => ({
+  viewNotification: () => dispatch(viewNoti()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notification);

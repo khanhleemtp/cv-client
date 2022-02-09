@@ -75,6 +75,18 @@ const userReducer = (state = INITIAL_STATE, action) => {
         },
       };
     }
+    case UserActionTypes.VIEW_NOTI: {
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          notifications: state.currentUser?.notifications?.map((item) => ({
+            ...item,
+            view: true,
+          })),
+        },
+      };
+    }
     case UserActionTypes.DELETE_CV_IN_USER: {
       return {
         ...state,
