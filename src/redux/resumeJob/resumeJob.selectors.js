@@ -14,6 +14,11 @@ export const selectInfoChart = createSelector(
   (state) => state?.infoChart
 );
 
+export const selectInfoCard = createSelector(
+  selectorResumeJob,
+  (state) => state?.infoCard
+);
+
 export const selectLoadingChart = createSelector(
   selectorResumeJob,
   (state) => state?.isLoadingChart

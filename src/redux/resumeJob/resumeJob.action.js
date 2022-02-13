@@ -65,3 +65,13 @@ export const loadInfoChartFailure = (err) => ({
   type: ResumeJobActionTypes.LOAD_INFO_CHART_FAILURE,
   payload: err,
 });
+
+export const loadInfoCardStart = (qr) => ({
+  type: ResumeJobActionTypes.LOAD_INFO_CARD_START,
+  payload: qr,
+});
+
+export const loadInfoCardSuccess = (data) => ({
+  type: ResumeJobActionTypes.LOAD_INFO_CARD_SUCCESS,
+  payload: data,
+});

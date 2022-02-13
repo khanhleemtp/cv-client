@@ -15,6 +15,7 @@ import {
   loadingInfoChart,
   loadInfoChartFailure,
   loadInfoChartSuccess,
+  loadInfoCardSuccess,
 } from './resumeJob.action';
 
 export function* fetchInfoResume(id) {
@@ -76,6 +77,18 @@ export function* loadInfoChart({ payload }) {
   }
 }
 
+export function* loadInfoCard({ payload }) {
+  try {
+    const { data } = yield axiosInstance.get(
+      `/resume-jobs/cv-in-company${payload}`
+    );
+    console.log('infoCard', data);
+    yield put(loadInfoCardSuccess(data));
+  } catch (error) {
+    yield toast.error(error?.message);
+  }
+}
+
 export function* onLoadListResumeJobStart() {
   yield takeLatest(
     ResumeJobActionTypes.LOAD_LIST_RESUME_JOB_START,
@@ -92,11 +105,14 @@ export function* onUpdateResumeJobStart() {
 export function* onLoadInfoChart() {
   yield takeLatest(ResumeJobActionTypes.LOAD_INFO_CHART_START, loadInfoChart);
 }
-
+export function* onLoadInfoCard() {
+  yield takeLatest(ResumeJobActionTypes.LOAD_INFO_CARD_START, loadInfoCard);
+}
 export function* resumeJobSagas() {
   yield all([
     call(onLoadListResumeJobStart),
     call(onUpdateResumeJobStart),
     call(onLoadInfoChart),
+    call(onLoadInfoCard),
   ]);
 }

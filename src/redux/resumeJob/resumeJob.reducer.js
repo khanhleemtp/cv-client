@@ -12,6 +12,12 @@ const INITIAL_STATE = {
   total: 0,
   result: 0,
   infoChart: null,
+  infoCard: {
+    totalJob: 0,
+    pending: 0,
+    reject: 0,
+    accept: 0,
+  },
 };
 
 const resumeJobReducer = (state = INITIAL_STATE, action) => {
@@ -28,6 +34,7 @@ const resumeJobReducer = (state = INITIAL_STATE, action) => {
         isLoadingChart: true,
       };
     }
+
     case ResumeJobActionTypes.LOADING_RESUME_JOB:
       return {
         ...state,
@@ -83,6 +90,25 @@ const resumeJobReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isLoadingChart: false,
         infoChart: action.payload,
+      };
+    }
+    case ResumeJobActionTypes.LOAD_INFO_CARD_SUCCESS: {
+      console.log('payload', action.payload);
+      return {
+        ...state,
+        infoCard: {
+          ...state.infoCard,
+          totalJob: action.payload?.totalJob,
+          pending: action.payload?.data?.filter(
+            (item) => item._id === null
+          )?.[0]?.count,
+          reject: action.payload?.data?.filter(
+            (item) => item._id === 'tu-choi'
+          )?.[0]?.count,
+          accept: action.payload?.data?.filter(
+            (item) => item._id === 'phu-hop'
+          )?.[0]?.count,
+        },
       };
     }
     case ResumeJobActionTypes.LOAD_INFO_CHART_FAILURE: {
