@@ -1,9 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
-import {
-  selectIdsInResumeJob,
-  selectJobInResumeJob,
-} from './../../../redux/resumeJob/resumeJob.selectors';
+import { selectIdsInResumeJob } from './../../../redux/resumeJob/resumeJob.selectors';
 import { useForm, useWatch } from 'react-hook-form';
 import Button from '../../button/button.component';
 import LoadingSmall from '../../loading-small/loading-small.component';
@@ -18,6 +15,7 @@ import {
 import PaginatedItems from '../../paginate/paginate.component';
 import { updateResumeJobStart } from './../../../redux/resumeJob/resumeJob.action';
 import { saveCvInJob } from '../../../redux/job/job.action';
+import { selectDetailJob } from './../../../redux/job/job.selectors';
 
 const ListSuggestCv = ({
   jobInfo,
@@ -256,7 +254,7 @@ const ListSuggestCv = ({
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  jobInfo: selectJobInResumeJob(ownProps.jobId)(state),
+  jobInfo: selectDetailJob(ownProps.jobId)(state),
   listCv: selectListCvData(state),
   loading: selectLoadingApi(state),
   total: selectTotalCv(state),

@@ -1,9 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
-import {
-  selectIdsInResumeJob,
-  selectJobInResumeJob,
-} from './../../../redux/resumeJob/resumeJob.selectors';
+import { selectIdsInResumeJob } from './../../../redux/resumeJob/resumeJob.selectors';
 import { useForm, useWatch } from 'react-hook-form';
 import InputApp from './../../input-app/input-app.component';
 import MultiSelect from './../../input-app/muilti-select.component';
@@ -21,6 +18,7 @@ import {
 import PaginatedItems from '../../paginate/paginate.component';
 import { updateResumeJobStart } from './../../../redux/resumeJob/resumeJob.action';
 import { saveCvInJob } from '../../../redux/job/job.action';
+import { selectDetailJob } from './../../../redux/job/job.selectors';
 
 const FindCvForJob = ({
   jobInfo,
@@ -105,7 +103,7 @@ const FindCvForJob = ({
         };
     }
   }, []);
-
+  console.log('jobInfo', jobInfo);
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="capitalize font-medium">Tiêu đề: {jobInfo?.title}</div>
@@ -265,7 +263,7 @@ const FindCvForJob = ({
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap space-y-1">
-                          {idsCv[cv.id]?.response && (
+                          {idsCv[cv?.id]?.response && (
                             <div className="flex flex-wrap item-center space-x-1">
                               <div
                                 className={`w-4 h-4 mt-0.5 rounded-full ${
@@ -311,7 +309,7 @@ const FindCvForJob = ({
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  jobInfo: selectJobInResumeJob(ownProps.jobId)(state),
+  jobInfo: selectDetailJob(ownProps.jobId)(state),
   listCv: selectListCvData(state),
   loading: selectLoadingApi(state),
   total: selectTotalCv(state),

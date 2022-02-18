@@ -1,9 +1,6 @@
 import { useCallback } from 'react';
 import { connect } from 'react-redux';
-import {
-  selectIdsInResumeJob,
-  selectJobInResumeJob,
-} from './../../../redux/resumeJob/resumeJob.selectors';
+import { selectIdsInResumeJob } from './../../../redux/resumeJob/resumeJob.selectors';
 import Button from '../../button/button.component';
 import { Link } from 'react-router-dom';
 import { loadListCvStart } from './../../../redux/cv/cv.action';
@@ -14,6 +11,7 @@ import {
 } from './../../../redux/cv/cv.selectors';
 import { updateResumeJobStart } from './../../../redux/resumeJob/resumeJob.action';
 import { saveCvInJob } from '../../../redux/job/job.action';
+import { selectDetailJob } from '../../../redux/job/job.selectors';
 
 const ListSavedCv = ({ jobInfo, idsCv, saveCv }) => {
   const renderResponse = useCallback((res) => {
@@ -191,7 +189,7 @@ const ListSavedCv = ({ jobInfo, idsCv, saveCv }) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  jobInfo: selectJobInResumeJob(ownProps.jobId)(state),
+  jobInfo: selectDetailJob(ownProps.jobId)(state),
   listCv: selectListCvData(state),
   loading: selectLoadingApi(state),
   total: selectTotalCv(state),

@@ -134,24 +134,22 @@ export function* applyJob({ payload: { job, resumeId, name } }) {
 export function* saveCv({ payload }) {
   const { jobId, cvId } = payload;
   const listResumeJob = yield select((state) => state.resumeJob.listResumeJob);
-
-  yield console.log('jobId', jobId, 'cvId', cvId, listResumeJob);
+  const listJob = yield select((state) => state.job.listJob);
 
   const resumeJob = yield keyBy(listResumeJob, 'job')[jobId];
   const cvInfo = yield keyBy(listResumeJob, 'resume')[cvId];
-
-  const jobInfo = yield resumeJob?.jobInfo;
-
+  const listJobInfo = yield keyBy(listJob, '_id')[jobId];
+  const jobInfo = yield listJobInfo;
+  yield console.log('jobI4', jobInfo);
   const listSavedCv = yield jobInfo?.listSavedCv;
-
   let newListSavedCvData = yield [...listSavedCv];
   if (Array.from(newListSavedCvData)?.findIndex((i) => i.id === cvId) === -1) {
-    newListSavedCvData = [...listSavedCv, cvInfo];
+    newListSavedCvData = [...listSavedCv, cvInfo?.[cvId]];
   } else {
     newListSavedCvData = listSavedCv?.filter((item) => item.id !== cvId);
   }
 
-  const savedCv = yield jobInfo?.savedCv;
+  let savedCv = yield jobInfo?.savedCv;
 
   let newListSavedCv = yield [...savedCv];
   if (Array.from(savedCv)?.findIndex((i) => i === cvId) === -1) {
